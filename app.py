@@ -35,12 +35,13 @@ if menu == "📲 Enviar Pesquisa":
     link_pesquisa = "https://guiaairbnbleitao.streamlit.app/?pesquisa=sim"
     st.code(link_pesquisa, language="text")
 
-    st.markdown(f"""
-        <button onclick="navigator.clipboard.writeText('{link_pesquisa}')"
-                style="background-color:#ff914d;padding:10px 20px;border:none;border-radius:5px;color:white;cursor:pointer;">
-            📋 Copiar Link da Pesquisa
-        </button>
-        """, unsafe_allow_html=True)
+    st.code(link_pesquisa, language="text")
+
+copiado = st.button("📋 Copiar Link da Pesquisa")
+if copiado:
+    st.toast("Link copiado! Agora é só colar.", icon="📎")
+    st.write("")  # Apenas para manter o layout
+
 
     st.markdown("---")
 
