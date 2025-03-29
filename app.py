@@ -32,7 +32,7 @@ if menu == "📲 Enviar Pesquisa":
         </div>
     """, unsafe_allow_html=True)
 
-    link_pesquisa = "http://localhost:8501/?pesquisa=sim"  # Substituir pelo link publicado depois
+    link_pesquisa = "https://guiaairbnbleitao.streamlit.app/?pesquisa=sim"
     st.code(link_pesquisa, language="text")
 
     st.markdown(f"""
