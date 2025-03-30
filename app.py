@@ -18,11 +18,13 @@ if mostrar_admin:
     opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
 # ⬇️ Menu lateral com imagem centralizada
+# ⬇️ Menu lateral com imagem centralizada
 st.sidebar.markdown("""
     <div style="text-align: center;">
-        <img src="https://raw.githubusercontent.com/AntonioLeitaoJr/guia_airbnb/main/simbolo_airbnb.jpg" style="width: 228px; border-radius: 10px;" />
+        <img src="https://raw.githubusercontent.com/AntonioLeitaoJr/guia_airbnb/main/simbolo_airbnb.jpg" style="width: 230px; border-radius: 10px;" />
     </div>
 """, unsafe_allow_html=True)
+
 
 st.sidebar.title("Guia do Hóspede")
 menu = st.sidebar.radio("Navegar para:", opcoes_menu)
