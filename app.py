@@ -6,7 +6,7 @@ import io
 import os
 
 # ⬇️ Detectar parâmetros da URL (atualizado)
-query_params = st.query_params
+query_params = st.query_params()
 mostrar_pesquisa = query_params.get("pesquisa", ["nao"])[0].lower() == "sim"
 mostrar_admin = query_params.get("admin", ["nao"])[0].lower() == "sim"
 
@@ -38,7 +38,7 @@ elif menu == "📘 Guia do Imóvel":
     from paginas import guia_imovel
     guia_imovel.exibir()
 
-elif menu == "🗽️ Mapa":
+elif menu == "🗺️ Mapa":
     from paginas import mapa
     mapa.exibir()
 
