@@ -22,7 +22,7 @@ from PIL import Image
 # Carregar imagem local e exibir centralizada
 imagem_logo = Image.open("simbolo_airbnb.jpg")
 st.sidebar.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-st.sidebar.image(imagem_logo, width=230)
+st.sidebar.image(imagem_logo, width=200)
 st.sidebar.markdown("</div>", unsafe_allow_html=True)
 
 # Título estilizado
