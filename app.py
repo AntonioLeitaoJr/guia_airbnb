@@ -17,17 +17,22 @@ if mostrar_pesquisa:
 if mostrar_admin:
     opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
-# ⬇️ Menu lateral com imagem centralizada
-# ⬇️ Menu lateral com imagem centralizada
+from PIL import Image
+
+# Carregar imagem local e exibir centralizada
+imagem_logo = Image.open("simbolo_airbnb.jpg")
+st.sidebar.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+st.sidebar.image(imagem_logo, width=230)
+st.sidebar.markdown("</div>", unsafe_allow_html=True)
+
+# Título estilizado
 st.sidebar.markdown("""
-    <div style="text-align: center;">
-        <img src="https://raw.githubusercontent.com/AntonioLeitaoJr/guia_airbnb/main/simbolo_airbnb.jpg" style="width: 230px; border-radius: 10px;" />
-    </div>
+    <h2 style='text-align: center; color: #262626;'>Guia do Hóspede</h2>
+    <p style='text-align: center; color: #888;'>Navegar para:</p>
 """, unsafe_allow_html=True)
 
-
-st.sidebar.title("Guia do Hóspede")
-menu = st.sidebar.radio("Navegar para:", opcoes_menu)
+# Menu lateral
+menu = st.sidebar.radio("", opcoes_menu)
 
 # ⬇️ Rotas para cada página
 if menu == "🏠 Boas-vindas":
