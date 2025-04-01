@@ -25,7 +25,7 @@ with st.sidebar.expander("🔐 Acesso Restrito"):
         st.success("✅ Modo Pesquisa ativado!")
 
 # ⬇️ Definir menu dinâmico
-opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos","🔐 Acesso Restrito"]
+opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
 
 if st.session_state["modo_pesquisa"]:
     opcoes_menu.append("📝 Pesquisa")
