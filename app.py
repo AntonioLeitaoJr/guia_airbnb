@@ -11,19 +11,6 @@ if "modo_admin" not in st.session_state:
 if "modo_pesquisa" not in st.session_state:
     st.session_state["modo_pesquisa"] = False
 
-# Área de login para administradores e pesquisa
-with st.sidebar.expander("🔐 Acesso Restrito"):
-    senha_admin = st.text_input("Senha do Admin", type="password", key="senha_admin")
-    senha_pesquisa = st.text_input("Senha da Pesquisa", type="password", key="senha_pesquisa")
-
-    if senha_admin == "admin123":
-        st.session_state["modo_admin"] = True
-        st.success("✅ Modo Admin ativado!")
-
-    if senha_pesquisa == "pesquisa123":
-        st.session_state["modo_pesquisa"] = True
-        st.success("✅ Modo Pesquisa ativado!")
-
 # ⬇️ Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
 
@@ -44,6 +31,19 @@ st.sidebar.markdown("""
     <p style='text-align: center; color: #888;'>Navegar para:</p>
 """, unsafe_allow_html=True)
 
+# Área de login para administradores e pesquisa
+with st.sidebar.expander("🔐 Acesso Restrito"):
+    senha_admin = st.text_input("Senha do Admin", type="password", key="senha_admin")
+    senha_pesquisa = st.text_input("Senha da Pesquisa", type="password", key="senha_pesquisa")
+
+    if senha_admin == "admin123":
+        st.session_state["modo_admin"] = True
+        st.success("✅ Modo Admin ativado!")
+
+    if senha_pesquisa == "pesquisa123":
+        st.session_state["modo_pesquisa"] = True
+        st.success("✅ Modo Pesquisa ativado!")
+        
 # Menu lateral
 menu = st.sidebar.radio("", opcoes_menu)
 
