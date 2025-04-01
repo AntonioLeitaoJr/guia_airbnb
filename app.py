@@ -5,19 +5,32 @@ from PIL import Image
 import io
 import os
 
-# ⬇️ Detectar parâmetros da URL (atualizado)
-query_params = st.query_params
-mostrar_pesquisa = query_params.get("pesquisa", ["nao"])[0].lower() == "sim"
-mostrar_admin = query_params.get("admin", ["nao"])[0].lower() == "sim"
+# Inicializar estados de sessão
+if "modo_admin" not in st.session_state:
+    st.session_state["modo_admin"] = False
+if "modo_pesquisa" not in st.session_state:
+    st.session_state["modo_pesquisa"] = False
+
+# Área de login para administradores e pesquisa
+with st.sidebar.expander("🔐 Acesso Restrito"):
+    senha_admin = st.text_input("Senha do Admin", type="password", key="senha_admin")
+    senha_pesquisa = st.text_input("Senha da Pesquisa", type="password", key="senha_pesquisa")
+
+    if senha_admin == "admin123":
+        st.session_state["modo_admin"] = True
+        st.success("✅ Modo Admin ativado!")
+
+    if senha_pesquisa == "pesquisa123":
+        st.session_state["modo_pesquisa"] = True
+        st.success("✅ Modo Pesquisa ativado!")
 
 # ⬇️ Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
-if mostrar_pesquisa:
-    opcoes_menu.append("📝 Pesquisa")
-if mostrar_admin:
-    opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
-from PIL import Image
+if st.session_state["modo_pesquisa"]:
+    opcoes_menu.append("📝 Pesquisa")
+if st.session_state["modo_admin"]:
+    opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
 # Carregar imagem local e exibir centralizada
 imagem_logo = Image.open("simbolo_airbnb.jpg")
