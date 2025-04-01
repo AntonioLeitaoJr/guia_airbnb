@@ -31,6 +31,9 @@ st.sidebar.markdown("""
     <p style='text-align: center; color: #888;'>Navegar para:</p>
 """, unsafe_allow_html=True)
 
+# Menu lateral
+menu = st.sidebar.radio("", opcoes_menu)
+
 # Área de login para administradores e pesquisa
 with st.sidebar.expander("🔐 Acesso Restrito"):
     senha_admin = st.text_input("Senha do Admin", type="password", key="senha_admin")
@@ -44,9 +47,6 @@ with st.sidebar.expander("🔐 Acesso Restrito"):
         st.session_state["modo_pesquisa"] = True
         st.success("✅ Modo Pesquisa ativado!")
         
-# Menu lateral
-menu = st.sidebar.radio("", opcoes_menu)
-
 # ⬇️ Rotas para cada página
 if menu == "🏠 Boas-vindas":
     from paginas import boas_vindas
