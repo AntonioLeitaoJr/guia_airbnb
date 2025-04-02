@@ -24,11 +24,13 @@ def exibir():
             window.dispatchEvent(streamlitEvent);
         }
         </script>
-        <input type="text" value="""" + link_pesquisa + """" id="linkPesquisa" readonly style="width: 100%; padding: 8px; border-radius: 5px; border: none; margin-bottom: 10px;">
-        <button onclick="copiarTexto()" style="background-color:#ff914d;color:white;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;">
+    st.markdown(f"""
+        <input type="text" value="{link_pesquisa}" id="linkPesquisa" readonly style="width: 100%; padding: 8px; border-radius: 5px; border: none; margin-bottom: 10px;">
+        <button onclick="navigator.clipboard.writeText(document.getElementById('linkPesquisa').value)" style="background-color:#ff914d;color:white;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;">
             📋 Copiar Link da Pesquisa
         </button>
     """, unsafe_allow_html=True)
+
 
     # Função para exibir toast se evento JS for disparado
     st.markdown("""
@@ -52,5 +54,6 @@ def exibir():
     st.subheader("📱 QR Code para Avaliação")
     img_qr = qrcode.make(link_pesquisa)
     buf = io.BytesIO()
-    img_qr.save(buf)
+    img_qr.save(buf, format="PNG")"
+    "buf.seek(0)
     st.image(buf, caption="Escaneie com a câmera do celular", use_container_width=False)
