@@ -1,0 +1,22 @@
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Arquivos Python desnecessários
+__pycache__/
+*.py[cod]
+
+# Configurações do VS Code
+.vscode/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de dados ou gerados
+*.csv
+*.xlsx
+*.log
+*.sqlite3
+*.db
