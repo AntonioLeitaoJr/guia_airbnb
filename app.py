@@ -4,33 +4,35 @@ import qrcode
 from PIL import Image
 import io
 import os
-
-# 🔓 Script para ativar modo pesquisa via localStorage (sem senha)
-st.markdown("""
-    <script>
-        const pesquisaAtiva = localStorage.getItem("modo_pesquisa");
-        if (pesquisaAtiva === "ativo") {
-            window.parent.postMessage({ type: 'ativar_pesquisa' }, '*');
-        }
-    </script>
-""", unsafe_allow_html=True)
-
-from streamlit_javascript import st_javascript
-ativar_pesquisa = st_javascript("""await new Promise(resolve => {
-    window.addEventListener("message", (event) => {
-        if (event.data.type === "ativar_pesquisa") {
-            resolve(true);
-        }
-    });
-});""")
+import streamlit.components.v1 as components
 
 # Inicializar estados de sessão
 if "modo_admin" not in st.session_state:
     st.session_state["modo_admin"] = False
 if "modo_pesquisa" not in st.session_state:
     st.session_state["modo_pesquisa"] = False
-if ativar_pesquisa:
+
+# 🔓 Forçar ativação da pesquisa com link especial (usando hash de URL)
+if "pesquisa123" in st.session_state.get("forcar_pesquisa", ""):
     st.session_state["modo_pesquisa"] = True
+    components.html("""
+        <script>
+            localStorage.setItem("modo_pesquisa", "sim");
+            window.location.replace(window.location.origin);
+        </script>
+    """, height=0)
+
+# Verifica se o modo pesquisa está salvo no navegador
+components.html("""
+    <script>
+        if (localStorage.getItem("modo_pesquisa") === "sim") {
+            const streamlitEvents = window.parent.streamlitEvents || window.streamlitEvents;
+            if (streamlitEvents) {
+                streamlitEvents.sendMessage("streamlit:setComponentValue", { key: "modo_pesquisa", value: true });
+            }
+        }
+    </script>
+""", height=0)
 
 # ⬇️ Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
@@ -54,10 +56,6 @@ st.sidebar.markdown("""
 
 # Menu lateral
 menu = st.sidebar.radio("", opcoes_menu)
-
-# 🔓 Forçar ativação da pesquisa com link especial (usando hash de URL)
-if "pesquisa123" in st.session_state.get("forcar_pesquisa", ""):
-    st.session_state["modo_pesquisa"] = True
 
 # Área de login para administradores e pesquisa
 with st.sidebar.expander("🔐 Acesso Restrito"):
