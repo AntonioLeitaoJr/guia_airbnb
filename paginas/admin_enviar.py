@@ -15,24 +15,37 @@ def exibir():
 
     link_pesquisa = "https://guiaairbnbleitao.streamlit.app"
 
-    # Input de link com cópia personalizada
-    copiado = st.button("📋 Copiar Link da Pesquisa")
-    if copiado:
-        st.toast("Link copiado! Agora é só colar.", icon="📎")
-        st.write("")
-
-    st.markdown(f"""
+    st.markdown("""
         <script>
-        window.onload = function() {{
-            window.localStorage.setItem("forcar_pesquisa", "pesquisa123");
-        }};
+        function copiarTexto() {
+            var texto = document.getElementById("linkPesquisa").value;
+            navigator.clipboard.writeText(texto);
+            const streamlitEvent = new Event("copiadoStreamlit");
+            window.dispatchEvent(streamlitEvent);
+        }
         </script>
-
-        <input type="text" value="{link_pesquisa}" id="linkPesquisa" readonly style="width: 100%; padding: 8px; border-radius: 5px; border: none; margin-bottom: 10px;">
-        <button onclick="navigator.clipboard.writeText(document.getElementById('linkPesquisa').value)" style="background-color:#ff914d;color:white;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;">
+        <input type="text" value="""" + link_pesquisa + """" id="linkPesquisa" readonly style="width: 100%; padding: 8px; border-radius: 5px; border: none; margin-bottom: 10px;">
+        <button onclick="copiarTexto()" style="background-color:#ff914d;color:white;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;">
             📋 Copiar Link da Pesquisa
         </button>
     """, unsafe_allow_html=True)
+
+    # Função para exibir toast se evento JS for disparado
+    st.markdown("""
+        <script>
+        window.addEventListener("copiadoStreamlit", () => {
+            Streamlit.setComponentValue("copiado");
+        });
+        </script>
+    """, unsafe_allow_html=True)
+
+    if st.session_state.get("copiado_toast") != True:
+        st.session_state["copiado_toast"] = False
+
+    copied = st.experimental_get_query_params().get("copiado")
+    if copied and not st.session_state["copiado_toast"]:
+        st.toast("Link copiado! Agora é só colar.", icon="📎")
+        st.session_state["copiado_toast"] = True
 
     st.markdown("---")
 
