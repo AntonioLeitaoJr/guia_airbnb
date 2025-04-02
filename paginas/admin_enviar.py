@@ -34,6 +34,6 @@ def exibir():
     # Script para ativar modo pesquisa ao abrir o link
     st.markdown("""
         <script>
-            localStorage.setItem("modo_pesquisa", "ativo");
+            localStorage.setItem("modo_pesquisa", "sim");
         </script>
     """, unsafe_allow_html=True)
