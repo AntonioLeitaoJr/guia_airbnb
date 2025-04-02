@@ -14,8 +14,8 @@ def exibir():
         </div>
     """, unsafe_allow_html=True)
 
-    # Link com parâmetro para liberar a aba da pesquisa
-    link_pesquisa = "https://guiaairbnbleitao.streamlit.app/?senha_pesquisa=pesquisa123"
+    # Link direto para a pesquisa
+    link_pesquisa = "https://guiaairbnbleitao.streamlit.app"
 
     # Gerar e exibir o QR Code
     img_qr = qrcode.make(link_pesquisa)
@@ -29,4 +29,11 @@ def exibir():
             <strong>Ou acesse diretamente:</strong><br>
             <a href="""" + link_pesquisa + """" target="_blank">""" + link_pesquisa + """</a>
         </div>
+    """, unsafe_allow_html=True)
+
+    # Script para ativar modo pesquisa ao abrir o link
+    st.markdown("""
+        <script>
+            localStorage.setItem("modo_pesquisa", "ativo");
+        </script>
     """, unsafe_allow_html=True)

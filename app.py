@@ -5,11 +5,32 @@ from PIL import Image
 import io
 import os
 
+# 🔓 Script para ativar modo pesquisa via localStorage (sem senha)
+st.markdown("""
+    <script>
+        const pesquisaAtiva = localStorage.getItem("modo_pesquisa");
+        if (pesquisaAtiva === "ativo") {
+            window.parent.postMessage({ type: 'ativar_pesquisa' }, '*');
+        }
+    </script>
+""", unsafe_allow_html=True)
+
+from streamlit_javascript import st_javascript
+ativar_pesquisa = st_javascript("""await new Promise(resolve => {
+    window.addEventListener("message", (event) => {
+        if (event.data.type === "ativar_pesquisa") {
+            resolve(true);
+        }
+    });
+});""")
+
 # Inicializar estados de sessão
 if "modo_admin" not in st.session_state:
     st.session_state["modo_admin"] = False
 if "modo_pesquisa" not in st.session_state:
     st.session_state["modo_pesquisa"] = False
+if ativar_pesquisa:
+    st.session_state["modo_pesquisa"] = True
 
 # ⬇️ Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
@@ -34,6 +55,10 @@ st.sidebar.markdown("""
 # Menu lateral
 menu = st.sidebar.radio("", opcoes_menu)
 
+# 🔓 Forçar ativação da pesquisa com link especial (usando hash de URL)
+if "pesquisa123" in st.session_state.get("forcar_pesquisa", ""):
+    st.session_state["modo_pesquisa"] = True
+
 # Área de login para administradores e pesquisa
 with st.sidebar.expander("🔐 Acesso Restrito"):
     senha_admin = st.text_input("Senha do Admin", type="password", key="senha_admin")
@@ -46,7 +71,7 @@ with st.sidebar.expander("🔐 Acesso Restrito"):
     if senha_pesquisa == "pesquisa123":
         st.session_state["modo_pesquisa"] = True
         st.success("✅ Modo Pesquisa ativado!")
-        
+
 # ⬇️ Rotas para cada página
 if menu == "🏠 Boas-vindas":
     from paginas import boas_vindas
