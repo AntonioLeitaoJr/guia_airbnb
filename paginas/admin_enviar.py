@@ -2,7 +2,6 @@ import streamlit as st
 import qrcode
 import io
 
-
 def exibir():
     st.markdown("""
         <div style="background-color:#262626;padding:30px;border-radius:15px;margin-bottom:20px;">
@@ -14,25 +13,21 @@ def exibir():
         </div>
     """, unsafe_allow_html=True)
 
-    # Link direto para a pesquisa
+    # Link da página principal do app
     link_pesquisa = "https://guiaairbnbleitao.streamlit.app"
 
-    # Gerar e exibir o QR Code
+    # Gerar QR Code apontando para a raiz
     img_qr = qrcode.make(link_pesquisa)
     buf = io.BytesIO()
     img_qr.save(buf)
     st.image(buf, caption="📱 Escaneie com a câmera do celular", use_container_width=False)
 
-    # Exibir o link logo abaixo
-    st.markdown("""
+    # Exibir o link com instrução clara
+    st.markdown(f"""
         <div style="margin-top:20px; padding:10px; background-color:#f5f5f5; border-radius:8px; text-align:center;">
             <strong>Ou acesse diretamente:</strong><br>
-            <a href="""" + link_pesquisa + """" target="_blank">""" + link_pesquisa + """</a>
+            <a href="{link_pesquisa}" target="_blank">{link_pesquisa}</a>
         </div>
-    """, unsafe_allow_html=True)
-
-    # Script para ativar modo pesquisa ao abrir o link
-    st.markdown("""
         <script>
             localStorage.setItem("modo_pesquisa", "sim");
         </script>

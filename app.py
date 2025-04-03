@@ -12,17 +12,7 @@ if "modo_admin" not in st.session_state:
 if "modo_pesquisa" not in st.session_state:
     st.session_state["modo_pesquisa"] = False
 
-# 🔓 Forçar ativação da pesquisa com link especial (usando hash de URL)
-if "pesquisa123" in st.session_state.get("forcar_pesquisa", ""):
-    st.session_state["modo_pesquisa"] = True
-    components.html("""
-        <script>
-            localStorage.setItem("modo_pesquisa", "sim");
-            window.location.replace(window.location.origin);
-        </script>
-    """, height=0)
-
-# Verifica se o modo pesquisa está salvo no navegador
+# 🔓 Forçar ativação da pesquisa com link especial (usando localStorage)
 components.html("""
     <script>
         if (localStorage.getItem("modo_pesquisa") === "sim") {
@@ -33,6 +23,7 @@ components.html("""
         }
     </script>
 """, height=0)
+
 
 # ⬇️ Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
@@ -57,18 +48,13 @@ st.sidebar.markdown("""
 # Menu lateral
 menu = st.sidebar.radio("", opcoes_menu)
 
-# Área de login para administradores e pesquisa
+# Área de login apenas para administradores
 with st.sidebar.expander("🔐 Acesso Restrito"):
     senha_admin = st.text_input("Senha do Admin", type="password", key="senha_admin")
-    senha_pesquisa = st.text_input("Senha da Pesquisa", type="password", key="senha_pesquisa")
 
     if senha_admin == "admin123":
         st.session_state["modo_admin"] = True
         st.success("✅ Modo Admin ativado!")
-
-    if senha_pesquisa == "pesquisa123":
-        st.session_state["modo_pesquisa"] = True
-        st.success("✅ Modo Pesquisa ativado!")
 
 # ⬇️ Rotas para cada página
 if menu == "🏠 Boas-vindas":
