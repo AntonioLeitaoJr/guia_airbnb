@@ -31,4 +31,3 @@ def exibir():
         </div>
     """, unsafe_allow_html=True)
 
-Atualiza QR Code e link para novo app de pesquisa
