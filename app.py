@@ -16,13 +16,11 @@ if "modo_pesquisa" not in st.session_state:
 components.html("""
     <script>
         if (localStorage.getItem("modo_pesquisa") === "sim") {
-            const streamlitEvents = window.parent.streamlitEvents || window.streamlitEvents;
-            if (streamlitEvents) {
-                streamlitEvents.sendMessage("streamlit:setComponentValue", { key: "modo_pesquisa", value: true });
-            }
+            window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'modo_pesquisa', value: true}, '*');
         }
     </script>
 """, height=0)
+
 
 
 # ⬇️ Definir menu dinâmico
