@@ -30,5 +30,3 @@ def exibir():
             <a href="""" + link_pesquisa + """" target="_blank">""" + link_pesquisa + """</a>
         </div>
     """, unsafe_allow_html=True)
-
-
