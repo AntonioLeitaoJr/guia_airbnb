@@ -22,6 +22,8 @@ components.html("""
 """, height=0)
 
 
+
+
 # ⬇️ Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
 
