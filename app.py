@@ -63,11 +63,21 @@ st.markdown("""
             cursor: pointer;
         }
     </style>
+    <div class='botao-flutuante'>
+        <form action='#' method='post'>
+            <button name='mostrar_login' type='submit'>🔐 Acesso Restrito</button>
+        </form>
+    </div>
 """, unsafe_allow_html=True)
 
-if st.button("🔐 Acesso Restrito", key="botao_admin", help="Clique para entrar como administrador"):
-    st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
+# Detectar clique no botão (simulado via formulário HTML)
+if st.session_state.get("mostrar_login"):
+    st.session_state["mostrar_login"] = False
+else:
+    if st.button("🔐 Acesso Restrito", key="botao_admin", help="Clique para entrar como administrador"):
+        st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
+# Formulário de login quando ativado
 if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
     senha = st.text_input("Digite a senha do administrador:", type="password", key="input_admin")
     if senha == "admin123":
