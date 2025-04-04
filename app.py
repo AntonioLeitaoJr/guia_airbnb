@@ -44,10 +44,10 @@ st.sidebar.markdown("""
 
 menu = st.sidebar.radio("", opcoes_menu)
 
-# ✅ Botão flutuante no canto superior direito
+# ✅ Botão flutuante real
 st.markdown("""
     <style>
-        .acesso-restrito-botao {
+        .botao-acesso {
             position: fixed;
             top: 20px;
             right: 20px;
@@ -56,15 +56,21 @@ st.markdown("""
             padding: 10px 16px;
             border-radius: 10px;
             font-weight: bold;
-            z-index: 9999;
+            z-index: 10000;
             box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+            cursor: pointer;
         }
     </style>
-    <div class="acesso-restrito-botao">
-        <form action="#" method="post">
-            <input type="submit" name="acesso_restrito" value="🔐 Acesso Restrito" style="all: unset; cursor: pointer;">
-        </form>
-    </div>
+
+    <script>
+        const botao = document.createElement("div");
+        botao.className = "botao-acesso";
+        botao.innerHTML = "🔐 Acesso Restrito";
+        botao.onclick = function() {
+            window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'mostrar_login', value: true}, '*');
+        };
+        document.body.appendChild(botao);
+    </script>
 """, unsafe_allow_html=True)
 
 # Detectar clique no botão
