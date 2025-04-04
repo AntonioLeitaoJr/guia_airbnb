@@ -1,5 +1,0 @@
-streamlit
-streamlit-components
-qrcode
-Pillow
-pandas
