@@ -11,6 +11,7 @@ def exibir():
                 <li>26 a 30 de março: Feira da Amazônia - Hangar</li>
                 <li>27 de março: Show de MPB no Theatro da Paz</li>
                 <li>28 de março: Feira Gastronômica na Estação das Docas</li>
+                <li>28 de março: Feira de carros</li>
             </ul>
         </div>
     """, unsafe_allow_html=True)
