@@ -48,7 +48,7 @@ def exibir():
             <div class="welcome-title">🏠 Bem-vindo à Torre Evidence!</div>
             <div class="welcome-sub">
                 Esperamos que sua estadia seja confortável, segura e inesquecível.<br>
-                Aqui você encontrará tudo o que precisa para aproveitar o melhor da hospedagem e da cidade de Belém.
+                Aqui você encontrará tudo o que precisa para aproveitar o melhor da hospedagem e da cidade de Belém - Pará.
             </div>
         </div>
     """, unsafe_allow_html=True)
