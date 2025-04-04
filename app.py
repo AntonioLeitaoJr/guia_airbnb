@@ -11,8 +11,10 @@ if "modo_admin" not in st.session_state:
     st.session_state["modo_admin"] = False
 if "modo_pesquisa" not in st.session_state:
     st.session_state["modo_pesquisa"] = False
+if "mostrar_login" not in st.session_state:
+    st.session_state["mostrar_login"] = False
 
-# 🔓 Forçar ativação da pesquisa com link especial (usando localStorage)
+# 🔓 Ativação automática do modo pesquisa (via localStorage)
 components.html("""
     <script>
         if (localStorage.getItem("modo_pesquisa") === "sim") {
@@ -20,9 +22,6 @@ components.html("""
         }
     </script>
 """, height=0)
-
-
-
 
 # ⬇️ Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
@@ -47,13 +46,35 @@ st.sidebar.markdown("""
 # Menu lateral
 menu = st.sidebar.radio("", opcoes_menu)
 
-# Área de login apenas para administradores
-with st.sidebar.expander("🔐 Acesso Restrito"):
-    senha_admin = st.text_input("Senha do Admin", type="password", key="senha_admin")
+# ✅ Botão flutuante para modo admin
+st.markdown("""
+    <style>
+        .botao-flutuante {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff914d;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-weight: bold;
+            z-index: 9999;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+            cursor: pointer;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-    if senha_admin == "admin123":
+if st.button("🔐 Acesso Restrito", key="botao_admin", help="Clique para entrar como administrador"):
+    st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
+
+if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
+    senha = st.text_input("Digite a senha do administrador:", type="password", key="input_admin")
+    if senha == "admin123":
         st.session_state["modo_admin"] = True
-        st.success("✅ Modo Admin ativado!")
+        st.success("✅ Modo Admin ativado com sucesso!")
+    elif senha != "":
+        st.error("❌ Senha incorreta.")
 
 # ⬇️ Rotas para cada página
 if menu == "🏠 Boas-vindas":
