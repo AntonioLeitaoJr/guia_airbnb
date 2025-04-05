@@ -46,29 +46,35 @@ st.sidebar.markdown("""
 # Menu lateral
 menu = st.sidebar.radio("", opcoes_menu)
 
-# ✅ Botão flutuante para modo admin
+# ✅ Botão flutuante real
 st.markdown("""
     <style>
-        .botao-flutuante {
+        .botao-acesso {
             position: fixed;
             top: 20px;
             right: 20px;
             background-color: #ff914d;
             color: white;
-            padding: 12px 18px;
-            border-radius: 12px;
+            padding: 10px 16px;
+            border-radius: 10px;
             font-weight: bold;
-            z-index: 9999;
+            z-index: 10000;
             box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
             cursor: pointer;
         }
     </style>
-    <div class='botao-flutuante'>
-        <form action='#' method='post'>
-            <button name='mostrar_login' type='submit'>🔐 Acesso Restrito</button>
-        </form>
-    </div>
+
+    <script>
+        const botao = document.createElement("div");
+        botao.className = "botao-acesso";
+        botao.innerHTML = "🔐 Acesso Restrito";
+        botao.onclick = function() {
+            window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'mostrar_login', value: true}, '*');
+        };
+        document.body.appendChild(botao);
+    </script>
 """, unsafe_allow_html=True)
+
 
 # Detectar clique no botão (simulado via formulário HTML)
 if st.session_state.get("mostrar_login"):
