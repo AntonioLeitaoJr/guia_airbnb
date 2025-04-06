@@ -2,8 +2,7 @@ import streamlit as st
 import pandas as pd
 import qrcode
 from PIL import Image
-import io
-import os
+import streamlit.components.v1 as components
 
 # Inicializar estados de sessão
 if "modo_admin" not in st.session_state:
@@ -13,8 +12,7 @@ if "modo_pesquisa" not in st.session_state:
 if "mostrar_login" not in st.session_state:
     st.session_state["mostrar_login"] = False
 
-# ⬇️ Ativação automática do modo pesquisa via localStorage
-import streamlit.components.v1 as components
+# 🔓 Ativação automática do modo pesquisa (via localStorage)
 components.html("""
     <script>
         if (localStorage.getItem("modo_pesquisa") === "sim") {
@@ -23,47 +21,21 @@ components.html("""
     </script>
 """, height=0)
 
-# ⬇️ Menu lateral
+# ⬇️ Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
+
 if st.session_state["modo_pesquisa"]:
     opcoes_menu.append("📝 Pesquisa")
 if st.session_state["modo_admin"]:
     opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
-imagem_logo = Image.open("simbolo_airbnb.jpg")
-st.sidebar.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-st.sidebar.image(imagem_logo, width=230)
-st.sidebar.markdown("</div>", unsafe_allow_html=True)
-st.sidebar.markdown("""
-    <h2 style='text-align: center; color: #262626;'>Guia do Hóspede</h2>
-    <p style='text-align: center; color: #888;'>Navegar para:</p>
-""", unsafe_allow_html=True)
-menu = st.sidebar.radio("", opcoes_menu)
+# ✅ Botão fixo no topo do app (fora da sidebar)
+col1, col2 = st.columns([8, 1])
+with col2:
+    if st.button("🔐 Acesso Restrito", key="botao_superior"):
+        st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
-# ✅ Estilo e botão flutuante funcional
-st.markdown("""
-    <style>
-        div[data-testid="stButton"] > button.floating-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #ff914d;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 10px;
-            font-weight: bold;
-            z-index: 10000;
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
-            cursor: pointer;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# ✅ Botão real com classe customizada (funciona!)
-if st.button("🔐 Acesso Restrito", key="btn_flutuante", help="Clique para entrar como admin", args=(), kwargs={}, type="secondary"):
-    st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
-
-# Campo de login
+# Campo de login (aparece no corpo do app)
 if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
     senha = st.text_input("Digite a senha do administrador:", type="password")
     if senha == "admin123":
@@ -72,7 +44,21 @@ if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
     elif senha != "":
         st.error("❌ Senha incorreta.")
 
-# ⬇️ Rotas
+# Sidebar com imagem e título
+imagem_logo = Image.open("simbolo_airbnb.jpg")
+st.sidebar.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+st.sidebar.image(imagem_logo, width=230)
+st.sidebar.markdown("</div>", unsafe_allow_html=True)
+
+st.sidebar.markdown("""
+    <h2 style='text-align: center; color: #262626;'>Guia do Hóspede</h2>
+    <p style='text-align: center; color: #888;'>Navegar para:</p>
+""", unsafe_allow_html=True)
+
+# Menu lateral
+menu = st.sidebar.radio("", opcoes_menu)
+
+# ⬇️ Rotas para cada página
 if menu == "🏠 Boas-vindas":
     from paginas import boas_vindas
     boas_vindas.exibir()
