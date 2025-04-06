@@ -27,29 +27,45 @@ if st.session_state["modo_pesquisa"]:
 if st.session_state["modo_admin"]:
     opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
-# ✅ Botão real com HTML e CSS em uma única linha
-components.html("""
+# ✅ Botão fixo no topo do app (fora da sidebar), com estilo aplicado
+st.markdown("""
     <style>
-        .custom-button {
+        .botao-superior {
             position: fixed;
-            top: 25px;
-            right: 25px;
-            padding: 10px 16px;
+            top: 20px;
+            right: 20px;
             background-color: #ff914d;
             color: white;
+            padding: 10px 18px;
+            border: none;
             border-radius: 10px;
             font-weight: bold;
-            font-family: 'Arial', sans-serif;
-            cursor: pointer;
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+            white-space: nowrap;
             z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
         }
     </style>
-    <div class="custom-button" onclick="window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'mostrar_login', value: true}, '*')">
-        🔐 Acesso Restrito
-    </div>
-""", height=0)
 
+    <script>
+        const botao = document.createElement("button");
+        botao.innerText = "🔐 Acesso Restrito";
+        botao.className = "botao-superior";
+        botao.onclick = () => {
+            window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'mostrar_login', value: true}, '*');
+        };
+        document.body.appendChild(botao);
+    </script>
+""", unsafe_allow_html=True)
+
+# Fallback no Python (para garantir que funcione mesmo se JS falhar)
+if st.session_state.get("mostrar_login") and not st.session_state["modo_admin"]:
+    senha = st.text_input("Digite a senha do administrador:", type="password")
+    if senha == "admin123":
+        st.session_state["modo_admin"] = True
+        st.success("✅ Modo Admin ativado com sucesso!")
+    elif senha != "":
+        st.error("❌ Senha incorreta.")
 
 
 # Login
