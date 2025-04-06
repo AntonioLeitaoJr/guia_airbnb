@@ -29,11 +29,30 @@ if st.session_state["modo_pesquisa"]:
 if st.session_state["modo_admin"]:
     opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
-# ✅ Botão fixo no topo do app (fora da sidebar)
+# ✅ Botão fixo no topo do app (fora da sidebar), com estilo melhorado
+st.markdown("""
+    <style>
+        .botao-superior {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px 14px;
+            background-color: #ff914d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 col1, col2 = st.columns([8, 1])
 with col2:
     if st.button("🔐 Acesso Restrito", key="botao_superior"):
         st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
+
 
 # Campo de login (aparece no corpo do app)
 if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
