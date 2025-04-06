@@ -27,29 +27,29 @@ if st.session_state["modo_pesquisa"]:
 if st.session_state["modo_admin"]:
     opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
-# ✅ Botão fixo no topo do app (fora da sidebar), com estilo melhorado
-st.markdown("""
+# ✅ Botão real com HTML e CSS em uma única linha
+components.html("""
     <style>
-        .botao-superior {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 8px 14px;
+        .custom-button {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            padding: 10px 16px;
             background-color: #ff914d;
             color: white;
-            border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: bold;
-            white-space: nowrap;
+            font-family: 'Arial', sans-serif;
             cursor: pointer;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+            z-index: 9999;
         }
     </style>
-""", unsafe_allow_html=True)
+    <div class="custom-button" onclick="window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'mostrar_login', value: true}, '*')">
+        🔐 Acesso Restrito
+    </div>
+""", height=0)
 
-col1, col2 = st.columns([8, 1])
-with col2:
-    if st.button("🔐 Acesso Restrito", key="botao_superior"):
-        st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
 
 # Login
