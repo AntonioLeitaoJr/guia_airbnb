@@ -20,58 +20,39 @@ if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
     st.session_state["menu_index"] = 4  # Define como selecionada a aba "Pesquisa"
 
-# 🔐 Botão flutuante fixo no topo direito com estilo e JavaScript
-components.html("""
-    <style>
-        .botao-superior {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #ff914d;
-            color: white;
-            padding: 10px 18px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            font-family: sans-serif;
-            white-space: nowrap;
-            z-index: 9999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            cursor: pointer;
-        }
-    </style>
-    <div class="botao-superior" onclick="window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'mostrar_login', value: true}, '*')">
-        🔐 Acesso Restrito
-    </div>
-""", height=0)
-
-# Login
-if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
-    senha = st.text_input("Digite a senha do administrador:", type="password")
-    if senha == "admin123":
-        st.session_state["modo_admin"] = True
-        st.success("✅ Modo Admin ativado com sucesso!")
-    elif senha != "":
-        st.error("❌ Senha incorreta.")
-
-# Sidebar com logo e título
-imagem_logo = Image.open("simbolo_airbnb.jpg")
-st.sidebar.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-st.sidebar.image(imagem_logo, width=230)
-st.sidebar.markdown("</div>", unsafe_allow_html=True)
-
-st.sidebar.markdown("""
-    <h2 style='text-align: center; color: #262626;'>Guia do Hóspede</h2>
-    <p style='text-align: center; color: #888;'>Navegar para:</p>
-""", unsafe_allow_html=True)
-
-# Definir menu lateral
+# Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
 if st.session_state["modo_pesquisa"]:
     opcoes_menu.append("📝 Pesquisa")
 if st.session_state["modo_admin"]:
     opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
 
+# Sidebar com logo
+imagem_logo = Image.open("simbolo_airbnb.jpg")
+st.sidebar.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+st.sidebar.image(imagem_logo, width=230)
+st.sidebar.markdown("</div>", unsafe_allow_html=True)
+
+# ✅ Novo botão dentro da barra lateral
+if st.sidebar.button("🔐 Acesso Restrito"):
+    st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
+
+# Campo de login (só aparece se o botão for clicado)
+if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
+    senha = st.sidebar.text_input("Digite a senha do administrador:", type="password")
+    if senha == "admin123":
+        st.session_state["modo_admin"] = True
+        st.success("✅ Modo Admin ativado com sucesso!")
+    elif senha != "":
+        st.error("❌ Senha incorreta.")
+
+# Título estilizado
+st.sidebar.markdown("""
+    <h2 style='text-align: center; color: #262626;'>Guia do Hóspede</h2>
+    <p style='text-align: center; color: #888;'>Navegar para:</p>
+""", unsafe_allow_html=True)
+
+# Menu lateral com índice controlado
 menu = st.sidebar.radio("", opcoes_menu, index=st.session_state["menu_index"])
 
 # Atualizar índice quando a pessoa clicar
