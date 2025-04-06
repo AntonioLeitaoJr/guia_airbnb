@@ -32,18 +32,13 @@ if st.session_state["modo_admin"]:
 # ✅ Botão fixo no topo do app (fora da sidebar), com estilo melhorado
 st.markdown("""
     <style>
-        .botao-superior {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 8px 14px;
+        .stButton > button {
             background-color: #ff914d;
             color: white;
-            border: none;
+            padding: 8px 14px;
             border-radius: 8px;
             font-weight: bold;
             white-space: nowrap;
-            cursor: pointer;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -53,8 +48,7 @@ with col2:
     if st.button("🔐 Acesso Restrito", key="botao_superior"):
         st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
-
-# Campo de login (aparece no corpo do app)
+# Campo de login
 if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
     senha = st.text_input("Digite a senha do administrador:", type="password")
     if senha == "admin123":
