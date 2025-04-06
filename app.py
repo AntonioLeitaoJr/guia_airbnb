@@ -20,15 +20,8 @@ if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
     st.session_state["menu_index"] = 4  # Define como selecionada a aba "Pesquisa"
 
-# Definir menu dinâmico
-opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
-if st.session_state["modo_pesquisa"]:
-    opcoes_menu.append("📝 Pesquisa")
-if st.session_state["modo_admin"]:
-    opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
-
-# ✅ Botão fixo no topo do app (fora da sidebar), com estilo aplicado
-st.markdown("""
+# 🔐 Botão flutuante fixo no topo direito com estilo e JavaScript
+components.html("""
     <style>
         .botao-superior {
             position: fixed;
@@ -40,33 +33,17 @@ st.markdown("""
             border: none;
             border-radius: 10px;
             font-weight: bold;
+            font-family: sans-serif;
             white-space: nowrap;
             z-index: 9999;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             cursor: pointer;
         }
     </style>
-
-    <script>
-        const botao = document.createElement("button");
-        botao.innerText = "🔐 Acesso Restrito";
-        botao.className = "botao-superior";
-        botao.onclick = () => {
-            window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'mostrar_login', value: true}, '*');
-        };
-        document.body.appendChild(botao);
-    </script>
-""", unsafe_allow_html=True)
-
-# Fallback no Python (para garantir que funcione mesmo se JS falhar)
-if st.session_state.get("mostrar_login") and not st.session_state["modo_admin"]:
-    senha = st.text_input("Digite a senha do administrador:", type="password")
-    if senha == "admin123":
-        st.session_state["modo_admin"] = True
-        st.success("✅ Modo Admin ativado com sucesso!")
-    elif senha != "":
-        st.error("❌ Senha incorreta.")
-
+    <div class="botao-superior" onclick="window.parent.postMessage({type: 'streamlit:setComponentValue', key: 'mostrar_login', value: true}, '*')">
+        🔐 Acesso Restrito
+    </div>
+""", height=0)
 
 # Login
 if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
@@ -88,7 +65,13 @@ st.sidebar.markdown("""
     <p style='text-align: center; color: #888;'>Navegar para:</p>
 """, unsafe_allow_html=True)
 
-# Menu lateral com índice controlado
+# Definir menu lateral
+opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
+if st.session_state["modo_pesquisa"]:
+    opcoes_menu.append("📝 Pesquisa")
+if st.session_state["modo_admin"]:
+    opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
+
 menu = st.sidebar.radio("", opcoes_menu, index=st.session_state["menu_index"])
 
 # Atualizar índice quando a pessoa clicar
