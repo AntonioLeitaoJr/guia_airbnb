@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pd
+from paginas.GOOGLESHEETS.servico_sheets import aba
 
 def exibir():
     st.markdown("""
@@ -39,25 +39,20 @@ def exibir():
         with col1:
             gostou = st.radio("Você gostou da hospedagem?", ["Sim", "Não"])
             recomendaria = st.radio("Você recomendaria este imóvel a outras pessoas?", ["Sim", "Não"])
-            condominio = st.text_input("O que mais gostou no condomínio?")
+            aplicativo = st.selectbox("Qual o aplicativo de hospedagem?", ["Airbnb", "Booking", "Direto com o anfitrião", "Outros"])
         with col2:
-            destaque = st.text_input("O que mais gostou?")
+            destaque = st.text_input("O que mais gostou (no condomínio e/ou no apartamento)?")
             melhoria = st.text_input("Algo que poderíamos melhorar?")
-            mensagem = st.text_area("Mensagem ou sugestão final:")
+            perfil_ou_nome = st.text_input("Insira o link do seu perfil ou seu nome:")
+        
+        mensagem = st.text_area("Mensagem ou sugestão final:")
 
         enviar = st.form_submit_button("Enviar resposta")
 
         if enviar:
-            nova_resposta = pd.DataFrame([{
-                "Gostou": gostou,
-                "Destaque": destaque,
-                "Melhoria": melhoria,
-                "Recomendaria": recomendaria,
-                "Condomínio": condominio,
-                "Mensagem": mensagem
-            }])
             try:
-                nova_resposta.to_csv("respostas.csv", mode='a', header=False, index=False)
+                dados = [gostou, destaque, melhoria, recomendaria, aplicativo, perfil_ou_nome, mensagem]
+                aba.append_row(dados)
                 st.success("✅ Obrigado! Sua resposta foi registrada com sucesso.")
             except Exception as e:
                 st.error(f"❌ Erro ao salvar resposta: {e}")

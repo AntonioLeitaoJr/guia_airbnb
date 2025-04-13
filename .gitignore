@@ -20,3 +20,7 @@ Thumbs.db
 *.log
 *.sqlite3
 *.db
+
+*.json
+paginas/GOOGLESHEETS/
+paginas/GOOGLESHEETS/guiaairbnbrespostas-fdad952e267a.json
