@@ -1,5 +1,5 @@
 import streamlit as st
-from paginas.GOOGLESHEETS.servico_sheets import aba
+from paginas.servico_sheets import aba
 
 def exibir():
     st.markdown("""
