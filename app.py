@@ -22,10 +22,14 @@ if query_params.get("pesquisa") == "sim":
 
 # Definir menu dinâmico
 opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
-if st.session_state["modo_pesquisa"]:
+# Mostrar aba de pesquisa só se NÃO estiver no modo admin
+if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     opcoes_menu.append("📝 Pesquisa")
+
+# Mostrar abas administrativas apenas para admin
 if st.session_state["modo_admin"]:
-    opcoes_menu += ["📲 Enviar Pesquisa", "📊 Ver Respostas", "⚙️ Configurações"]
+    opcoes_menu += ["📲 Enviar Pesquisa", "⚙️ Configurações"]
+
 
 # Sidebar com logo
 imagem_logo = Image.open("simbolo_airbnb.jpg")
