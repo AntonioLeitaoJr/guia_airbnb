@@ -48,7 +48,7 @@ if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
         st.session_state["modo_admin"] = True
         st.success("✅ Modo Admin ativado com sucesso!")
     elif senha != "":
-        st.error("❌ Senha incorreta.")
+        st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado")
 
 # Título estilizado
 st.sidebar.markdown("""
