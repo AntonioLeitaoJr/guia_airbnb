@@ -1,13 +1,14 @@
 import gspread
-import json
 import streamlit as st
 from google.oauth2.service_account import Credentials
 
 # Escopos para acessar o Google Sheets
 ESCOPO = ["https://www.googleapis.com/auth/spreadsheets"]
 
-# Pega o JSON da chave que está no Secret do Streamlit
-info = json.loads(st.secrets["GOOGLE_SHEETS_CREDENTIALS"])
+# Pega direto o dicionário do secret
+info = st.secrets["GOOGLE_SHEETS_CREDENTIALS"]
+
+# Cria as credenciais
 credenciais = Credentials.from_service_account_info(info, scopes=ESCOPO)
 
 # Autenticação com gspread
