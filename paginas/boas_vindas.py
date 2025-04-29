@@ -1,18 +1,16 @@
 import streamlit as st
 
-st.markdown("### 🌍 Selecione o idioma:")
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    if st.button("🇧🇷 Português"):
-        st.session_state["idioma"] = "pt"
-with col2:
-    if st.button("en English"):
-        st.session_state["idioma"] = "en"
-with col3:
-    if st.button("🇪🇸 Español"):
-        st.session_state["idioma"] = "es"
+st.markdown(
+    """
+    <div style="text-align:right; margin-top: -20px; margin-bottom: 10px;">
+        <span style="font-size: 14px; color: #666;">🌐 Idioma:</span>
+        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'pt'}, '*')" style="margin-left: 10px;">🇧🇷</button>
+        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'en'}, '*')" style="margin-left: 5px;">🇺🇸</button>
+        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'es'}, '*')" style="margin-left: 5px;">🇪🇸</button>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 def exibir():
     st.markdown("""
