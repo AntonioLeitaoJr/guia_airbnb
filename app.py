@@ -32,21 +32,35 @@ if st.session_state["modo_admin"]:
 
 with st.sidebar:
     st.markdown("""
+        <style>
+        .idioma-btn {
+            font-size: 14px;
+            padding: 4px 12px;
+            margin: 0 3px;
+            border-radius: 8px;
+            background-color: #f4f4f7;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .idioma-btn:hover {
+            background-color: #e0e0ff;
+            border-color: #888;
+        }
+        </style>
+
         <div style="margin-bottom: 10px;">
-            <p style="font-size: 15px; margin-bottom: 5px;">🌐 <strong>Idioma</strong></p>
+            <p style="font-size: 15px; margin-bottom: 6px;">🌐 <strong>Idioma</strong></p>
+            <form action="" method="post">
+                <button name="set_lang" value="pt" class="idioma-btn">🇧🇷 <strong>PT</strong></button>
+                <button name="set_lang" value="en" class="idioma-btn">🇺🇸 <strong>EN</strong></button>
+                <button name="set_lang" value="es" class="idioma-btn">🇪🇸 <strong>ES</strong></button>
+            </form>
         </div>
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col1:
-        if st.button("🇧🇷 PT", key="idioma_br"):
-            st.session_state["idioma"] = "pt"
-    with col2:
-        if st.button("🇺🇸 EN", key="idioma_us"):
-            st.session_state["idioma"] = "en"
-    with col3:
-        if st.button("🇪🇸 ES", key="idioma_es"):
-            st.session_state["idioma"] = "es"
+    if "set_lang" in st.query_params:
+        st.session_state["idioma"] = st.query_params["set_lang"]
 
 
 # Sidebar com logo
