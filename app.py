@@ -39,13 +39,13 @@ with st.sidebar:
 
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
-        if st.button("PT", key="idioma_br"):
+        if st.button("Por", key="idioma_br"):
             st.session_state["idioma"] = "pt"
     with col2:
-        if st.button("EN", key="idioma_us"):
+        if st.button("Eng", key="idioma_us"):
             st.session_state["idioma"] = "en"
     with col3:
-        if st.button("ES", key="idioma_es"):
+        if st.button("Esp", key="idioma_es"):
             st.session_state["idioma"] = "es"
 
 # Sidebar com logo
