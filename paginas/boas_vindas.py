@@ -8,7 +8,7 @@ with col1:
     if st.button("🇧🇷 Português"):
         st.session_state["idioma"] = "pt"
 with col2:
-    if st.button("🇺🇸 English"):
+    if st.button("en English"):
         st.session_state["idioma"] = "en"
 with col3:
     if st.button("🇪🇸 Español"):
