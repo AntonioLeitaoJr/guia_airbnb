@@ -30,6 +30,18 @@ if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
 if st.session_state["modo_admin"]:
     opcoes_menu += ["📲 Enviar Pesquisa", "⚙️ Configurações"]
 
+with st.sidebar:
+    st.markdown("### 🌐 Idioma")
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col1:
+        if st.button("🇧🇷", key="idioma_br"):
+            st.session_state["idioma"] = "pt"
+    with col2:
+        if st.button("🇺🇸", key="idioma_us"):
+            st.session_state["idioma"] = "en"
+    with col3:
+        if st.button("🇪🇸", key="idioma_es"):
+            st.session_state["idioma"] = "es"
 
 # Sidebar com logo
 imagem_logo = Image.open("simbolo_airbnb.jpg")
