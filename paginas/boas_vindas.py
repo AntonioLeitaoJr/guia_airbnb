@@ -4,9 +4,9 @@ st.markdown(
     """
     <div style="text-align:right; margin-top: -20px; margin-bottom: 10px;">
         <span style="font-size: 14px; color: #3131b0;">🌐 Idioma:</span>
-        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'pt'}, '*')" style="margin-left: 10px;">🇧🇷</button>
-        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'en'}, '*')" style="margin-left: 5px;">🇺🇸</button>
-        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'es'}, '*')" style="margin-left: 5px;">🇪🇸</button>
+        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'pt'}, '*')" style="margin-left: 10px;">Por</button>
+        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'en'}, '*')" style="margin-left: 5px;">Eng</button>
+        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'es'}, '*')" style="margin-left: 5px;">Esp</button>
     </div>
     """,
     unsafe_allow_html=True
