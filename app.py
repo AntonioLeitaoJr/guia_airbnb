@@ -73,13 +73,7 @@ with st.sidebar:
             st.session_state["idioma"] = "es"
             st.rerun()
 
-    # Logo do projeto
-    imagem_logo = Image.open("simbolo_airbnb.jpg")
-    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image(imagem_logo, width=230)
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # Botão de login admin
+        # Botão de login admin
     if st.button("🔐 Acesso Restrito"):
         st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
@@ -127,3 +121,9 @@ elif menu.endswith(textos["ver_respostas"]):
 elif menu.endswith(textos["configuracoes"]):
     from paginas import admin_config
     admin_config.exibir()
+
+# Logo do projeto
+    imagem_logo = Image.open("simbolo_airbnb.jpg")
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image(imagem_logo, width=230)
+    st.markdown("</div>", unsafe_allow_html=True)
