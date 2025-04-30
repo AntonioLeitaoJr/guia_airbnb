@@ -4,6 +4,11 @@ import qrcode
 from PIL import Image
 import streamlit.components.v1 as components
 
+from idiomas import pt, en, es
+
+idioma = st.session_state.get("idioma", "pt")
+textos = {"pt": pt, "en": en, "es": es}[idioma]
+
 # Inicializar estados de sessão
 if "modo_admin" not in st.session_state:
     st.session_state["modo_admin"] = False
@@ -21,7 +26,21 @@ if query_params.get("pesquisa") == "sim":
     st.session_state["menu_index"] = 4  # Define como selecionada a aba "Pesquisa"
 
 # Definir menu dinâmico
-opcoes_menu = ["🏠 Boas-vindas", "📘 Guia do Imóvel", "🗺️ Mapa", "🎉 Eventos"]
+opcoes_menu = [
+    f"🏠 {textos['boas_vindas']}",
+    f"📘 {textos['guia_imovel']}",
+    f"🗺️ {textos['mapa']}",
+    f"🎉 {textos['eventos']}"
+]
+if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
+    opcoes_menu.append(f"📝 {textos['pesquisa']}")
+if st.session_state["modo_admin"]:
+    opcoes_menu += [
+        f"📲 {textos['enviar_pesquisa']}",
+        f"📊 {textos['ver_respostas']}",
+        f"⚙️ {textos['configuracoes']}"
+    ]
+
 # Mostrar aba de pesquisa só se NÃO estiver no modo admin
 if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     opcoes_menu.append("📝 Pesquisa")
@@ -68,9 +87,9 @@ if st.session_state["mostrar_login"] and not st.session_state["modo_admin"]:
         st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado!")
 
 # Título estilizado
-st.sidebar.markdown("""
-    <h2 style='text-align: center; color: #262626;'>Guia do Hóspede</h2>
-    <p style='text-align: center; color: #888;'>Navegar para:</p>
+st.sidebar.markdown(f"""
+    <h2 style='text-align: center; color: #262626;'>{textos['sidebar_title']}</h2>
+    <p style='text-align: center; color: #888;'>{textos['navegar_para']}</p>
 """, unsafe_allow_html=True)
 
 # Menu lateral com índice controlado
@@ -81,27 +100,27 @@ if menu in opcoes_menu:
     st.session_state["menu_index"] = opcoes_menu.index(menu)
 
 # Rotas
-if menu == "🏠 Boas-vindas":
+if menu.endswith(textos["boas_vindas"]):
     from paginas import boas_vindas
     boas_vindas.exibir()
-elif menu == "📘 Guia do Imóvel":
+elif menu.endswith(textos["guia_imovel"]):
     from paginas import guia_imovel
     guia_imovel.exibir()
-elif menu == "🗺️ Mapa":
+elif menu.endswith(textos["mapa"]):
     from paginas import mapa
     mapa.exibir()
-elif menu == "🎉 Eventos":
+elif menu.endswith(textos["eventos"]):
     from paginas import eventos
     eventos.exibir()
-elif menu == "📝 Pesquisa":
+elif menu.endswith(textos["pesquisa"]):
     from paginas import pesquisa
     pesquisa.exibir()
-elif menu == "📲 Enviar Pesquisa":
+elif menu.endswith(textos["enviar_pesquisa"]):
     from paginas import admin_enviar
     admin_enviar.exibir()
-elif menu == "📊 Ver Respostas":
+elif menu.endswith(textos["ver_respostas"]):
     from paginas import admin_respostas
     admin_respostas.exibir()
-elif menu == "⚙️ Configurações":
+elif menu.endswith(textos["configuracoes"]):
     from paginas import admin_config
     admin_config.exibir()
