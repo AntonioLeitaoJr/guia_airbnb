@@ -44,43 +44,44 @@ if st.session_state["modo_admin"]:
 
 # Sidebar
 with st.sidebar:
-    # 🌐 Seletor de idioma estilizado
+    # 🌐 Seletor de idioma com botões customizados
     st.markdown("""
         <style>
         .idioma-container {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             flex-wrap: wrap;
             justify-content: center;
+            margin-bottom: 10px;
         }
-        .idioma-btn {
-            font-size: 14px;
-            padding: 5px 10px;
+        .idioma-btn > button {
+            font-size: 14px !important;
+            padding: 6px 12px;
             border-radius: 8px;
             border: 1px solid #ccc;
             background-color: #f0f0f5;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .idioma-btn:hover {
-            background-color: #e0e0ff;
-            border-color: #888;
+            color: #000;
         }
         </style>
-
-        <p style="font-size: 15px; margin-bottom: 5px;">🌐 <strong>Idioma</strong></p>
+        <p style="font-size: 15px; margin-bottom: 4px;">🌐 <strong>Idioma</strong></p>
         <div class="idioma-container">
-            <form action="" method="post">
-                <button name="idioma" value="pt" class="idioma-btn">Por</button>
-                <button name="idioma" value="en" class="idioma-btn">Eng</button>
-                <button name="idioma" value="es" class="idioma-btn">Esp</button>
-            </form>
-        </div>
     """, unsafe_allow_html=True)
 
-    if "idioma" in st.query_params:
-        st.session_state["idioma"] = st.query_params["idioma"]
-        st.experimental_rerun()
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if st.button("Por"):
+            st.session_state["idioma"] = "pt"
+            st.experimental_rerun()
+    with col2:
+        if st.button("Eng"):
+            st.session_state["idioma"] = "en"
+            st.experimental_rerun()
+    with col3:
+        if st.button("Esp"):
+            st.session_state["idioma"] = "es"
+            st.experimental_rerun()
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Logo do projeto
     imagem_logo = Image.open("simbolo_airbnb.jpg")
