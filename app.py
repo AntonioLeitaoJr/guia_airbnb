@@ -63,15 +63,15 @@ with st.sidebar:
     with col1:
         if st.button("Por", key="idioma_por"):
             st.session_state["idioma"] = "pt"
-            st.experimental_rerun()
+            st.rerun()
     with col2:
         if st.button("Eng", key="idioma_eng"):
             st.session_state["idioma"] = "en"
-            st.experimental_rerun()
+            st.rerun()
     with col3:
         if st.button("Esp", key="idioma_esp"):
             st.session_state["idioma"] = "es"
-            st.experimental_rerun()
+            st.rerun()
 
     # Logo do projeto
     imagem_logo = Image.open("simbolo_airbnb.jpg")
