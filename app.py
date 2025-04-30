@@ -96,6 +96,12 @@ menu = st.sidebar.radio("", opcoes_menu, index=st.session_state["menu_index"])
 if menu in opcoes_menu:
     st.session_state["menu_index"] = opcoes_menu.index(menu)
 
+# Logo do projeto
+    imagem_logo = Image.open("simbolo_airbnb.jpg")
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image(imagem_logo, width=230)
+    st.markdown("</div>", unsafe_allow_html=True)
+    
 # Rotas
 if menu.endswith(textos["boas_vindas"]):
     from paginas import boas_vindas
@@ -122,8 +128,3 @@ elif menu.endswith(textos["configuracoes"]):
     from paginas import admin_config
     admin_config.exibir()
 
-# Logo do projeto
-    imagem_logo = Image.open("simbolo_airbnb.jpg")
-    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image(imagem_logo, width=230)
-    st.markdown("</div>", unsafe_allow_html=True)
