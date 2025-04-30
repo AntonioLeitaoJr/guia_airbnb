@@ -2,31 +2,27 @@ import streamlit as st
 import pandas as pd
 import qrcode
 from PIL import Image
-import streamlit.components.v1 as components
 
 from idiomas import pt, en, es
 
-# 🔄 Detectar idioma
+# 🔄 Detectar idioma atual da sessão
 idioma = st.session_state.get("idioma", "pt")
 textos = {"pt": pt, "en": en, "es": es}[idioma]
 
-# Inicializar estados de sessão
+# 🔧 Inicializar estados
 if "modo_admin" not in st.session_state:
     st.session_state["modo_admin"] = False
 if "modo_pesquisa" not in st.session_state:
     st.session_state["modo_pesquisa"] = False
 if "mostrar_login" not in st.session_state:
     st.session_state["mostrar_login"] = False
-if "menu_index" not in st.session_state:
-    st.session_state["menu_index"] = 0
 
-# Ativação automática do modo pesquisa
+# 🔁 Ativação automática do modo pesquisa
 query_params = st.query_params
 if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
-    st.session_state["menu_index"] = 4
 
-# 🔠 Menu dinâmico com traduções
+# 🔠 Menu dinâmico com textos traduzidos
 opcoes_menu = [
     f"🏠 {textos['boas_vindas']}",
     f"📘 {textos['guia_imovel']}",
@@ -42,21 +38,30 @@ if st.session_state["modo_admin"]:
         f"⚙️ {textos['configuracoes']}"
     ]
 
-# Sidebar
+# ===== SIDEBAR =====
 with st.sidebar:
-    # 🌐 Seletor de idioma com botões responsivos e seguros
+    # 🌐 Idioma
     st.markdown("""
         <style>
-        .idioma-btn > div > button {
-            font-size: 14px !important;
+        .idioma-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .idioma-container button {
+            font-size: 14px;
             padding: 6px 12px;
             border-radius: 8px;
             border: 1px solid #ccc;
             background-color: #f0f0f5;
             color: #000;
+            cursor: pointer;
         }
         </style>
-        <p style="font-size: 15px; margin-bottom: 4px;">🌐 <strong>Idioma</strong></p>
+        <p style="font-size: 15px; margin-bottom: 6px;">🌐 <strong>Idioma</strong></p>
+        <div class="idioma-container">
     """, unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
@@ -73,7 +78,9 @@ with st.sidebar:
             st.session_state["idioma"] = "es"
             st.rerun()
 
-        # Botão de login admin
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # 🔐 Acesso Restrito
     if st.button("🔐 Acesso Restrito"):
         st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
@@ -84,24 +91,23 @@ with st.sidebar:
             st.success("✅ Modo Admin ativado com sucesso!")
         elif senha != "":
             st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado!")
-# Logo do projeto
-    imagem_logo = Image.open("simbolo_airbnb.jpg")
-    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image(imagem_logo, width=230)
-    st.markdown("</div>", unsafe_allow_html=True)
-    
-    # Título e menu traduzido
+
+    # 🧭 Menu lateral
     st.markdown(f"""
         <h2 style='text-align: center; color: #262626;'>{textos['sidebar_title']}</h2>
         <p style='text-align: center; color: #888;'>{textos['navegar_para']}</p>
     """, unsafe_allow_html=True)
 
-# Menu lateral
-menu = st.sidebar.radio("", opcoes_menu, index=st.session_state["menu_index"])
-if menu in opcoes_menu:
-    st.session_state["menu_index"] = opcoes_menu.index(menu)
+    menu = st.radio("", opcoes_menu)
 
-# Rotas
+    # 🔻 Logo final (após tudo)
+    st.markdown("<hr>", unsafe_allow_html=True)
+    imagem_logo = Image.open("simbolo_airbnb.jpg")
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image(imagem_logo, width=230)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# ===== ROTAS PRINCIPAIS =====
 if menu.endswith(textos["boas_vindas"]):
     from paginas import boas_vindas
     boas_vindas.exibir()
@@ -126,4 +132,3 @@ elif menu.endswith(textos["ver_respostas"]):
 elif menu.endswith(textos["configuracoes"]):
     from paginas import admin_config
     admin_config.exibir()
-
