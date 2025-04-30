@@ -84,7 +84,12 @@ with st.sidebar:
             st.success("✅ Modo Admin ativado com sucesso!")
         elif senha != "":
             st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado!")
-
+# Logo do projeto
+    imagem_logo = Image.open("simbolo_airbnb.jpg")
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.image(imagem_logo, width=230)
+    st.markdown("</div>", unsafe_allow_html=True)
+    
     # Título e menu traduzido
     st.markdown(f"""
         <h2 style='text-align: center; color: #262626;'>{textos['sidebar_title']}</h2>
@@ -96,12 +101,6 @@ menu = st.sidebar.radio("", opcoes_menu, index=st.session_state["menu_index"])
 if menu in opcoes_menu:
     st.session_state["menu_index"] = opcoes_menu.index(menu)
 
-# Logo do projeto
-    imagem_logo = Image.open("simbolo_airbnb.jpg")
-    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image(imagem_logo, width=230)
-    st.markdown("</div>", unsafe_allow_html=True)
-    
 # Rotas
 if menu.endswith(textos["boas_vindas"]):
     from paginas import boas_vindas
