@@ -1,11 +1,16 @@
 import streamlit as st
 import os
 
-CAMINHO_ARQUIVO = "guia_imovel.txt"
+# Obter idioma da sessão (padrão: pt)
+idioma = st.session_state.get("idioma", "pt")
 
-# Conteúdo padrão se o arquivo não existir
+# Montar caminho do arquivo com base no idioma
+CAMINHO_ARQUIVO = os.path.join("paginas", "textos_idiomas", f"guia_imovel_{idioma}.txt")
+
+# Conteúdo padrão por idioma
 def conteudo_padrao():
-    return """
+    return {
+        "pt": """
 📘 Guia do Imóvel
 
 **Wi-Fi:** Rede: `BelemGuest` | Senha: `senhaboa2025`
@@ -19,7 +24,38 @@ def conteudo_padrao():
 - Ar-condicionado: desligue ao sair
 - Check-out: até às 11h
 - Emergência: (91) 99999-9999
+""",
+        "en": """
+📘 Property Guide
+
+**Wi-Fi:** Network: `BelemGuest` | Password: `senhaboa2025`
+
+**Condo rules:**
+- Pool hours: 8 AM to 9 PM
+- Meeting room: schedule at front desk
+- Quiet hours: 10 PM to 7 AM
+
+**Other details:**
+- Air conditioning: turn off when leaving
+- Check-out: by 11 AM
+- Emergency: +55 91 99999-9999
+""",
+        "es": """
+📘 Guía del Inmueble
+
+**Wi-Fi:** Red: `BelemGuest` | Contraseña: `senhaboa2025`
+
+**Reglas del condominio:**
+- Horario de la piscina: 8h a 21h
+- Sala de reuniones: reservar en la recepción
+- Silencio entre 22h y 7h
+
+**Otros detalles:**
+- Aire acondicionado: apáguelo al salir
+- Check-out: hasta las 11h
+- Emergencia: +55 91 99999-9999
 """
+    }.get(idioma, "Conteúdo ainda não cadastrado.")
 
 def exibir():
     st.markdown("""
