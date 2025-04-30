@@ -44,15 +44,9 @@ if st.session_state["modo_admin"]:
 
 # Sidebar
 with st.sidebar:
+    # 🌐 Seletor de idioma com botões responsivos e seguros
     st.markdown("""
         <style>
-        .idioma-container {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
         .idioma-btn > div > button {
             font-size: 14px !important;
             padding: 6px 12px;
@@ -63,10 +57,8 @@ with st.sidebar:
         }
         </style>
         <p style="font-size: 15px; margin-bottom: 4px;">🌐 <strong>Idioma</strong></p>
-        <div class="idioma-container">
     """, unsafe_allow_html=True)
 
-    # Usar colunas para manter o layout bonito
     col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("Por", key="idioma_por"):
@@ -80,8 +72,6 @@ with st.sidebar:
         if st.button("Esp", key="idioma_esp"):
             st.session_state["idioma"] = "es"
             st.experimental_rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
     # Logo do projeto
     imagem_logo = Image.open("simbolo_airbnb.jpg")
