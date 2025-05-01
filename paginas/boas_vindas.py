@@ -1,16 +1,9 @@
 import streamlit as st
+from idiomas import pt, en, es
 
-st.markdown(
-    """
-    <div style="text-align:right; margin-top: -20px; margin-bottom: 10px;">
-        <span style="font-size: 14px; color: #3131b0;">🌐 Idioma:</span>
-        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'pt'}, '*')" style="margin-left: 10px;">Por</button>
-        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'en'}, '*')" style="margin-left: 5px;">Eng</button>
-        <button onclick="window.parent.postMessage({type: 'streamlit:setSessionState', key: 'idioma', value: 'es'}, '*')" style="margin-left: 5px;">Esp</button>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+# Detectar idioma
+idioma = st.session_state.get("idioma", "pt")
+textos = {"pt": pt, "en": en, "es": es}[idioma]
 
 def exibir():
     st.markdown("""
@@ -55,12 +48,11 @@ def exibir():
 
     st.image("torre_evidence.jpg", use_container_width=True)
 
-    st.markdown("""
+    st.markdown(f"""
         <div class="welcome-box">
-            <div class="welcome-title">🏠 Bem-vindo à Torre Evidence!</div>
+            <div class="welcome-title">🏠 {textos['boas_vindas_titulo']}</div>
             <div class="welcome-sub">
-                Esperamos que sua estadia seja confortável, segura e inesquecível.<br>
-                Aqui você encontrará tudo o que precisa para aproveitar o melhor da hospedagem e da cidade de Belém - Pará.
+                {textos['boas_vindas_texto']}
             </div>
         </div>
     """, unsafe_allow_html=True)

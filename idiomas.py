@@ -1,5 +1,5 @@
 # idiomas.py
-#forçando o envio
+
 pt = {
     "sidebar_title": "Guia do Hóspede",
     "navegar_para": "Navegar para:",
@@ -10,7 +10,11 @@ pt = {
     "pesquisa": "Pesquisa",
     "enviar_pesquisa": "Enviar Pesquisa",
     "ver_respostas": "Ver Respostas",
-    "configuracoes": "Configurações"
+    "configuracoes": "Configurações",
+
+    # Página boas_vindas.py
+    "boas_vindas_titulo": "Bem-vindo à Torre Evidence!",
+    "boas_vindas_texto": "Esperamos que sua estadia seja confortável, segura e inesquecível.<br>Aqui você encontrará tudo o que precisa para aproveitar o melhor da hospedagem e da cidade de Belém - Pará."
 }
 
 en = {
@@ -23,7 +27,11 @@ en = {
     "pesquisa": "Survey",
     "enviar_pesquisa": "Send Survey",
     "ver_respostas": "View Responses",
-    "configuracoes": "Settings"
+    "configuracoes": "Settings",
+
+    # Page boas_vindas.py
+    "boas_vindas_titulo": "Welcome to Torre Evidence!",
+    "boas_vindas_texto": "We hope your stay is comfortable, safe, and unforgettable.<br>Here you will find everything you need to enjoy the best of your stay and the city of Belém - Pará."
 }
 
 es = {
@@ -36,5 +44,9 @@ es = {
     "pesquisa": "Encuesta",
     "enviar_pesquisa": "Enviar Encuesta",
     "ver_respostas": "Ver Respuestas",
-    "configuracoes": "Configuraciones"
+    "configuracoes": "Configuraciones",
+
+    # Página boas_vindas.py
+    "boas_vindas_titulo": "¡Bienvenido a Torre Evidence!",
+    "boas_vindas_texto": "Esperamos que su estadía sea cómoda, segura e inolvidable.<br>Aquí encontrará todo lo que necesita para disfrutar al máximo del alojamiento y de la ciudad de Belém - Pará."
 }
