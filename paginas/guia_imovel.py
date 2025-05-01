@@ -1,15 +1,15 @@
 import streamlit as st
 import os
 
-# Obter idioma da sessão (padrão: pt)
-idioma = st.session_state.get("idioma", "pt")
+def exibir():
+    idioma = st.session_state.get("idioma", "pt")
+    PASTA = os.path.join("paginas", "textos_idiomas")
+    CAMINHO_ARQUIVO = os.path.join(PASTA, f"guia_imovel_{idioma}.txt")
 
-# Montar caminho do arquivo com base no idioma
-CAMINHO_ARQUIVO = os.path.join("paginas", "textos_idiomas", f"guia_imovel_{idioma}.txt")
+    # 🛡 Garantir que a pasta existe
+    os.makedirs(PASTA, exist_ok=True)
 
-# Conteúdo padrão por idioma
-def conteudo_padrao():
-    return {
+    textos_padrao = {
         "pt": """
 📘 Guia do Imóvel
 
@@ -55,28 +55,24 @@ def conteudo_padrao():
 - Check-out: hasta las 11h
 - Emergencia: +55 91 99999-9999
 """
-    }.get(idioma, "Conteúdo ainda não cadastrado.")
+    }
 
-def exibir():
+    # Criar arquivo se não existir
+    if not os.path.exists(CAMINHO_ARQUIVO):
+        with open(CAMINHO_ARQUIVO, "w", encoding="utf-8") as f:
+            f.write(textos_padrao.get(idioma, "Conteúdo não disponível."))
+
     st.markdown("""
         <div style="background-color:#262626;padding:30px;border-radius:15px;box-shadow:2px 2px 12px rgba(0,0,0,0.3);margin-bottom:20px;">
             <h2 style="color:#ff914d;text-align:center;">📘 Guia do Imóvel</h2>
     """, unsafe_allow_html=True)
 
-    # Criar arquivo com conteúdo padrão se não existir
-    if not os.path.exists(CAMINHO_ARQUIVO):
-        with open(CAMINHO_ARQUIVO, "w", encoding="utf-8") as f:
-            f.write(conteudo_padrao())
-
-    # Carregar e exibir conteúdo
     with open(CAMINHO_ARQUIVO, "r", encoding="utf-8") as f:
         conteudo = f.read()
 
     st.markdown(conteudo, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("""</div>""", unsafe_allow_html=True)
-
-    # Modo edição se admin estiver ativado
     if st.session_state.get("modo_admin"):
         st.markdown("<hr>", unsafe_allow_html=True)
         st.subheader("✏️ Editar conteúdo do Guia")
