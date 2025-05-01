@@ -5,8 +5,12 @@ from PIL import Image
 
 from idiomas import pt, en, es
 
+# ✅ Garantir que a chave 'idioma' esteja presente no início
+if "idioma" not in st.session_state:
+    st.session_state["idioma"] = "pt"  # Define como padrão o português
+
 # 🔄 Detectar idioma atual da sessão
-idioma = st.session_state.get("idioma", "pt")
+idioma = st.session_state["idioma"]
 textos = {"pt": pt, "en": en, "es": es}[idioma]
 
 # 🔧 Inicializar estados
