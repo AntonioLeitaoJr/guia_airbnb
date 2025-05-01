@@ -1,11 +1,8 @@
 import streamlit as st
-from idiomas import pt, en, es
-
-# Detectar idioma
-idioma = st.session_state.get("idioma", "pt")
-textos = {"pt": pt, "en": en, "es": es}[idioma]
 
 def exibir():
+    textos = st.session_state.get("textos", {})  # Dicionário com traduções
+
     st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
@@ -50,9 +47,9 @@ def exibir():
 
     st.markdown(f"""
         <div class="welcome-box">
-            <div class="welcome-title">🏠 {textos['boas_vindas_titulo']}</div>
+            <div class="welcome-title">🏠 {textos.get("boas_vindas_titulo", "Boas-vindas")}</div>
             <div class="welcome-sub">
-                {textos['boas_vindas_texto']}
+                {textos.get("boas_vindas_texto", "")}
             </div>
         </div>
     """, unsafe_allow_html=True)
