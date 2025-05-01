@@ -110,7 +110,7 @@ with st.sidebar:
 # ===== ROTAS PRINCIPAIS =====
 if menu.endswith(textos["boas_vindas"]):
     from paginas import boas_vindas
-    boas_vindas.exibir()
+    boas_vindas.exibir(st.session_state["idioma"]) 
 elif menu.endswith(textos["guia_imovel"]):
     from paginas import guia_imovel
     guia_imovel.exibir()
