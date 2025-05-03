@@ -117,7 +117,7 @@ if menu.endswith(textos["boas_vindas"]):
     boas_vindas.exibir(st.session_state["idioma"]) 
 elif menu.endswith(textos["guia_imovel"]):
     from paginas import guia_imovel
-    guia_imovel.exibir()
+    guia_imovel.exibir(st.session_state["idioma"])
 elif menu.endswith(textos["mapa"]):
     from paginas import mapa
     mapa.exibir()
