@@ -68,7 +68,7 @@ def exibir():
 
     st.markdown("""
         <div style="background-color:#262626;padding:30px;border-radius:15px;box-shadow:2px 2px 12px rgba(0,0,0,0.3);margin-bottom:20px;">
-            <h2 style="color:#ff914d;text-align:center;">📘 Guia do Imóvel</h2>
+            <h2 style="color:#ff914d;text-align:center;">📘 {textos['guia_imovel']}</h2>
     """, unsafe_allow_html=True)
 
     st.markdown(conteudo, unsafe_allow_html=True)
