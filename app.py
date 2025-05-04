@@ -5,15 +5,14 @@ from PIL import Image
 
 from idiomas import pt, en, es
 
-# ✅ Garantir que a chave 'idioma' esteja presente no início
+# ✅ Idioma padrão
 if "idioma" not in st.session_state:
-    st.session_state["idioma"] = "pt"  # Define como padrão o português
+    st.session_state["idioma"] = "pt"
 
-# 🔄 Detectar idioma atual da sessão
 idioma = st.session_state["idioma"]
 textos = {"pt": pt, "en": en, "es": es}[idioma]
 
-# 🔧 Inicializar estados
+# ✅ Estados
 if "modo_admin" not in st.session_state:
     st.session_state["modo_admin"] = False
 if "modo_pesquisa" not in st.session_state:
@@ -21,12 +20,12 @@ if "modo_pesquisa" not in st.session_state:
 if "mostrar_login" not in st.session_state:
     st.session_state["mostrar_login"] = False
 
-# 🔁 Ativação automática do modo pesquisa
+# ✅ Ativação automática por link
 query_params = st.query_params
 if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
 
-# 🔠 Menu dinâmico com textos traduzidos
+# ✅ Menu principal
 opcoes_menu = [
     f"🏠 {textos['boas_vindas']}",
     f"📘 {textos['guia_imovel']}",
@@ -44,45 +43,32 @@ if st.session_state["modo_admin"]:
 
 # ===== SIDEBAR =====
 with st.sidebar:
-    # 🌐 Idioma
+    # 🌐 Estilo + Idioma
     st.markdown("""
         <style>
-        .idioma-container {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .idioma-container .stButton > button {
-            font-size: 14px !important;
-            padding: 6px 14px !important;
+        .stButton > button {
+            font-size: 14px;
+            padding: 6px 12px;
+            margin-bottom: 4px;
             border-radius: 8px;
-            border: 1px solid #ccc;
-            background-color: #f0f0f5;
-            color: #000;
-            cursor: pointer;
         }
         </style>
         <p style="font-size: 15px; margin-bottom: 6px;">🌐 <strong>Idioma</strong></p>
-        <div class="idioma-container">
     """, unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        if st.button("Por", key="idioma_por"):
+        if st.button("Por"):
             st.session_state["idioma"] = "pt"
             st.rerun()
     with col2:
-        if st.button("Eng", key="idioma_eng"):
+        if st.button("Eng"):
             st.session_state["idioma"] = "en"
             st.rerun()
     with col3:
-        if st.button("Esp", key="idioma_esp"):
+        if st.button("Esp"):
             st.session_state["idioma"] = "es"
             st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
     # 🔐 Acesso Restrito
     if st.button("🔐 Acesso Restrito"):
@@ -96,7 +82,7 @@ with st.sidebar:
         elif senha != "":
             st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado!")
 
-    # 🧭 Menu lateral
+    # 🧭 Navegação
     st.markdown(f"""
         <h2 style='text-align: center; color: #262626;'>{textos['sidebar_title']}</h2>
         <p style='text-align: center; color: #888;'>{textos['navegar_para']}</p>
@@ -104,17 +90,17 @@ with st.sidebar:
 
     menu = st.radio("", opcoes_menu)
 
-    # 🔻 Logo final (após tudo)
+    # 🔻 Logo
     st.markdown("<hr>", unsafe_allow_html=True)
     imagem_logo = Image.open("simbolo_airbnb.jpg")
     st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
     st.image(imagem_logo, width=230)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ===== ROTAS PRINCIPAIS =====
+# ===== ROTAS =====
 if menu.endswith(textos["boas_vindas"]):
     from paginas import boas_vindas
-    boas_vindas.exibir(st.session_state["idioma"]) 
+    boas_vindas.exibir(st.session_state["idioma"])
 elif menu.endswith(textos["guia_imovel"]):
     from paginas import guia_imovel
     guia_imovel.exibir()
