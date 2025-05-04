@@ -68,20 +68,30 @@ with st.sidebar:
         <div class="idioma-container">
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        if st.button("Por", key="idioma_por"):
-            st.session_state["idioma"] = "pt"
-            st.rerun()
-    with col2:
-        if st.button("Eng", key="idioma_eng"):
-            st.session_state["idioma"] = "en"
-            st.rerun()
-    with col3:
-        if st.button("Esp", key="idioma_esp"):
-            st.session_state["idioma"] = "es"
-            st.rerun()
+    st.markdown("""
+        <div style="display: flex; gap: 8px; overflow-x: auto; justify-content: center; margin-bottom: 10px;">
+            <form action="" method="post">
+                <button name="idioma" value="pt" style="font-size: 14px; padding: 6px 12px; border-radius: 8px;
+                        border: 1px solid #ccc; background-color: #f0f0f5; color: #000; cursor: pointer;">Por</button>
+            </form>
+            <form action="" method="post">
+                <button name="idioma" value="en" style="font-size: 14px; padding: 6px 12px; border-radius: 8px;
+                        border: 1px solid #ccc; background-color: #f0f0f5; color: #000; cursor: pointer;">Eng</button>
+            </form>
+            <form action="" method="post">
+                <button name="idioma" value="es" style="font-size: 14px; padding: 6px 12px; border-radius: 8px;
+                        border: 1px solid #ccc; background-color: #f0f0f5; color: #000; cursor: pointer;">Esp</button>
+            </form>
+        </div>
+    """, unsafe_allow_html=True)
 
+    # Detectar clique em formulário de idioma
+    idioma_selecionado = st.session_state.get("idioma")
+    for key in ["pt", "en", "es"]:
+        if st.query_params.get("idioma") == key:
+            st.session_state["idioma"] = key
+            st.rerun()
+            
     st.markdown("</div>", unsafe_allow_html=True)
 
     # 🔐 Acesso Restrito
