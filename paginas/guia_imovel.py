@@ -1,10 +1,11 @@
 import streamlit as st
 import os
+from idiomas import pt, en, es  # ✅ Importar os textos traduzidos
 
 def exibir():
     idioma = st.session_state.get("idioma", "pt")
+    textos = {"pt": pt, "en": en, "es": es}[idioma]  # ✅ Obter os textos do idioma atual
 
-    # Caminho do arquivo conforme o idioma
     CAMINHO_ARQUIVO = os.path.join("paginas", "textos_idiomas", f"guia_imovel_{idioma}.txt")
 
     # Conteúdo padrão por idioma
@@ -66,7 +67,7 @@ def exibir():
     with open(CAMINHO_ARQUIVO, "r", encoding="utf-8") as f:
         conteudo = f.read()
 
-    st.markdown("""
+    st.markdown(f"""
         <div style="background-color:#262626;padding:30px;border-radius:15px;box-shadow:2px 2px 12px rgba(0,0,0,0.3);margin-bottom:20px;">
             <h2 style="color:#ff914d;text-align:center;">📘 {textos['guia_imovel']}</h2>
     """, unsafe_allow_html=True)
