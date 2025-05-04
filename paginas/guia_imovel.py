@@ -56,7 +56,7 @@ def exibir():
 - Check-out: hasta las 11h
 - Emergencia: +55 91 99999-9999
 """
-        }.get(idioma, "Conteúdo ainda não cadastrado.")
+        }.get(idioma, "Idioma não suportado ainda.")
 
     # Criar arquivo se estiver ausente
     if not os.path.exists(CAMINHO_ARQUIVO):
