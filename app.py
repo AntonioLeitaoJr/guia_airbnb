@@ -44,14 +44,14 @@ if st.session_state["modo_admin"]:
 
 # ===== SIDEBAR =====
 with st.sidebar:
-    # 🌐 Estilo para botões responsivos
+    # 🌐 Idioma
     st.markdown("""
         <style>
         .idioma-container {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
             gap: 8px;
+            flex-wrap: wrap;
             margin-bottom: 10px;
         }
         .idioma-container .stButton > button {
@@ -68,7 +68,6 @@ with st.sidebar:
         <div class="idioma-container">
     """, unsafe_allow_html=True)
 
-    # ✅ Botões de idioma nativos do Streamlit
     col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("Por", key="idioma_por"):
@@ -115,7 +114,7 @@ with st.sidebar:
 # ===== ROTAS PRINCIPAIS =====
 if menu.endswith(textos["boas_vindas"]):
     from paginas import boas_vindas
-    boas_vindas.exibir(st.session_state["idioma"])
+    boas_vindas.exibir(st.session_state["idioma"]) 
 elif menu.endswith(textos["guia_imovel"]):
     from paginas import guia_imovel
     guia_imovel.exibir()
