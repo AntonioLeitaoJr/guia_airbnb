@@ -46,35 +46,37 @@ with st.sidebar:
     # 🌐 Estilo + Idioma
     st.markdown("""
         <style>
-        .idioma-botoes {
+        .idioma-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
             justify-content: center;
+            gap: 8px;
             margin-bottom: 10px;
         }
-        .idioma-botoes .stButton > button {
+        .idioma-container .stButton > button {
             min-width: 60px;
             padding: 6px 12px;
             font-size: 14px;
             border-radius: 8px;
+            background-color: #f0f0f5;
+            border: 1px solid #ccc;
         }
         </style>
         <p style="font-size: 15px; margin-bottom: 6px;">🌐 <strong>Idioma</strong></p>
-        <div class="idioma-botoes">
+        <div class="idioma-container">
     """, unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
-        if st.button("Por", key="pt_btn"):
+        if st.button("Por", key="idioma_pt"):
             st.session_state["idioma"] = "pt"
             st.rerun()
     with col2:
-        if st.button("Eng", key="en_btn"):
+        if st.button("Eng", key="idioma_en"):
             st.session_state["idioma"] = "en"
             st.rerun()
     with col3:
-        if st.button("Esp", key="es_btn"):
+        if st.button("Esp", key="idioma_es"):
             st.session_state["idioma"] = "es"
             st.rerun()
 
