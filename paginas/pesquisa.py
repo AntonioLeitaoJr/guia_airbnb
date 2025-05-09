@@ -78,17 +78,35 @@ def exibir():
     with st.form(key="pesquisa_form"):
         col1, col2 = st.columns(2)
         with col1:
+        # Opções de "Sim" e "Não"
             opcoes_sim_nao = {"pt": ["Sim", "Não"], "en": ["Yes", "No"], "es": ["Sí", "No"]}[idioma]
-            reverso = {"Sim": "Sim", "Não": "Não", "Yes": "Sim", "No": "Não", "Sí": "Sim"}
+            reverso_sim_nao = {"Sim": "Sim", "Não": "Não", "Yes": "Sim", "No": "Não", "Sí": "Sim"}
 
             gostou_visual = st.radio(t["gostou"], opcoes_sim_nao)
             recomendaria_visual = st.radio(t["recomendaria"], opcoes_sim_nao)
 
-            # O que será salvo (valor base em português)
-            gostou = reverso[gostou_visual]
-            recomendaria = reverso[recomendaria_visual]
+            gostou = reverso_sim_nao[gostou_visual]
+            recomendaria = reverso_sim_nao[recomendaria_visual]
 
-            aplicativo = st.selectbox(t["aplicativo"], ["Airbnb", "Booking", "Direto com o anfitrião", "Outros"])
+        # Opções do aplicativo de hospedagem
+            opcoes_apps = {
+                "pt": ["Airbnb", "Booking", "Direto com o anfitrião", "Outros"],
+                "en": ["Airbnb", "Booking", "Direct with the host", "Others"],
+                "es": ["Airbnb", "Booking", "Directo con el anfitrión", "Otros"]
+            }
+            reverso_apps = {
+                "Airbnb": "Airbnb",
+                "Booking": "Booking",
+                "Direto com o anfitrião": "Direto com o anfitrião",
+                "Outros": "Outros",
+                "Direct with the host": "Direto com o anfitrião",
+                "Others": "Outros",
+                "Directo con el anfitrión": "Direto com o anfitrião",
+                "Otros": "Outros"
+            }
+
+            aplicativo_visual = st.selectbox(t["aplicativo"], opcoes_apps[idioma])
+            aplicativo = reverso_apps[aplicativo_visual]
         
         with col2:
             destaque = st.text_input(t["destaque"])
