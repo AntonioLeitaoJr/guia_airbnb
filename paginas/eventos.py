@@ -12,10 +12,16 @@ CAMINHO_ARQUIVO = os.path.join("paginas", "textos_idiomas", f"eventos_{idioma}.t
 # 3️⃣ Conteúdo padrão caso o arquivo ainda não exista
 def conteudo_padrao():
     return {
-        "pt": "🎉 Eventos\n\nConteúdo ainda não cadastrado.",
-        "en": "🎉 Events\n\nContent not yet available.",
-        "es": "🎉 Eventos\n\nContenido aún no registrado."
-    }.get(idioma, "Conteúdo ainda não cadastrado.")
+        "pt": """
+        "🎉 Eventos\n\nConteúdo ainda não cadastrado."
+        """,
+        "en": """
+        "🎉 Events\n\nContent not yet available."
+        """,
+        "es": """
+        "🎉 Eventos\n\nContenido aún no registrado."
+    """
+    }.get(idioma, "Idioma não suportado ainda.")
 
 # 4️⃣ Exibir conteúdo
 def exibir():
