@@ -43,6 +43,37 @@ def exibir():
         }
     }
 
+    traducoes_sim_nao = {
+        "pt": ["Sim", "Não"],
+        "en": ["Yes", "No"],
+        "es": ["Sí", "No"]
+    }
+
+    traducoes_aplicativos = {
+        "pt": ["Airbnb", "Booking", "Direto com o anfitrião", "Outros"],
+        "en": ["Airbnb", "Booking", "Direct with host", "Others"],
+        "es": ["Airbnb", "Booking", "Directo con el anfitrión", "Otros"]
+    }
+
+    mapa_aplicativo_reverso = {
+        "Airbnb": "Airbnb",
+        "Booking": "Booking",
+        "Direto com o anfitrião": "Direto com o anfitrião",
+        "Direct with host": "Direto com o anfitrião",
+        "Directo con el anfitrión": "Direto com o anfitrião",
+        "Outros": "Outros",
+        "Others": "Outros",
+        "Otros": "Outros"
+    }
+
+    mapa_sim_nao = {
+        "Sim": "Sim",
+        "Não": "Não",
+        "Yes": "Sim",
+        "No": "Não",
+        "Sí": "Sim"
+    }
+
     t = textos[idioma]
 
     st.markdown(f"""
@@ -78,43 +109,22 @@ def exibir():
     with st.form(key="pesquisa_form"):
         col1, col2 = st.columns(2)
         with col1:
-        # Opções de "Sim" e "Não"
-            opcoes_sim_nao = {"pt": ["Sim", "Não"], "en": ["Yes", "No"], "es": ["Sí", "No"]}[idioma]
-            reverso_sim_nao = {"Sim": "Sim", "Não": "Não", "Yes": "Sim", "No": "Não", "Sí": "Sim"}
+            opcoes_visuais = traducoes_sim_nao[idioma]
+            gostou_vis = st.radio(t["gostou"], opcoes_visuais)
+            recomendaria_vis = st.radio(t["recomendaria"], opcoes_visuais)
+            aplicativo_vis = st.selectbox(t["aplicativo"], traducoes_aplicativos[idioma])
 
-            gostou_visual = st.radio(t["gostou"], opcoes_sim_nao)
-            recomendaria_visual = st.radio(t["recomendaria"], opcoes_sim_nao)
+            # Convertendo para o que será salvo no Sheets (sempre em português)
+            gostou = mapa_sim_nao[gostou_vis]
+            recomendaria = mapa_sim_nao[recomendaria_vis]
+            aplicativo = mapa_aplicativo_reverso[aplicativo_vis]
 
-            gostou = reverso_sim_nao[gostou_visual]
-            recomendaria = reverso_sim_nao[recomendaria_visual]
-
-        # Opções do aplicativo de hospedagem
-            opcoes_apps = {
-                "pt": ["Airbnb", "Booking", "Direto com o anfitrião", "Outros"],
-                "en": ["Airbnb", "Booking", "Direct with the host", "Others"],
-                "es": ["Airbnb", "Booking", "Directo con el anfitrión", "Otros"]
-            }
-            reverso_apps = {
-                "Airbnb": "Airbnb",
-                "Booking": "Booking",
-                "Direto com o anfitrião": "Direto com o anfitrião",
-                "Outros": "Outros",
-                "Direct with the host": "Direto com o anfitrião",
-                "Others": "Outros",
-                "Directo con el anfitrión": "Direto com o anfitrião",
-                "Otros": "Outros"
-            }
-
-            aplicativo_visual = st.selectbox(t["aplicativo"], opcoes_apps[idioma])
-            aplicativo = reverso_apps[aplicativo_visual]
-        
         with col2:
             destaque = st.text_input(t["destaque"])
             melhoria = st.text_input(t["melhoria"])
             perfil_ou_nome = st.text_input(t["perfil"])
-        
-        mensagem = st.text_area(t["mensagem"])
 
+        mensagem = st.text_area(t["mensagem"])
         enviar = st.form_submit_button(t["enviar"])
 
         if enviar:
