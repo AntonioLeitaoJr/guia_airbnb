@@ -46,41 +46,29 @@ with st.sidebar:
     # 🌐 Estilo + Idioma
     st.markdown("""
         <style>
-        .idioma-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        .idioma-container .stButton > button {
-            min-width: 60px;
-            padding: 6px 12px;
+        .stButton > button {
             font-size: 14px;
+            padding: 6px 12px;
+            margin-bottom: 4px;
             border-radius: 8px;
-            background-color: #f0f0f5;
-            border: 1px solid #ccc;
         }
         </style>
         <p style="font-size: 15px; margin-bottom: 6px;">🌐 <strong>Idioma</strong></p>
-        <div class="idioma-container">
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([1, 1, 1])
+    col1, col2, col3 = st.columns(3)
     with col1:
-        if st.button("Português", key="idioma_pt"):
+        if st.button("Português"):
             st.session_state["idioma"] = "pt"
             st.rerun()
     with col2:
-        if st.button("English", key="idioma_en"):
+        if st.button("English"):
             st.session_state["idioma"] = "en"
             st.rerun()
     with col3:
-        if st.button("Español", key="idioma_es"):
+        if st.button("Español"):
             st.session_state["idioma"] = "es"
             st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
     # 🔐 Acesso Restrito
     if st.button("🔐 Acesso Restrito"):
