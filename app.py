@@ -56,19 +56,18 @@ with st.sidebar:
         <p style="font-size: 15px; margin-bottom: 6px;">🌐 <strong>Idioma</strong></p>
     """, unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        if st.button("Português"):
-            st.session_state["idioma"] = "pt"
-            st.rerun()
-    with col2:
-        if st.button("English"):
-            st.session_state["idioma"] = "en"
-            st.rerun()
-    with col3:
-        if st.button("Español"):
-            st.session_state["idioma"] = "es"
-            st.rerun()
+    if st.button("Português"):
+        st.session_state["idioma"] = "pt"
+        st.rerun()
+
+    if st.button("English"):
+        st.session_state["idioma"] = "en"
+        st.rerun()
+
+    if st.button("Español"):
+        st.session_state["idioma"] = "es"
+        st.rerun()
+
 
     # 🔐 Acesso Restrito
     if st.button("🔐 Acesso Restrito"):
