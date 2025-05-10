@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import qrcode
 from PIL import Image
+
 from idiomas import pt, en, es
 
 # ✅ Idioma padrão
@@ -42,48 +43,40 @@ if st.session_state["modo_admin"]:
 
 # ===== SIDEBAR =====
 with st.sidebar:
-    # 🌐 Estilo + Idioma com HTML puro responsivo
+    # 🌐 Estilo + Idioma
     st.markdown("""
         <style>
         .idioma-container {
             display: flex;
-            justify-content: space-between;
-            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
             margin-bottom: 10px;
         }
-        .idioma-container form {
-            margin: 0 !important;
-        }
-        .idioma-container button {
+        .idioma-container .stButton > button {
             min-width: 60px;
             padding: 6px 12px;
             font-size: 14px;
             border-radius: 8px;
-            border: 1px solid #ccc;
             background-color: #f0f0f5;
-            cursor: pointer;
+            border: 1px solid #ccc;
         }
         </style>
         <p style="font-size: 15px; margin-bottom: 6px;">🌐 <strong>Idioma</strong></p>
         <div class="idioma-container">
     """, unsafe_allow_html=True)
 
-    idioma_escolhido = st.empty()
-    col1 = st.form(key="form_pt")
+    col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
-        if st.form_submit_button("Por"):
+        if st.button("Português", key="idioma_pt"):
             st.session_state["idioma"] = "pt"
             st.rerun()
-
-    col2 = st.form(key="form_en")
     with col2:
-        if st.form_submit_button("Eng"):
+        if st.button("English", key="idioma_en"):
             st.session_state["idioma"] = "en"
             st.rerun()
-
-    col3 = st.form(key="form_es")
     with col3:
-        if st.form_submit_button("Esp"):
+        if st.button("Español", key="idioma_es"):
             st.session_state["idioma"] = "es"
             st.rerun()
 
