@@ -114,7 +114,7 @@ Promoción no válida para fechas relacionadas con la COP30 o el Círio de Nazar
 
         <div class="pesquisa-box">
             <div class="pesquisa-titulo">📝 {t["titulo"]}</div>
-            <div class="pesquisa-sub">{t["sub"]}</div>
+            <div class="pesquisa-sub">{t["sub"].replace('\n', '<br>')}</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -126,7 +126,6 @@ Promoción no válida para fechas relacionadas con la COP30 o el Círio de Nazar
             recomendaria_vis = st.radio(t["recomendaria"], opcoes_visuais)
             aplicativo_vis = st.selectbox(t["aplicativo"], traducoes_aplicativos[idioma])
 
-            # Convertendo para o que será salvo no Sheets (sempre em português)
             gostou = mapa_sim_nao[gostou_vis]
             recomendaria = mapa_sim_nao[recomendaria_vis]
             aplicativo = mapa_aplicativo_reverso[aplicativo_vis]
