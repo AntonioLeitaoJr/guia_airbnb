@@ -13,30 +13,37 @@ def exibir():
         </div>
     """, unsafe_allow_html=True)
     # Mensagem multilíngue em st.warning (com aspas corrigidas)
-    st.warning("""Olá! 👋 Esperamos que sua estadia tenha sido maravilhosa! 🌟
-Para nos ajudar a sempre melhorar, pedimos apenas 1 minutinho:
-Clique aqui 👉 https://guiaairbnbpesquisa.streamlit.app/ e responda nossa pesquisa rápida.
-Sua opinião é muito importante para nós! ❤
-Muito obrigado!
+    st.warning("""Mensagem para enviar ao hóspede na entrada!
+               
+---               
+               
+Olá! 😊
+Estamos muito felizes por saber que você escolheu se hospedar conosco!
+Preparamos tudo com carinho para que sua experiência seja tranquila, segura e inesquecível.
+Antes mesmo da sua chegada, você já pode acessar nosso Guia Digital com todas as informações úteis sobre o apartamento, o condomínio e a cidade:
+👉 https://guiaairbnbleitao.streamlit.app/
+Seja muito bem-vindo! Estamos à disposição para o que precisar. 💙
 
 ---
 
-Hello! 👋 We hope your stay was wonderful! 🌟
-To help us keep improving, we kindly ask for just 1 minute:
-Click here 👉 https://guiaairbnbpesquisa.streamlit.app/ and answer our quick survey.
-Your opinion is very important to us! ❤
-Thank you very much!
+Hello! 😊
+We’re thrilled to know that you’ve chosen to stay with us!
+We’ve prepared everything with care so your experience will be smooth, safe, and unforgettable.
+Even before your arrival, you can access our Digital Guide with all the useful information about the apartment, the building, and the city:
+👉 https://guiaairbnbleitao.streamlit.app/
+Welcome! We’re here for anything you need. 💙
 
 ---
 
-¡Hola! 👋 ¡Esperamos que tu estadía haya sido maravillosa! 🌟
-Para ayudarnos a mejorar siempre, te pedimos solo 1 minutito:
-Haz clic aquí 👉 https://guiaairbnbpesquisa.streamlit.app/ y responde nuestra encuesta rápida.
-¡Tu opinión es muy importante para nosotros! ❤
-¡Muchas gracias!""")
+¡Hola! 😊
+¡Estamos muy felices de saber que elegiste hospedarte con nosotros!
+Hemos preparado todo con cariño para que tu experiencia sea tranquila, segura e inolvidable.
+Incluso antes de tu llegada, ya puedes acceder a nuestra Guía Digital con toda la información útil sobre el apartamento, el condominio y la ciudad:
+👉 https://guiaairbnbleitao.streamlit.app/
+¡Bienvenido! Estamos a tu disposición para lo que necesites. 💙""")
     
     # Mensagem multilíngue em st.warning (Envio de mensagem Whatsapp de pesquisa)
-    st.warning("""Mesagem para enviar ao hóspede na saída para responder ao questionário!
+    st.warning("""Mesagem para enviar ao hóspede na saída!
 
 ---
                
