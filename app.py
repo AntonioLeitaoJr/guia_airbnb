@@ -25,21 +25,8 @@ query_params = st.query_params
 if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
 
-# ✅ Menu principal
-opcoes_menu = [
-    f"🏠 {textos['boas_vindas']}",
-    f"📘 {textos['guia_imovel']}",
-    f"🗺️ {textos['mapa']}",
-    f"🎉 {textos['eventos']}"
-]
-if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
-    opcoes_menu.append(f"📝 {textos['pesquisa']}")
-if st.session_state["modo_admin"]:
-    opcoes_menu.append(f"⚙️ {textos['configuracoes']}")
-
-# ===== SIDEBAR =====
+# ===== SIDEBAR (idioma e login admin) =====
 with st.sidebar:
-    # 🌐 Estilo + Idioma
     st.markdown("""
         <style>
         .idioma-container {
@@ -74,7 +61,6 @@ with st.sidebar:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 🔐 Acesso Restrito
     if st.button("🔐 Acesso Restrito"):
         st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
@@ -86,14 +72,6 @@ with st.sidebar:
         elif senha != "":
             st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado!")
 
-    # 🧭 Navegação
-    st.markdown(f"""
-        <h2 style='text-align: center; color: #262626;'>{textos['sidebar_title']}</h2>
-        <p style='text-align: center; color: #888;'>{textos['navegar_para']}</p>
-    """, unsafe_allow_html=True)
-
-    menu = st.radio("", opcoes_menu)
-
     # 🔻 Logo
     st.markdown("<hr>", unsafe_allow_html=True)
     imagem_logo = Image.open("simbolo_airbnb.jpg")
@@ -101,22 +79,48 @@ with st.sidebar:
     st.image(imagem_logo, width=230)
     st.markdown("</div>", unsafe_allow_html=True)
 
+# ===== MENU SUPERIOR (como botões) =====
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center;'>📍 Acesse as seções abaixo</h4>", unsafe_allow_html=True)
+
+botoes = [
+    ("🏠", textos["boas_vindas"]),
+    ("📘", textos["guia_imovel"]),
+    ("🗺️", textos["mapa"]),
+    ("🎉", textos["eventos"])
+]
+if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
+    botoes.append(("📝", textos["pesquisa"]))
+if st.session_state["modo_admin"]:
+    botoes.append(("⚙️", textos["configuracoes"]))
+
+cols = st.columns(len(botoes))
+for i, (emoji, nome) in enumerate(botoes):
+    if cols[i].button(f"{emoji} {nome}"):
+        st.session_state["menu_index"] = nome
+
+# Valor padrão
+if "menu_index" not in st.session_state:
+    st.session_state["menu_index"] = textos["boas_vindas"]
+
+menu = st.session_state["menu_index"]
+
 # ===== ROTAS =====
-if menu.endswith(textos["boas_vindas"]):
+if menu == textos["boas_vindas"]:
     from paginas import boas_vindas
     boas_vindas.exibir(st.session_state["idioma"])
-elif menu.endswith(textos["guia_imovel"]):
+elif menu == textos["guia_imovel"]:
     from paginas import guia_imovel
     guia_imovel.exibir()
-elif menu.endswith(textos["mapa"]):
+elif menu == textos["mapa"]:
     from paginas import mapa
     mapa.exibir()
-elif menu.endswith(textos["eventos"]):
+elif menu == textos["eventos"]:
     from paginas import eventos
     eventos.exibir()
-elif menu.endswith(textos["pesquisa"]):
+elif menu == textos["pesquisa"]:
     from paginas import pesquisa
     pesquisa.exibir()
-elif menu.endswith(textos["configuracoes"]):
+elif menu == textos["configuracoes"]:
     from paginas import admin_config
     admin_config.exibir()
