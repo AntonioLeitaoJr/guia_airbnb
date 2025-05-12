@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import qrcode
 from PIL import Image
+import streamlit.components.v1 as components
 
 from idiomas import pt, en, es
 
@@ -24,6 +25,16 @@ if "mostrar_login" not in st.session_state:
 query_params = st.query_params
 if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
+
+# ✅ Abrir sidebar automaticamente ao carregar (especialmente no mobile)
+components.html("""
+    <script>
+        const sidebar = window.parent.document.querySelector('section[data-testid="stSidebar"]');
+        if (sidebar) {
+            sidebar.style.transform = 'translateX(0%)';
+        }
+    </script>
+""", height=0)
 
 # ✅ Menu principal
 opcoes_menu = [
@@ -93,6 +104,18 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     menu = st.radio("", opcoes_menu)
+
+    # ✅ Fechar sidebar automaticamente após clique
+    components.html("""
+        <script>
+            const sidebar = window.parent.document.querySelector('section[data-testid="stSidebar"]');
+            if (sidebar) {
+                setTimeout(() => {
+                    sidebar.style.transform = 'translateX(-100%)';
+                }, 500);
+            }
+        </script>
+    """, height=0)
 
     # 🔻 Logo
     st.markdown("<hr>", unsafe_allow_html=True)
