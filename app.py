@@ -35,11 +35,7 @@ opcoes_menu = [
 if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     opcoes_menu.append(f"📝 {textos['pesquisa']}")
 if st.session_state["modo_admin"]:
-    opcoes_menu += [
-        f"📲 {textos['enviar_pesquisa']}",
-        f"📊 {textos['ver_respostas']}",
-        f"⚙️ {textos['configuracoes']}"
-    ]
+    opcoes_menu.append(f"⚙️ {textos['configuracoes']}")
 
 # ===== SIDEBAR =====
 with st.sidebar:
@@ -48,8 +44,8 @@ with st.sidebar:
         <style>
         .idioma-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 8px;
             margin-bottom: 10px;
         }
@@ -66,17 +62,15 @@ with st.sidebar:
         <div class="idioma-container">
     """, unsafe_allow_html=True)
 
-
     if st.button("Português", key="idioma_pt"):
-            st.session_state["idioma"] = "pt"
-            st.rerun()
-
+        st.session_state["idioma"] = "pt"
+        st.rerun()
     if st.button("English", key="idioma_en"):
-            st.session_state["idioma"] = "en"
-            st.rerun()
+        st.session_state["idioma"] = "en"
+        st.rerun()
     if st.button("Español", key="idioma_es"):
-            st.session_state["idioma"] = "es"
-            st.rerun()
+        st.session_state["idioma"] = "es"
+        st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -123,12 +117,6 @@ elif menu.endswith(textos["eventos"]):
 elif menu.endswith(textos["pesquisa"]):
     from paginas import pesquisa
     pesquisa.exibir()
-elif menu.endswith(textos["enviar_pesquisa"]):
-    from paginas import admin_enviar
-    admin_enviar.exibir()
-elif menu.endswith(textos["ver_respostas"]):
-    from paginas import admin_respostas
-    admin_respostas.exibir()
 elif menu.endswith(textos["configuracoes"]):
     from paginas import admin_config
     admin_config.exibir()
