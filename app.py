@@ -25,7 +25,7 @@ query_params = st.query_params
 if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
 
-# ===== SIDEBAR (idioma e login admin) =====
+# ===== SIDEBAR (idioma e login apenas) =====
 with st.sidebar:
     st.markdown("""
         <style>
@@ -61,6 +61,7 @@ with st.sidebar:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
+    # 🔐 Acesso Restrito
     if st.button("🔐 Acesso Restrito"):
         st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
@@ -79,7 +80,7 @@ with st.sidebar:
     st.image(imagem_logo, width=230)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ===== MENU SUPERIOR (como botões) =====
+# ===== MENU SUPERIOR COMO BOTÕES HORIZONTAIS =====
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center;'>📍 Acesse as seções abaixo</h4>", unsafe_allow_html=True)
 
