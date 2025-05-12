@@ -61,7 +61,6 @@ with st.sidebar:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # 🔐 Acesso Restrito
     if st.button("🔐 Acesso Restrito"):
         st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
 
@@ -80,33 +79,75 @@ with st.sidebar:
     st.image(imagem_logo, width=230)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ===== MENU SUPERIOR COMO BOTÕES HORIZONTAIS =====
-st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center;'>📍 Acesse as seções abaixo</h4>", unsafe_allow_html=True)
-
+# ===== MENU SUPERIOR COM ESTILO =====
 botoes = [
     ("🏠", textos["boas_vindas"]),
     ("📘", textos["guia_imovel"]),
     ("🗺️", textos["mapa"]),
     ("🎉", textos["eventos"])
 ]
+
+# Mostrar "Pesquisa" se for modo visitante com pesquisa ativa
 if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     botoes.append(("📝", textos["pesquisa"]))
+
+# Mostrar "Configurações" se for modo admin
 if st.session_state["modo_admin"]:
     botoes.append(("⚙️", textos["configuracoes"]))
 
-cols = st.columns(len(botoes))
-for i, (emoji, nome) in enumerate(botoes):
-    if cols[i].button(f"{emoji} {nome}"):
-        st.session_state["menu_index"] = nome
-
-# Valor padrão
+# Valor padrão da aba ativa
 if "menu_index" not in st.session_state:
     st.session_state["menu_index"] = textos["boas_vindas"]
 
-menu = st.session_state["menu_index"]
+# CSS para botões estilizados
+st.markdown("""
+    <style>
+    .menu-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .menu-botao {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 2px solid #888;
+        background-color: #f9f9f9;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        color: #333;
+        font-weight: normal;
+        transition: 0.3s;
+    }
+    .menu-botao:hover {
+        background-color: #eee;
+        border-color: #666;
+    }
+    .menu-ativo {
+        background-color: #003366;
+        color: white !important;
+        font-weight: bold;
+        border-color: #003366;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Renderiza os botões do menu
+st.markdown('<div class="menu-container">', unsafe_allow_html=True)
+cols = st.columns(len(botoes))
+for i, (emoji, nome) in enumerate(botoes):
+    ativo = (st.session_state["menu_index"] == nome)
+    classe = "menu-botao menu-ativo" if ativo else "menu-botao"
+    if cols[i].button(f"{emoji} {nome}", key=f"menu_{nome}"):
+        st.session_state["menu_index"] = nome
+st.markdown('</div>', unsafe_allow_html=True)
 
 # ===== ROTAS =====
+menu = st.session_state["menu_index"]
+
 if menu == textos["boas_vindas"]:
     from paginas import boas_vindas
     boas_vindas.exibir(st.session_state["idioma"])
