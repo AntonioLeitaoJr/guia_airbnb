@@ -6,15 +6,42 @@ import streamlit.components.v1 as components
 
 from idiomas import pt, en, es
 
-# ===== Botão personalizado para abrir a sidebar =====
-st.markdown("""
+# ===== Botão hambúrguer que substitui a seta da sidebar =====
+components.html("""
+    <script>
+        // Esconde a seta original após carregamento
+        const hideSidebarArrow = () => {
+            const arrow = window.parent.document.querySelector('[data-testid="collapsedControl"]');
+            if (arrow) arrow.style.display = "none";
+        }
+        setTimeout(hideSidebarArrow, 1000);  // espera 1 segundo
+
+        // Função para abrir a sidebar
+        function abrirSidebar() {
+            const sidebar = window.parent.document.querySelector('section[data-testid="stSidebar"]');
+            if (sidebar) {
+                sidebar.style.transform = "translateX(0%)";
+            }
+        }
+
+        // Adiciona o botão hambúrguer
+        document.addEventListener("DOMContentLoaded", () => {
+            const botao = document.createElement("div");
+            botao.id = "customMenuBtn";
+            botao.innerHTML = `
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            `;
+            botao.onclick = abrirSidebar;
+            document.body.appendChild(botao);
+        });
+    </script>
+
     <style>
-    /* Oculta a seta original */
     [data-testid="collapsedControl"] {
         display: none !important;
     }
-
-    /* Botão hambúrguer customizado */
     #customMenuBtn {
         position: fixed;
         top: 10px;
@@ -40,13 +67,7 @@ st.markdown("""
         margin: 3px 0;
     }
     </style>
-
-    <div id="customMenuBtn" onclick="document.querySelector('section[data-testid=stSidebar]').style.transform = 'translateX(0%)';">
-        <div class="menu-line"></div>
-        <div class="menu-line"></div>
-        <div class="menu-line"></div>
-    </div>
-""", unsafe_allow_html=True)
+""", height=0)
 
 # ✅ Idioma padrão
 if "idioma" not in st.session_state:
@@ -115,7 +136,6 @@ with st.sidebar:
         elif senha != "":
             st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado!")
 
-    # 🔻 Logo
     st.markdown("<hr>", unsafe_allow_html=True)
     imagem_logo = Image.open("simbolo_airbnb.jpg")
     st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
