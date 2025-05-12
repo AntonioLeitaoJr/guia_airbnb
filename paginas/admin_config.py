@@ -12,9 +12,35 @@ def exibir():
             </p>
         </div>
     """, unsafe_allow_html=True)
-
     # Mensagem multilíngue em st.warning (com aspas corrigidas)
     st.warning("""Olá! 👋 Esperamos que sua estadia tenha sido maravilhosa! 🌟
+Para nos ajudar a sempre melhorar, pedimos apenas 1 minutinho:
+Clique aqui 👉 https://guiaairbnbpesquisa.streamlit.app/ e responda nossa pesquisa rápida.
+Sua opinião é muito importante para nós! ❤
+Muito obrigado!
+
+---
+
+Hello! 👋 We hope your stay was wonderful! 🌟
+To help us keep improving, we kindly ask for just 1 minute:
+Click here 👉 https://guiaairbnbpesquisa.streamlit.app/ and answer our quick survey.
+Your opinion is very important to us! ❤
+Thank you very much!
+
+---
+
+¡Hola! 👋 ¡Esperamos que tu estadía haya sido maravillosa! 🌟
+Para ayudarnos a mejorar siempre, te pedimos solo 1 minutito:
+Haz clic aquí 👉 https://guiaairbnbpesquisa.streamlit.app/ y responde nuestra encuesta rápida.
+¡Tu opinión es muy importante para nosotros! ❤
+¡Muchas gracias!""")
+    
+    # Mensagem multilíngue em st.warning (Envio de mensagem Whatsapp de pesquisa)
+    st.warning("""Mesagem para enviar ao hóspede na saída para responder ao questionário!
+
+---
+               
+               Olá! 👋 Esperamos que sua estadia tenha sido maravilhosa! 🌟
 Para nos ajudar a sempre melhorar, pedimos apenas 1 minutinho:
 Clique aqui 👉 https://guiaairbnbpesquisa.streamlit.app/ e responda nossa pesquisa rápida.
 Sua opinião é muito importante para nós! ❤
