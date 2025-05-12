@@ -40,7 +40,7 @@ Haz clic aquí 👉 https://guiaairbnbpesquisa.streamlit.app/ y responde nuestra
 
 ---
                
-               Olá! 👋 Esperamos que sua estadia tenha sido maravilhosa! 🌟
+Olá! 👋 Esperamos que sua estadia tenha sido maravilhosa! 🌟
 Para nos ajudar a sempre melhorar, pedimos apenas 1 minutinho:
 Clique aqui 👉 https://guiaairbnbpesquisa.streamlit.app/ e responda nossa pesquisa rápida.
 Sua opinião é muito importante para nós! ❤
