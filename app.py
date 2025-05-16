@@ -6,77 +6,62 @@ import streamlit.components.v1 as components
 
 from idiomas import pt, en, es
 
-# ===== Botão hambúrguer que substitui a seta da sidebar =====
+# ===== BOTÃO HAMBÚRGUER COM SUPRESSÃO REAL DA SETA =====
 components.html("""
     <script>
-        // Esconde a seta original após carregamento
-        const hideSidebarArrow = () => {
-            const arrow = window.parent.document.querySelector('[data-testid="collapsedControl"]');
-            if (arrow) arrow.style.display = "none";
-        }
-        setTimeout(hideSidebarArrow, 1000);  // espera 1 segundo
+        const observer = new MutationObserver(() => {
+            const btn = window.parent.document.querySelector('[data-testid="collapsedControl"]');
+            if (btn) btn.style.display = "none";
+        });
+        observer.observe(window.parent.document, { childList: true, subtree: true });
 
-        // Função para abrir a sidebar
         function abrirSidebar() {
             const sidebar = window.parent.document.querySelector('section[data-testid="stSidebar"]');
-            if (sidebar) {
-                sidebar.style.transform = "translateX(0%)";
-            }
+            if (sidebar) sidebar.style.transform = 'translateX(0%)';
         }
 
-        // Adiciona o botão hambúrguer
-        document.addEventListener("DOMContentLoaded", () => {
-            const botao = document.createElement("div");
-            botao.id = "customMenuBtn";
-            botao.innerHTML = `
-                <div class="menu-line"></div>
-                <div class="menu-line"></div>
-                <div class="menu-line"></div>
-            `;
-            botao.onclick = abrirSidebar;
-            document.body.appendChild(botao);
+        // Botão hamburguer
+        const botao = document.createElement("div");
+        botao.id = "customMenuBtn";
+        botao.innerHTML = `
+            <div class="menu-line"></div>
+            <div class="menu-line"></div>
+            <div class="menu-line"></div>
+        `;
+        botao.onclick = abrirSidebar;
+        Object.assign(botao.style, {
+            position: 'fixed',
+            top: '10px',
+            left: '10px',
+            width: '45px',
+            height: '45px',
+            background: '#ffffffcc',
+            borderRadius: '50%',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer'
         });
+        const linha = () => {
+            const div = document.createElement("div");
+            div.style.width = "20px";
+            div.style.height = "2px";
+            div.style.background = "#333";
+            div.style.margin = "3px 0";
+            return div;
+        };
+        botao.appendChild(linha());
+        botao.appendChild(linha());
+        botao.appendChild(linha());
+        document.body.appendChild(botao);
     </script>
-
-    <style>
-    [data-testid="collapsedControl"] {
-        display: none !important;
-    }
-    #customMenuBtn {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1000;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        background-color: #ffffffcc;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-    #customMenuBtn:hover {
-        background-color: #eeeeee;
-    }
-    .menu-line {
-        width: 20px;
-        height: 2px;
-        background-color: #333;
-        margin: 3px 0;
-    }
-    </style>
 """, height=0)
 
-# ✅ Idioma padrão
+# ✅ Estados
 if "idioma" not in st.session_state:
     st.session_state["idioma"] = "pt"
-
-idioma = st.session_state["idioma"]
-textos = {"pt": pt, "en": en, "es": es}[idioma]
-
-# ✅ Estados
 if "modo_admin" not in st.session_state:
     st.session_state["modo_admin"] = False
 if "modo_pesquisa" not in st.session_state:
@@ -84,12 +69,14 @@ if "modo_pesquisa" not in st.session_state:
 if "mostrar_login" not in st.session_state:
     st.session_state["mostrar_login"] = False
 
-# ✅ Ativação automática por link
+idioma = st.session_state["idioma"]
+textos = {"pt": pt, "en": en, "es": es}[idioma]
+
 query_params = st.query_params
 if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
 
-# ===== SIDEBAR (idioma e login apenas) =====
+# ===== SIDEBAR =====
 with st.sidebar:
     st.markdown("""
         <style>
@@ -149,10 +136,8 @@ botoes = [
     ("🗺️", textos["mapa"]),
     ("🎉", textos["eventos"])
 ]
-
 if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     botoes.append(("📝", textos["pesquisa"]))
-
 if st.session_state["modo_admin"]:
     botoes.append(("⚙️", textos["configuracoes"]))
 
