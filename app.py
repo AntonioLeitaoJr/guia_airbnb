@@ -51,12 +51,15 @@ with st.sidebar:
 
     if st.button("Português", key="idioma_pt"):
         st.session_state["idioma"] = "pt"
+        st.session_state["menu_index"] = pt["boas_vindas"]
         st.rerun()
     if st.button("English", key="idioma_en"):
         st.session_state["idioma"] = "en"
+        st.session_state["menu_index"] = en["boas_vindas"]
         st.rerun()
     if st.button("Español", key="idioma_es"):
         st.session_state["idioma"] = "es"
+        st.session_state["menu_index"] = es["boas_vindas"]
         st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True)
@@ -72,7 +75,6 @@ with st.sidebar:
         elif senha != "":
             st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado!")
 
-    # 🔻 Logo
     st.markdown("<hr>", unsafe_allow_html=True)
     imagem_logo = Image.open("simbolo_airbnb.jpg")
     st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
@@ -87,19 +89,14 @@ botoes = [
     ("🎉", textos["eventos"])
 ]
 
-# Mostrar "Pesquisa" se for modo visitante com pesquisa ativa
 if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     botoes.append(("📝", textos["pesquisa"]))
-
-# Mostrar "Configurações" se for modo admin
 if st.session_state["modo_admin"]:
     botoes.append(("⚙️", textos["configuracoes"]))
 
-# Valor padrão da aba ativa
 if "menu_index" not in st.session_state:
     st.session_state["menu_index"] = textos["boas_vindas"]
 
-# CSS para botões estilizados
 st.markdown("""
     <style>
     .menu-container {
@@ -135,7 +132,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Renderiza os botões do menu
 st.markdown('<div class="menu-container">', unsafe_allow_html=True)
 cols = st.columns(len(botoes))
 for i, (emoji, nome) in enumerate(botoes):
