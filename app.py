@@ -90,19 +90,14 @@ botoes = [
     ("🎉", textos["eventos"])
 ]
 
-# Mostrar "Pesquisa" se for modo visitante com pesquisa ativa
 if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     botoes.append(("📝", textos["pesquisa"]))
-
-# Mostrar "Configurações" se for modo admin
 if st.session_state["modo_admin"]:
     botoes.append(("⚙️", textos["configuracoes"]))
 
-# Valor padrão da aba ativa
 if "menu_index" not in st.session_state:
     st.session_state["menu_index"] = textos["boas_vindas"]
 
-# CSS para botões estilizados
 st.markdown("""
     <style>
     .menu-container {
@@ -138,7 +133,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Renderiza os botões do menu
 st.markdown('<div class="menu-container">', unsafe_allow_html=True)
 cols = st.columns(len(botoes))
 for i, (emoji, nome) in enumerate(botoes):
