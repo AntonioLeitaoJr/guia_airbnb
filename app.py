@@ -51,12 +51,15 @@ with st.sidebar:
 
     if st.button("Português", key="idioma_pt"):
         st.session_state["idioma"] = "pt"
+        st.session_state["menu_index"] = pt["boas_vindas"]
         st.rerun()
     if st.button("English", key="idioma_en"):
         st.session_state["idioma"] = "en"
+        st.session_state["menu_index"] = en["boas_vindas"]
         st.rerun()
     if st.button("Español", key="idioma_es"):
         st.session_state["idioma"] = "es"
+        st.session_state["menu_index"] = es["boas_vindas"]
         st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True)
