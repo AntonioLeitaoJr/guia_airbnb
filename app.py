@@ -25,7 +25,7 @@ query_params = st.query_params
 if query_params.get("pesquisa") == "sim":
     st.session_state["modo_pesquisa"] = True
 
-# ===== SIDEBAR (idioma e login apenas) =====
+# ===== SIDEBAR (idioma e login admin) =====
 with st.sidebar:
     st.markdown("""
         <style>
@@ -51,15 +51,12 @@ with st.sidebar:
 
     if st.button("Português", key="idioma_pt"):
         st.session_state["idioma"] = "pt"
-        st.session_state["menu_index"] = pt["boas_vindas"]
         st.rerun()
     if st.button("English", key="idioma_en"):
         st.session_state["idioma"] = "en"
-        st.session_state["menu_index"] = en["boas_vindas"]
         st.rerun()
     if st.button("Español", key="idioma_es"):
         st.session_state["idioma"] = "es"
-        st.session_state["menu_index"] = es["boas_vindas"]
         st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True)
@@ -75,75 +72,40 @@ with st.sidebar:
         elif senha != "":
             st.error("❌ Senha incorreta. Após 3 tentativas, o site será bloqueado!")
 
+    # 🔻 Logo
     st.markdown("<hr>", unsafe_allow_html=True)
     imagem_logo = Image.open("simbolo_airbnb.jpg")
     st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
     st.image(imagem_logo, width=230)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ===== MENU SUPERIOR COM ESTILO =====
+# ===== MENU SUPERIOR (como botões) =====
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center;'>📍 Acesse as seções abaixo</h4>", unsafe_allow_html=True)
+
 botoes = [
     ("🏠", textos["boas_vindas"]),
     ("📘", textos["guia_imovel"]),
     ("🗺️", textos["mapa"]),
     ("🎉", textos["eventos"])
 ]
-
 if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     botoes.append(("📝", textos["pesquisa"]))
 if st.session_state["modo_admin"]:
     botoes.append(("⚙️", textos["configuracoes"]))
 
+cols = st.columns(len(botoes))
+for i, (emoji, nome) in enumerate(botoes):
+    if cols[i].button(f"{emoji} {nome}"):
+        st.session_state["menu_index"] = nome
+
+# Valor padrão
 if "menu_index" not in st.session_state:
     st.session_state["menu_index"] = textos["boas_vindas"]
 
-st.markdown("""
-    <style>
-    .menu-container {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-    .menu-botao {
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: 2px solid #888;
-        background-color: #f9f9f9;
-        font-size: 16px;
-        cursor: pointer;
-        text-align: center;
-        color: #333;
-        font-weight: normal;
-        transition: 0.3s;
-    }
-    .menu-botao:hover {
-        background-color: #eee;
-        border-color: #666;
-    }
-    .menu-ativo {
-        background-color: #003366;
-        color: white !important;
-        font-weight: bold;
-        border-color: #003366;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-st.markdown('<div class="menu-container">', unsafe_allow_html=True)
-cols = st.columns(len(botoes))
-for i, (emoji, nome) in enumerate(botoes):
-    ativo = (st.session_state["menu_index"] == nome)
-    classe = "menu-botao menu-ativo" if ativo else "menu-botao"
-    if cols[i].button(f"{emoji} {nome}", key=f"menu_{nome}"):
-        st.session_state["menu_index"] = nome
-st.markdown('</div>', unsafe_allow_html=True)
-
-# ===== ROTAS =====
 menu = st.session_state["menu_index"]
 
+# ===== ROTAS =====
 if menu == textos["boas_vindas"]:
     from paginas import boas_vindas
     boas_vindas.exibir(st.session_state["idioma"])
