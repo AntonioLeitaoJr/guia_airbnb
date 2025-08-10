@@ -1,4 +1,4 @@
-📘 Guia do Imóvel
+go📘 Guia do Imóvel
 
 **Wi-Fi:** Rede: `TE904` | Senha: `TorreEvidence904.`
 
@@ -11,7 +11,7 @@
 - ACADEMIA: 24 horas (solicite o controle do ar condicionado e televisor na portaria);
 - QUADRA INFANTIL: 24 horas (Para ligar as luzes no período noturno, peça ajuda ao porteiro);
 - PLAYGROUND: 24 horas (Respeite o limite de peso e idade dos brinquedos); e
-- SALA DE REUNIÕES, CHURRASQUEIRA, SALÃO DE FESTAS ou SALÃO GOURMET: Serviço pago não inclusos no valor da estadia. Deverá ser agendada na portaria e pago no mesmo local.
+- SALA DE REUNIÕES, CHURRASQUEIRA, SALÃO DE FESTAS ou SALÃO GOURMET: Serviço pago não inclusos no valor da estadia. Deverá ser agendada e pago na portaria.
 
 **1º ANDAR DE GARAGEM - G1** 
 - ESTACIONAMENTO: Uma vaga de carro, número **63**. Não há ponto de recarga de carro elétrico. Proibido o uso de tomada da garagem para recarga (passível de multa).
