@@ -3,15 +3,15 @@ import streamlit as st
 def exibir(idioma):
     textos = {
         "pt": {
-            "titulo": "Bem-vindo à Torre Evidence!",
+            "titulo": "Bem-vindo ao Apartamento 904 da Torre Evidence!",
             "mensagem": "Esperamos que sua estadia seja confortável, segura e inesquecível.<br>Aqui você encontrará tudo o que precisa para aproveitar o melhor da hospedagem e da cidade de Belém - Pará."
         },
         "en": {
-            "titulo": "Welcome to Torre Evidence!",
+            "titulo": "Welcome to Apartment 904 of Torre Evidence!",
             "mensagem": "We hope your stay is comfortable, safe, and unforgettable.<br>Here you will find everything you need to enjoy the best of your stay and the city of Belém - Pará."
         },
         "es": {
-            "titulo": "¡Bienvenido a Torre Evidence!",
+            "titulo": "¡Bienvenido al Apartamento 904 de la Torre Evidence!",
             "mensagem": "Esperamos que su estadía sea cómoda, segura e inolvidable.<br>Aquí encontrará todo lo que necesita para disfrutar al máximo del alojamiento y de la ciudad de Belém - Pará."
         }
     }
