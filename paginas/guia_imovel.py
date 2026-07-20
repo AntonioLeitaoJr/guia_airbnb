@@ -72,7 +72,7 @@ def exibir():
             <h2 style="color:#ff914d;text-align:center;">📘 {textos['guia_imovel']}</h2>
     """, unsafe_allow_html=True)
 
-    st.markdown(conteudo, unsafe_allow_html=True)
+    st.markdown(conteudo)
 
     st.markdown("</div>", unsafe_allow_html=True)
 

@@ -33,7 +33,7 @@ def exibir():
         </div>
     """, unsafe_allow_html=True)
 
-    st.markdown(conteudo, unsafe_allow_html=True)
+    st.markdown(conteudo)
 
     # Edição se for admin
     if st.session_state.get("modo_admin"):
