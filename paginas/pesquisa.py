@@ -1,4 +1,6 @@
 import streamlit as st
+
+from paginas.componentes import cabecalho_card
 from paginas.servico_sheets import append_resposta
 
 def exibir():
@@ -88,35 +90,7 @@ Promoción no válida para fechas relacionadas con la COP30 o el Círio de Nazar
 
     t = textos[idioma]
 
-    st.markdown(f"""
-        <style>
-        .pesquisa-box {{
-            background-color: #262626;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 2px 2px 12px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-        }}
-        .pesquisa-titulo {{
-            color: #ff914d;
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }}
-        .pesquisa-sub {{
-            color: #eaeaea;
-            text-align: center;
-            font-size: 16px;
-            margin-bottom: 25px;
-        }}
-        </style>
-
-        <div class="pesquisa-box">
-            <div class="pesquisa-titulo">📝 {t["titulo"]}</div>
-            <div class="pesquisa-sub">{t["sub"].replace('\n', '<br>')}</div>
-        </div>
-    """, unsafe_allow_html=True)
+    cabecalho_card(f"📝 {t['titulo']}", t["sub"].replace("\n", "<br>"))
 
     with st.form(key="pesquisa_form"):
         col1, col2 = st.columns(2)
