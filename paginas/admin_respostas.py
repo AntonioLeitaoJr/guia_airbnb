@@ -1,20 +1,32 @@
-import streamlit as st
 import pandas as pd
-import os
+import streamlit as st
+
+from paginas.componentes import cabecalho_card
+from paginas.servico_sheets import listar_respostas
+
 
 def exibir():
-    st.markdown("""
-        <div style="background-color:#262626;padding:30px;border-radius:15px;margin-bottom:20px;">
-            <h2 style="color:#ff914d;text-align:center;">📊 Ver Respostas</h2>
-            <p style="color:#eaeaea;text-align:center;">
-                Visualize abaixo as respostas da pesquisa de satisfação.
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
-    if not os.path.exists("respostas.csv"):
+    cabecalho_card("📊 Ver Respostas", "Visualize abaixo as respostas da pesquisa de satisfação.")
 
+    try:
+        valores = listar_respostas()
+    except Exception:
+        st.error("Não foi possível carregar as respostas do Google Sheets agora.")
+        return
+
+    if not valores:
         st.info("Ainda não há respostas registradas.")
+        return
+
+    if len(valores) > 1:
+        df = pd.DataFrame(valores[1:], columns=valores[0])
     else:
-        df = pd.read_csv("respostas.csv")
-        st.dataframe(df, use_container_width=True)
-        st.download_button("📂 Baixar Excel", data=df.to_csv(index=False), file_name="respostas.csv", mime="text/csv")
+        df = pd.DataFrame(valores)
+
+    st.dataframe(df, use_container_width=True)
+    st.download_button(
+        "📂 Baixar CSV",
+        data=df.to_csv(index=False),
+        file_name="respostas.csv",
+        mime="text/csv",
+    )

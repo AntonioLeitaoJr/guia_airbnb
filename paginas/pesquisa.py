@@ -1,5 +1,5 @@
 import streamlit as st
-from paginas.servico_sheets import aba
+from paginas.servico_sheets import append_resposta
 
 def exibir():
     idioma = st.session_state.get("idioma", "pt")
@@ -140,8 +140,12 @@ Promoción no válida para fechas relacionadas con la COP30 o el Círio de Nazar
 
         if enviar:
             try:
+                if not perfil_ou_nome.strip():
+                    st.warning("⚠️ Informe seu nome ou perfil antes de enviar.")
+                    return
+
                 dados = [gostou, destaque, melhoria, recomendaria, aplicativo, perfil_ou_nome, mensagem]
-                aba.append_row(dados)
+                append_resposta(dados)
                 st.success("✅ Obrigado! Sua resposta foi registrada com sucesso.")
-            except Exception as e:
-                st.error(f"❌ Erro ao salvar resposta: {e}")
+            except Exception:
+                st.error("❌ Não foi possível salvar sua resposta agora. Tente novamente em alguns instantes.")
