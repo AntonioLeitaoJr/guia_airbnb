@@ -1,5 +1,7 @@
 import streamlit as st
 
+from paginas.componentes import cabecalho_card
+
 def exibir():
     idioma = st.session_state.get("idioma", "pt")
 
@@ -18,19 +20,13 @@ def exibir():
         }
     }
 
-    st.markdown(f"""
-    <div style="background-color:#262626;padding:30px;border-radius:15px;
-                box-shadow:2px 2px 12px rgba(0,0,0,0.3);margin-bottom:20px;">
-        <h2 style="color:#ff914d;text-align:center;">🗺️ {textos[idioma]["titulo"]}</h2>
-        <p style="color:#eaeaea;text-align:center;">
-            {textos[idioma]["mensagem"]}
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    cabecalho_card(f"🗺️ {textos[idioma]['titulo']}", textos[idioma]["mensagem"])
 
     st.components.v1.html(
         '''
-        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1ZvQHCJBfEfJSD6iFA0f8zVFVM5aZ5_k&ehbc=2E312F" width="100%" height="500"></iframe>
+        <div class="map-frame">
+            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1ZvQHCJBfEfJSD6iFA0f8zVFVM5aZ5_k&ehbc=2E312F" width="100%" height="500" loading="lazy"></iframe>
+        </div>
         ''',
         height=520
     )

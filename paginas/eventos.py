@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 from idiomas import pt, en, es  # ✅ Importa os textos
+from paginas.componentes import cabecalho_card
 
 def exibir():
     idioma = st.session_state.get("idioma", "pt")
@@ -26,14 +27,11 @@ def exibir():
         conteudo = f.read()
 
     # Exibir título e conteúdo
-    st.markdown(f"""
-        <div style="background-color:#262626;padding:30px;border-radius:15px;
-                    box-shadow:2px 2px 12px rgba(0,0,0,0.3);margin-bottom:20px;">
-            <h2 style="color:#ff914d;text-align:center;">🎉 {textos['eventos']}</h2>
-        </div>
-    """, unsafe_allow_html=True)
+    cabecalho_card(f"🎉 {textos['eventos']}", "Confira eventos, passeios e sugestões atualizadas para sua estadia.")
 
+    st.markdown('<div class="content-card">', unsafe_allow_html=True)
     st.markdown(conteudo)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Edição se for admin
     if st.session_state.get("modo_admin"):

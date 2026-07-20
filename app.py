@@ -3,6 +3,9 @@ from PIL import Image
 
 from config import get_config
 from idiomas import en, es, pt
+from paginas.componentes import aplicar_estilo_global
+
+aplicar_estilo_global()
 
 PAGINAS = {
     "boas_vindas": {
@@ -88,28 +91,7 @@ if query_params.get("pesquisa") == "sim":
 
 # ===== SIDEBAR (idioma e login apenas) =====
 with st.sidebar:
-    st.markdown("""
-        <style>
-        .idioma-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        .idioma-container .stButton > button {
-            min-width: 60px;
-            padding: 6px 12px;
-            font-size: 14px;
-            border-radius: 8px;
-            background-color: #f0f0f5;
-            border: 1px solid #ccc;
-        }
-        </style>
-        <p style="font-size: 15px; margin-bottom: 6px;">🌐 <strong>Idioma</strong></p>
-        <div class="idioma-container">
-    """, unsafe_allow_html=True)
-
+    st.markdown("### 🌐 Idioma")
     if st.button("Português", key="idioma_pt"):
         st.session_state["idioma"] = "pt"
         st.rerun()
@@ -119,8 +101,6 @@ with st.sidebar:
     if st.button("Español", key="idioma_es"):
         st.session_state["idioma"] = "es"
         st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
     if st.button("🔐 Acesso Restrito"):
         st.session_state["mostrar_login"] = not st.session_state["mostrar_login"]
@@ -162,20 +142,8 @@ if st.session_state["modo_admin"]:
 if "menu_index" not in st.session_state or st.session_state["menu_index"] not in menu_keys:
     st.session_state["menu_index"] = "boas_vindas"
 
-st.markdown("""
-    <style>
-    .menu-container {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-    </style>
-""", unsafe_allow_html=True)
+st.markdown("#### ✨ Navegação rápida")
 
-st.markdown('<div class="menu-container">', unsafe_allow_html=True)
 cols = st.columns(len(menu_keys))
 for i, pagina_key in enumerate(menu_keys):
     pagina = PAGINAS[pagina_key]
@@ -183,7 +151,6 @@ for i, pagina_key in enumerate(menu_keys):
     prefixo = "● " if st.session_state["menu_index"] == pagina_key else ""
     if cols[i].button(f"{prefixo}{pagina['emoji']} {label}", key=f"menu_{pagina_key}"):
         st.session_state["menu_index"] = pagina_key
-st.markdown('</div>', unsafe_allow_html=True)
 
 # ===== ROTAS =====
 menu = st.session_state["menu_index"]
