@@ -11,6 +11,7 @@ pt = {
     "enviar_pesquisa": "Enviar Pesquisa",
     "ver_respostas": "Ver Respostas",
     "configuracoes": "Configurações",
+    "perfil_admin": "Perfil Admin",
 
     # Página boas_vindas.py
     "boas_vindas_titulo": "Bem-vindo à Torre Evidence!",
@@ -28,6 +29,7 @@ en = {
     "enviar_pesquisa": "Send Survey",
     "ver_respostas": "View Responses",
     "configuracoes": "Settings",
+    "perfil_admin": "Admin Profile",
 
     # Page boas_vindas.py
     "boas_vindas_titulo": "Welcome to Torre Evidence!",
@@ -45,6 +47,7 @@ es = {
     "enviar_pesquisa": "Enviar Encuesta",
     "ver_respostas": "Ver Respuestas",
     "configuracoes": "Configuraciones",
+    "perfil_admin": "Perfil Admin",
 
     # Página boas_vindas.py
     "boas_vindas_titulo": "¡Bienvenido a Torre Evidence!",
