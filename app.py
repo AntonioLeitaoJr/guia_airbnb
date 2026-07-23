@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 
-from config import get_config
+from password_admin import verificar_senha_admin
 from idiomas import en, es, pt
 from paginas.componentes import aplicar_estilo_global
 
@@ -42,6 +42,13 @@ PAGINAS = {
         "modulo": "pesquisa",
         "admin": False,
         "pesquisa": True,
+    },
+    "perfil_admin": {
+        "emoji": "👤",
+        "label": "perfil_admin",
+        "modulo": "admin_perfil",
+        "admin": True,
+        "pesquisa": False,
     },
     "configuracoes": {
         "emoji": "⚙️",
@@ -110,8 +117,7 @@ with st.sidebar:
             st.error("❌ Acesso bloqueado após 3 tentativas incorretas nesta sessão.")
         else:
             senha = st.text_input("Digite a senha do administrador:", type="password")
-            senha_admin = get_config("ADMIN_PASSWORD", "admin123")
-            if senha and senha == senha_admin:
+            if senha and verificar_senha_admin(senha):
                 st.session_state["modo_admin"] = True
                 st.session_state["tentativas_login"] = 0
                 st.success("✅ Modo Admin ativado com sucesso!")
@@ -137,7 +143,7 @@ menu_keys = ["boas_vindas", "guia_imovel", "mapa", "eventos"]
 if st.session_state["modo_pesquisa"] and not st.session_state["modo_admin"]:
     menu_keys.append("pesquisa")
 if st.session_state["modo_admin"]:
-    menu_keys.extend(["configuracoes", "enviar_pesquisa", "ver_respostas"])
+    menu_keys.extend(["perfil_admin", "configuracoes", "enviar_pesquisa", "ver_respostas"])
 
 if "menu_index" not in st.session_state or st.session_state["menu_index"] not in menu_keys:
     st.session_state["menu_index"] = "boas_vindas"
@@ -170,6 +176,9 @@ elif menu == "eventos":
 elif menu == "pesquisa":
     from paginas import pesquisa
     pesquisa.exibir()
+elif menu == "perfil_admin":
+    from paginas import admin_perfil
+    admin_perfil.exibir()
 elif menu == "configuracoes":
     from paginas import admin_config
     admin_config.exibir()
