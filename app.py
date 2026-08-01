@@ -153,7 +153,7 @@ st.markdown("#### ✨ Navegação rápida")
 cols = st.columns(len(menu_keys))
 for i, pagina_key in enumerate(menu_keys):
     pagina = PAGINAS[pagina_key]
-    label = textos[pagina["label"]]
+    label = textos.get(pagina["label"], pagina["label"])
     prefixo = "● " if st.session_state["menu_index"] == pagina_key else ""
     if cols[i].button(f"{prefixo}{pagina['emoji']} {label}", key=f"menu_{pagina_key}"):
         st.session_state["menu_index"] = pagina_key
