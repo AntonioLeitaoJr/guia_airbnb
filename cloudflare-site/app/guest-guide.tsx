@@ -9,6 +9,7 @@ import {
   CarFront,
   Check,
   Clock3,
+  Footprints,
   Languages,
   MapPinned,
   MessageCircle,
@@ -59,25 +60,28 @@ const copy = {
       loungeItems: [
         "Piscina, hidromassagem e sauna: das 8h às 18h. Para hidro e sauna, solicite na portaria.",
         "Academia: 24 horas. Controles do ar-condicionado e da TV ficam na portaria.",
-        "Quadra infantil e playground: 24 horas. À noite, peça ao porteiro para ligar as luzes da quadra.",
-        "Sala de reuniões, churrasqueira, salão de festas e espaço gourmet são pagos à parte e devem ser reservados na portaria.",
+        "Playground e quadra infantil de futebol/basquete: 24 horas. À noite, peça ao porteiro para ligar as luzes da quadra.",
+        "Sala de reuniões, churrasqueira, salão de festas e espaço gourmet são pagos à parte e devem ser reservados com o anfitrião.",
       ],
       parking: "Estacionamento · G1",
       parkingItems: [
         "Use a vaga 63.",
         "Não há ponto de recarga para veículo elétrico. O uso das tomadas da garagem é proibido e pode gerar multa.",
       ],
-      laundry: "Lavanderia e cobertura",
+      rooftop: "Cobertura",
+      rooftopItems: [
+        "Pista de cooper na cobertura: das 6h às 18h. Os demais espaços funcionam 24 horas.",
+      ],
+      laundry: "Lavanderia",
       laundryItems: [
         "Lavanderia no G3: aberta 24 horas. Se estiver fechada, solicite a chave na portaria.",
-        "Pista de cooper na cobertura: das 6h às 18h. Os demais espaços funcionam 24 horas.",
       ],
       stay: "Durante a estadia",
       stayItems: [
         "Silêncio entre 22h e 7h.",
         "Para falar com a portaria, pressione a tecla 1 no interfone.",
         "Desligue o ar-condicionado sempre que sair.",
-        "A TV aceita os principais aplicativos de streaming; use a sua própria conta.",
+        "A TV aceita os principais aplicativos de streaming; oferecemos como cortesia os streamings Netflix e Disney. Para os demais, use a sua própria conta.",
         "Visitas precisam de aviso prévio. Pernoite de visitantes tem taxa adicional paga antecipadamente.",
         "Limpeza durante a estadia é opcional e paga diretamente à prestadora.",
       ],
@@ -140,25 +144,28 @@ const copy = {
       loungeItems: [
         "Pool, hot tub and sauna: 8 AM to 6 PM. Ask the front desk for the hot tub and sauna.",
         "Gym: open 24 hours. Air conditioning and TV controls are available at the front desk.",
-        "Children's court and playground: open 24 hours. Ask the doorman to turn on the court lights at night.",
-        "Meeting room, barbecue area, party room and gourmet hall are paid separately and must be booked at the front desk.",
+        "Playground and children's soccer/basketball court: open 24 hours. Ask the doorman to turn on the court lights at night.",
+        "Meeting room, barbecue area, party room and gourmet hall are paid separately and must be booked with the host.",
       ],
       parking: "Parking · G1",
       parkingItems: [
         "Use parking space 63.",
         "There is no EV charger. Using garage outlets is prohibited and may result in a fine.",
       ],
-      laundry: "Laundry and rooftop",
+      rooftop: "Rooftop",
+      rooftopItems: [
+        "Rooftop jogging track: 6 AM to 6 PM. Other rooftop areas are open 24 hours.",
+      ],
+      laundry: "Laundry",
       laundryItems: [
         "Laundry room on G3: open 24 hours. If locked, ask the front desk for the key.",
-        "Rooftop jogging track: 6 AM to 6 PM. Other rooftop areas are open 24 hours.",
       ],
       stay: "During your stay",
       stayItems: [
         "Quiet hours are from 10 PM to 7 AM.",
         "Press 1 on the intercom to reach the front desk.",
         "Turn off the air conditioning whenever you leave.",
-        "The TV supports major streaming apps; use your own account.",
+        "The TV supports major streaming apps; Netflix and Disney are complimentary. For all others, use your own account.",
         "Visitors require prior notice. Overnight guests incur an additional fee paid in advance.",
         "Cleaning during your stay is optional and paid directly to the service provider.",
       ],
@@ -221,25 +228,28 @@ const copy = {
       loungeItems: [
         "Piscina, hidromasaje y sauna: de 8:00 a 18:00. Solicita el hidromasaje y la sauna en recepción.",
         "Gimnasio: abierto 24 horas. Los controles del aire acondicionado y la TV están en recepción.",
-        "Cancha infantil y parque: abiertos 24 horas. Pide al portero que encienda las luces de la cancha por la noche.",
-        "Sala de reuniones, parrilla, salón de fiestas y espacio gourmet se pagan aparte y deben reservarse en recepción.",
+        "Parque infantil y cancha infantil de fútbol/baloncesto: abiertos 24 horas. Pide al portero que encienda las luces de la cancha por la noche.",
+        "Sala de reuniones, parrilla, salón de fiestas y espacio gourmet se pagan aparte y deben reservarse con el anfitrión.",
       ],
       parking: "Estacionamiento · G1",
       parkingItems: [
         "Utiliza el espacio 63.",
         "No hay cargador para vehículos eléctricos. Usar los enchufes del garaje está prohibido y puede generar una multa.",
       ],
-      laundry: "Lavandería y azotea",
+      rooftop: "Azotea",
+      rooftopItems: [
+        "Pista de correr en la azotea: de 6:00 a 18:00. Las demás áreas están abiertas 24 horas.",
+      ],
+      laundry: "Lavandería",
       laundryItems: [
         "Lavandería en G3: abierta 24 horas. Si está cerrada, solicita la llave en recepción.",
-        "Pista de correr en la azotea: de 6:00 a 18:00. Las demás áreas están abiertas 24 horas.",
       ],
       stay: "Durante la estadía",
       stayItems: [
         "Silencio de 22:00 a 7:00.",
         "Pulsa 1 en el interfono para comunicarte con recepción.",
         "Apaga el aire acondicionado siempre que salgas.",
-        "La TV admite las principales aplicaciones de streaming; utiliza tu propia cuenta.",
+        "La TV admite las principales aplicaciones de streaming; ofrecemos Netflix y Disney como cortesía. Para las demás, utiliza tu propia cuenta.",
         "Las visitas requieren aviso previo. Las pernoctas tienen una tarifa adicional pagada por adelantado.",
         "La limpieza durante la estadía es opcional y se paga directamente a la prestadora.",
       ],
@@ -300,6 +310,7 @@ export function GuestGuide() {
 
   const guideSections = [
     { value: "lounge", icon: Waves, title: t.guide.lounge, items: t.guide.loungeItems },
+    { value: "rooftop", icon: Footprints, title: t.guide.rooftop, items: t.guide.rooftopItems },
     { value: "parking", icon: CarFront, title: t.guide.parking, items: t.guide.parkingItems },
     { value: "laundry", icon: WashingMachine, title: t.guide.laundry, items: t.guide.laundryItems },
     { value: "stay", icon: ShieldCheck, title: t.guide.stay, items: t.guide.stayItems },
@@ -403,7 +414,7 @@ export function GuestGuide() {
             <strong>Av. Alcindo Cacela, 2304</strong>
             <span>Nazaré · Belém</span>
           </div>
-          <Accordion type="multiple" defaultValue={["lounge", "stay"]} className="guide-accordion">
+          <Accordion type="multiple" className="guide-accordion">
             {guideSections.map(({ value, icon: Icon, title, items }) => (
               <AccordionItem value={value} key={value}>
                 <AccordionTrigger><span className="accordion-title"><Icon />{title}</span></AccordionTrigger>
