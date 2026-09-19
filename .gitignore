@@ -22,5 +22,11 @@ Thumbs.db
 *.db
 
 *.json
+!cloudflare-site/**/*.json
+!cloudflare-site/**/*.jsonc
+!cloudflare-site/package.json
+!cloudflare-site/tsconfig.json
+!cloudflare-site/components.json
+!cloudflare-site/drizzle/meta/*.json
 paginas/GOOGLESHEETS/
 paginas/GOOGLESHEETS/guiaairbnbrespostas-fdad952e267a.json

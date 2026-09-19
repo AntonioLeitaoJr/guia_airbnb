@@ -1,5 +1,18 @@
 # Torre Evidence Digital Guide
 
+## Nova versão para Cloudflare
+
+A aplicação renovada está em [`cloudflare-site/`](cloudflare-site/) e está preparada para implantação como Cloudflare Worker conectado a este repositório.
+
+Configuração no painel:
+
+- Diretório raiz: `cloudflare-site`
+- Comando de build: `pnpm build`
+- Comando de deploy: `pnpm deploy`
+- Branch: `main`
+
+A versão Streamlit abaixo foi preservada como legado e referência.
+
 ## Introduction
 
 Welcome to the official repository of **Torre Evidence Digital Guide** — a smart and multilingual hospitality assistant built with Streamlit. This web application improves the guest experience in short-term rentals by offering an interactive digital guide.
