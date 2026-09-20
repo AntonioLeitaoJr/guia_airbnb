@@ -59,12 +59,19 @@ function nextAnnualEvents(now: Date): EventItem[] {
 async function ticketmasterEvents(): Promise<EventItem[]> {
   const apiKey = process.env.TICKETMASTER_API_KEY;
   if (!apiKey) return [];
+  const now = new Date();
+  const oneYearFromNow = new Date(now);
+  oneYearFromNow.setUTCFullYear(oneYearFromNow.getUTCFullYear() + 1);
   const params = new URLSearchParams({
     apikey: apiKey,
-    city: "Belém",
+    latlong: "-1.4558,-48.4902",
+    radius: "100",
+    unit: "km",
     countryCode: "BR",
+    startDateTime: now.toISOString().replace(/\.\d{3}Z$/, "Z"),
+    endDateTime: oneYearFromNow.toISOString().replace(/\.\d{3}Z$/, "Z"),
     locale: "*",
-    size: "12",
+    size: "20",
     sort: "date,asc",
   });
   const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?${params}`, {
@@ -96,5 +103,5 @@ export async function GET() {
     console.error("events_source_unavailable", error);
   }
   const events = [...live, ...nextAnnualEvents(now)].sort((a, b) => a.date.localeCompare(b.date));
-  return Response.json({ events, updatedAt: now.toISOString() }, { headers: { "cache-control": "public, max-age=900, s-maxage=1800" } });
+  return Response.json({ events, updatedAt: now.toISOString() }, { headers: { "cache-control": "public, max-age=3600, s-maxage=21600, stale-while-revalidate=43200" } });
 }
