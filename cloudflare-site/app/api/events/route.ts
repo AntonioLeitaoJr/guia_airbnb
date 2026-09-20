@@ -56,30 +56,45 @@ function nextAnnualEvents(now: Date): EventItem[] {
   ];
 }
 
-async function ticketmasterEvents(): Promise<EventItem[]> {
+type TicketmasterResult = {
+  events: EventItem[];
+  status: "ok" | "missing_key" | "unauthorized" | "empty" | "unavailable";
+};
+
+async function ticketmasterEvents(): Promise<TicketmasterResult> {
   const apiKey = process.env.TICKETMASTER_API_KEY;
-  if (!apiKey) return [];
+  if (!apiKey) return { events: [], status: "missing_key" };
   const now = new Date();
   const oneYearFromNow = new Date(now);
   oneYearFromNow.setUTCFullYear(oneYearFromNow.getUTCFullYear() + 1);
-  const params = new URLSearchParams({
+  const commonParams = {
     apikey: apiKey,
-    latlong: "-1.4558,-48.4902",
-    radius: "100",
-    unit: "km",
     countryCode: "BR",
     startDateTime: now.toISOString().replace(/\.\d{3}Z$/, "Z"),
     endDateTime: oneYearFromNow.toISOString().replace(/\.\d{3}Z$/, "Z"),
     locale: "*",
     size: "20",
     sort: "date,asc",
-  });
-  const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?${params}`, {
-    headers: { accept: "application/json" },
-  });
-  if (!response.ok) return [];
-  const payload = await response.json() as { _embedded?: { events?: Array<Record<string, any>> } };
-  return (payload._embedded?.events ?? []).flatMap((event) => {
+  };
+
+  const searches = [
+    { ...commonParams, latlong: "-1.4558,-48.4902", radius: "150", unit: "km" },
+    { ...commonParams, city: "Belém" },
+  ];
+
+  let sawSuccessfulResponse = false;
+  for (const search of searches) {
+    const params = new URLSearchParams(search);
+    const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?${params}`, {
+      headers: { accept: "application/json" },
+    });
+    if (response.status === 401 || response.status === 403) {
+      return { events: [], status: "unauthorized" };
+    }
+    if (!response.ok) continue;
+    sawSuccessfulResponse = true;
+    const payload = await response.json() as { _embedded?: { events?: Array<Record<string, any>> } };
+    const events = (payload._embedded?.events ?? []).flatMap((event) => {
     const date = event.dates?.start?.localDate;
     if (!date || !event.name || !event.id) return [];
     return [{
@@ -91,17 +106,24 @@ async function ticketmasterEvents(): Promise<EventItem[]> {
       kind: "live" as const,
       source: "Ticketmaster",
     }];
-  });
+    });
+    if (events.length > 0) return { events, status: "ok" };
+  }
+
+  return { events: [], status: sawSuccessfulResponse ? "empty" : "unavailable" };
 }
 
 export async function GET() {
   const now = new Date();
-  let live: EventItem[] = [];
+  let ticketmaster: TicketmasterResult = { events: [], status: "unavailable" };
   try {
-    live = await ticketmasterEvents();
+    ticketmaster = await ticketmasterEvents();
   } catch (error) {
     console.error("events_source_unavailable", error);
   }
-  const events = [...live, ...nextAnnualEvents(now)].sort((a, b) => a.date.localeCompare(b.date));
-  return Response.json({ events, updatedAt: now.toISOString() }, { headers: { "cache-control": "public, max-age=3600, s-maxage=21600, stale-while-revalidate=43200" } });
+  const events = [...ticketmaster.events, ...nextAnnualEvents(now)].sort((a, b) => a.date.localeCompare(b.date));
+  return Response.json(
+    { events, updatedAt: now.toISOString(), sources: { ticketmaster: ticketmaster.status } },
+    { headers: { "cache-control": "no-store" } },
+  );
 }
