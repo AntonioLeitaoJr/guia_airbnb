@@ -80,11 +80,7 @@ export function EventsSection({ language }: { language: Language }) {
     return () => { active = false; };
   }, []);
 
-  const visibleEvents = useMemo(() => events.filter((event) => {
-    if (filter === "all") return true;
-    if (filter === "annual") return event.kind === "annual";
-    return new Date(`${event.date}T23:59:59-03:00`) >= new Date();
-  }), [events, filter]);
+  const visibleEvents = useMemo(() => events.filter((event) => filter === "all" || event.kind === filter), [events, filter]);
   const formatter = new Intl.DateTimeFormat(localeByLanguage[language], { day: "2-digit", month: "short", year: "numeric", timeZone: "America/Belem" });
 
   return (
