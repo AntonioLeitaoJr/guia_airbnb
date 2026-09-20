@@ -48,7 +48,7 @@ const copy = {
     checkin: "Check-in",
     checkinValue: "A partir das 14h",
     checkout: "Check-out",
-    checkoutValue: "Até às 11h",
+    checkoutValue: "Até as 11h",
     emergency: "Precisa de ajuda?",
     emergencyText: "Fale diretamente com o anfitrião por WhatsApp ou ligação.",
     whatsapp: "Chamar no WhatsApp",
@@ -355,7 +355,7 @@ export function GuestGuide() {
       <Toaster position="top-center" richColors />
       <header className="topbar">
         <a className="brand" href="#inicio" aria-label="Torre Evidence 904">
-          <span className="brand-mark">E</span>
+          <img className="brand-logo" src="/te904-logo.jpeg" alt="Símbolo TE 904 da Torre Evidence" />
           <span><strong>TORRE EVIDENCE</strong><small>APARTAMENTO 904</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Navegação principal">
@@ -485,8 +485,14 @@ export function GuestGuide() {
       </section>
 
       <footer>
-        <div className="brand footer-brand"><span className="brand-mark">E</span><span><strong>{t.footer}</strong><small>Belém · Pará</small></span></div>
-        <a href="https://api.whatsapp.com/send?phone=5591988241288"><MessageCircle /> {t.host}</a>
+        <div className="brand footer-brand"><img className="brand-logo" src="/te904-logo.jpeg" alt="Símbolo TE 904 da Torre Evidence" /><span><strong>{t.footer}</strong><small>Belém · Pará</small></span></div>
+        <div className="footer-links">
+          <a href="https://api.whatsapp.com/send?phone=5591988241288"><MessageCircle /> {t.host}</a>
+          <a className="developer-credit" href="https://leitaolabs.com.br" target="_blank" rel="noreferrer">
+            <img src="/leitao-labs-logo.jpeg" alt="Leitão Labs" />
+            <span>Desenvolvido pela <strong>Leitão Labs</strong></span>
+          </a>
+        </div>
       </footer>
 
       <nav className="mobile-nav" aria-label="Navegação móvel">

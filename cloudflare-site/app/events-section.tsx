@@ -61,7 +61,7 @@ const localeByLanguage = { pt: "pt-BR", en: "en-US", es: "es-ES" } as const;
 
 export function EventsSection({ language }: { language: Language }) {
   const [events, setEvents] = useState<CityEvent[]>([]);
-  const [filter, setFilter] = useState<"all" | "live" | "annual">("all");
+  const [filter, setFilter] = useState<"all" | "live" | "annual">("live");
   const [loading, setLoading] = useState(true);
   const [updatedAt, setUpdatedAt] = useState("");
   const t = content[language];
@@ -80,7 +80,11 @@ export function EventsSection({ language }: { language: Language }) {
     return () => { active = false; };
   }, []);
 
-  const visibleEvents = useMemo(() => events.filter((event) => filter === "all" || event.kind === filter), [events, filter]);
+  const visibleEvents = useMemo(() => events.filter((event) => {
+    if (filter === "all") return true;
+    if (filter === "annual") return event.kind === "annual";
+    return new Date(`${event.date}T23:59:59-03:00`) >= new Date();
+  }), [events, filter]);
   const formatter = new Intl.DateTimeFormat(localeByLanguage[language], { day: "2-digit", month: "short", year: "numeric", timeZone: "America/Belem" });
 
   return (
