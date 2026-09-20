@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       "Tudo o que você precisa para uma estadia confortável na Torre Evidence, em Belém.",
     images: [
       {
-        url: "/og.png",
+        url: "/og-social.jpg?v=2",
         width: 1200,
         height: 630,
         alt: "Guia Torre Evidence — Apartamento 904 em Belém",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Guia Torre Evidence | Apartamento 904",
     description:
       "Tudo o que você precisa para uma estadia confortável na Torre Evidence, em Belém.",
-    images: ["/og.png"],
+    images: ["/og-social.jpg?v=2"],
   },
   icons: {
     icon: "/favicon.svg",
