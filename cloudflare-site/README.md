@@ -8,7 +8,7 @@ Guia digital multilíngue do Apartamento 904 da Torre Evidence, em Belém. Esta 
 - Guia completo do apartamento e das áreas do condomínio
 - Mapa com pontos de interesse em Belém
 - Conteúdo em português, inglês e espanhol
-- Avaliação do hóspede armazenada em Cloudflare D1
+- Avaliação do hóspede registrada na planilha Google Sheets do anfitrião
 - Interface responsiva para celular e computador
 
 ## Desenvolvimento
@@ -35,16 +35,9 @@ No fluxo **Workers & Pages → Import a repository**, use:
 
 O domínio personalizado somente deve ser associado depois que a primeira implantação estiver funcionando no endereço `workers.dev`.
 
-## Avaliações dos hóspedes — D1
+## Avaliações dos hóspedes — Google Sheets
 
-O site pode ser publicado antes da criação do banco. Nesse caso, todas as páginas funcionam, mas o formulário de avaliação ficará temporariamente indisponível.
-
-Depois da primeira implantação:
-
-1. Crie um banco D1 chamado `te904-feedback`.
-2. Adicione ao Worker um binding D1 chamado `DB`.
-3. Execute a migration `drizzle/0000_illegal_changeling.sql` no banco.
-4. Faça uma nova implantação.
+As avaliações são encaminhadas ao Google Apps Script configurado pela variável protegida `GOOGLE_SHEETS_WEBHOOK_URL`. A implantação pública no Cloudflare usa como contingência o proxy protegido da versão hospedada no Sites, sem expor o endereço da planilha no navegador do hóspede.
 
 ## Eventos ao vivo
 
