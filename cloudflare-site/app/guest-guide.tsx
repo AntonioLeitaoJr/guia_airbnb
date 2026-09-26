@@ -9,17 +9,14 @@ import {
   CarFront,
   Check,
   Clock3,
-  Dumbbell,
   Footprints,
   Languages,
   MapPinned,
   MessageCircle,
   Send,
   ShieldCheck,
-  Sparkles,
   Star,
   WashingMachine,
-  Eye,
   Waves,
   Wifi,
 } from "lucide-react";
@@ -41,9 +38,12 @@ const copy = {
     language: "Idioma",
     nav: ["Início", "Guia", "Fotos", "Mapa", "Eventos", "Avaliação"],
     eyebrow: "Seu guia digital em Belém",
-    title: "Bem-vindo ao 904. Descubra a Torre Evidence.",
-    intro: "Há muito mais para aproveitar durante a sua estadia:",
-    highlights: ["Piscina", "Academia 24h", "Pista de cooper", "Vista da cobertura"],
+    photoEyebrow: "Torre Evidence / Belém",
+    title: "O 904 é só o começo.",
+    intro: "Explore a Torre Evidence.",
+    discovery: "Descubra durante sua estadia",
+    highlights: ["Piscina", "Academia 24h", "Pista de cooper", "Vista da cidade"],
+    highlightDetails: ["Aproveite o lazer", "Treine no seu horário", "Na cobertura", "Na cobertura"],
     address: "Nazaré · Belém, Pará",
     wifi: "Wi-Fi",
     network: "Rede",
@@ -126,9 +126,12 @@ const copy = {
     language: "Language",
     nav: ["Home", "Guide", "Photos", "Map", "Events", "Review"],
     eyebrow: "Your digital guide to Belém",
-    title: "Welcome to 904. Discover Torre Evidence.",
-    intro: "There is more to enjoy during your stay:",
-    highlights: ["Pool", "24-hour gym", "Jogging track", "Rooftop views"],
+    photoEyebrow: "Torre Evidence / Belém",
+    title: "904 is just the beginning.",
+    intro: "Explore Torre Evidence.",
+    discovery: "Discover during your stay",
+    highlights: ["Pool", "24-hour gym", "Jogging track", "City views"],
+    highlightDetails: ["Enjoy the leisure area", "Train on your schedule", "On the rooftop", "On the rooftop"],
     address: "Nazaré · Belém, Pará",
     wifi: "Wi-Fi",
     network: "Network",
@@ -211,9 +214,12 @@ const copy = {
     language: "Idioma",
     nav: ["Inicio", "Guía", "Fotos", "Mapa", "Eventos", "Evaluación"],
     eyebrow: "Tu guía digital en Belém",
-    title: "Bienvenido al 904. Descubre Torre Evidence.",
-    intro: "Hay mucho más para disfrutar durante tu estadía:",
-    highlights: ["Piscina", "Gimnasio 24 h", "Pista de correr", "Vista desde la azotea"],
+    photoEyebrow: "Torre Evidence / Belém",
+    title: "El 904 es solo el comienzo.",
+    intro: "Explora Torre Evidence.",
+    discovery: "Descubre durante tu estancia",
+    highlights: ["Piscina", "Gimnasio 24 h", "Pista de correr", "Vista de la ciudad"],
+    highlightDetails: ["Disfruta del ocio", "Entrena a tu ritmo", "En la azotea", "En la azotea"],
     address: "Nazaré · Belém, Pará",
     wifi: "Wi-Fi",
     network: "Red",
@@ -328,12 +334,7 @@ export function GuestGuide() {
     { icon: CalendarDays, index: 4 },
     { icon: Star, index: 5 },
   ];
-  const highlights = [
-    { icon: Waves, section: "lounge" },
-    { icon: Dumbbell, section: "lounge" },
-    { icon: Footprints, section: "rooftop" },
-    { icon: Eye, section: "rooftop" },
-  ];
+  const highlightSections = ["lounge", "lounge", "rooftop", "rooftop"];
 
   async function submitFeedback(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -384,21 +385,25 @@ export function GuestGuide() {
         </label>
       </header>
 
-      <section className="hero" id="inicio">
-        <img src="/torre-evidence.jpg" alt="Fachada iluminada da Torre Evidence à noite" />
-        <div className="hero-overlay" />
-        <div className="hero-content">
-          <span className="eyebrow"><Sparkles /> {t.eyebrow}</span>
-          <h1>{t.title}</h1>
-          <p>{t.intro}</p>
-          <div className="hero-highlights" aria-label={language === "pt" ? "Destaques da Torre Evidence" : language === "en" ? "Torre Evidence highlights" : "Atractivos de Torre Evidence"}>
-            {highlights.map(({ icon: Icon, section }, index) => (
-              <a key={index} href="#guia" onClick={() => setOpenGuideSections((current) => current.includes(section) ? current : [...current, section])}>
-                <Icon aria-hidden="true" /><span>{t.highlights[index]}</span><ArrowUpRight aria-hidden="true" className="highlight-arrow" />
+      <section className="hero-discovery" id="inicio">
+        <div className="hero-photo">
+          <img src="/apartamento/piscina.jpg" alt={language === "pt" ? "Piscina da Torre Evidence em Belém" : language === "en" ? "Torre Evidence pool in Belém" : "Piscina de Torre Evidence en Belém"} />
+          <img className="hero-buildings-correction" src="/apartamento/piscina.jpg" alt="" aria-hidden="true" />
+          <div className="hero-photo-shade" />
+          <span className="hero-photo-eyebrow">{t.photoEyebrow}</span>
+          <div className="hero-photo-heading"><h1>{t.title}</h1><p>{t.intro}</p></div>
+        </div>
+        <div className="discovery-panel">
+          <h2>{t.discovery}</h2>
+          <div className="discovery-list">
+            {t.highlights.map((label, index) => (
+              <a key={label} href="#guia" onClick={() => setOpenGuideSections((current) => current.includes(highlightSections[index]) ? current : [...current, highlightSections[index]])}>
+                <span className="discovery-number">{String(index + 1).padStart(2, "0")}</span>
+                <span className="discovery-copy"><strong>{label}</strong><small>{t.highlightDetails[index]}</small></span>
+                <ArrowUpRight aria-hidden="true" />
               </a>
             ))}
           </div>
-          <span className="address"><MapPinned /> {t.address}</span>
         </div>
       </section>
 
