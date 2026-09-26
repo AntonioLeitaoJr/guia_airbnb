@@ -9,6 +9,7 @@ import {
   CarFront,
   Check,
   Clock3,
+  Dumbbell,
   Footprints,
   Languages,
   MapPinned,
@@ -18,6 +19,7 @@ import {
   Sparkles,
   Star,
   WashingMachine,
+  Eye,
   Waves,
   Wifi,
 } from "lucide-react";
@@ -39,8 +41,9 @@ const copy = {
     language: "Idioma",
     nav: ["Início", "Guia", "Fotos", "Mapa", "Eventos", "Avaliação"],
     eyebrow: "Seu guia digital em Belém",
-    title: "Bem-vindo ao Apartamento 904.",
-    intro: "Tudo o que você precisa para uma estadia tranquila, segura e memorável na Torre Evidence.",
+    title: "Bem-vindo ao 904. Descubra a Torre Evidence.",
+    intro: "Há muito mais para aproveitar durante a sua estadia:",
+    highlights: ["Piscina", "Academia 24h", "Pista de cooper", "Vista da cobertura"],
     address: "Nazaré · Belém, Pará",
     wifi: "Wi-Fi",
     network: "Rede",
@@ -123,8 +126,9 @@ const copy = {
     language: "Language",
     nav: ["Home", "Guide", "Photos", "Map", "Events", "Review"],
     eyebrow: "Your digital guide to Belém",
-    title: "Welcome to Apartment 904.",
-    intro: "Everything you need for a calm, safe and memorable stay at Torre Evidence.",
+    title: "Welcome to 904. Discover Torre Evidence.",
+    intro: "There is more to enjoy during your stay:",
+    highlights: ["Pool", "24-hour gym", "Jogging track", "Rooftop views"],
     address: "Nazaré · Belém, Pará",
     wifi: "Wi-Fi",
     network: "Network",
@@ -207,8 +211,9 @@ const copy = {
     language: "Idioma",
     nav: ["Inicio", "Guía", "Fotos", "Mapa", "Eventos", "Evaluación"],
     eyebrow: "Tu guía digital en Belém",
-    title: "Bienvenido al Apartamento 904.",
-    intro: "Todo lo que necesitas para una estadía tranquila, segura y memorable en Torre Evidence.",
+    title: "Bienvenido al 904. Descubre Torre Evidence.",
+    intro: "Hay mucho más para disfrutar durante tu estadía:",
+    highlights: ["Piscina", "Gimnasio 24 h", "Pista de correr", "Vista desde la azotea"],
     address: "Nazaré · Belém, Pará",
     wifi: "Wi-Fi",
     network: "Red",
@@ -306,6 +311,7 @@ export function GuestGuide() {
   const [language, setLanguage] = useState<Language>("pt");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [openGuideSections, setOpenGuideSections] = useState<string[]>([]);
   const t = copy[language];
 
   const guideSections = [
@@ -321,6 +327,12 @@ export function GuestGuide() {
     { icon: MapPinned, index: 3 },
     { icon: CalendarDays, index: 4 },
     { icon: Star, index: 5 },
+  ];
+  const highlights = [
+    { icon: Waves, section: "lounge" },
+    { icon: Dumbbell, section: "lounge" },
+    { icon: Footprints, section: "rooftop" },
+    { icon: Eye, section: "rooftop" },
   ];
 
   async function submitFeedback(event: FormEvent<HTMLFormElement>) {
@@ -379,6 +391,13 @@ export function GuestGuide() {
           <span className="eyebrow"><Sparkles /> {t.eyebrow}</span>
           <h1>{t.title}</h1>
           <p>{t.intro}</p>
+          <div className="hero-highlights" aria-label={language === "pt" ? "Destaques da Torre Evidence" : language === "en" ? "Torre Evidence highlights" : "Atractivos de Torre Evidence"}>
+            {highlights.map(({ icon: Icon, section }, index) => (
+              <a key={index} href="#guia" onClick={() => setOpenGuideSections((current) => current.includes(section) ? current : [...current, section])}>
+                <Icon aria-hidden="true" /><span>{t.highlights[index]}</span><ArrowUpRight aria-hidden="true" className="highlight-arrow" />
+              </a>
+            ))}
+          </div>
           <span className="address"><MapPinned /> {t.address}</span>
         </div>
       </section>
@@ -414,7 +433,7 @@ export function GuestGuide() {
             <strong>Av. Alcindo Cacela, 2304</strong>
             <span>Nazaré · Belém</span>
           </div>
-          <Accordion type="multiple" className="guide-accordion">
+          <Accordion type="multiple" value={openGuideSections} onValueChange={setOpenGuideSections} className="guide-accordion">
             {guideSections.map(({ value, icon: Icon, title, items }) => (
               <AccordionItem value={value} key={value}>
                 <AccordionTrigger><span className="accordion-title"><Icon />{title}</span></AccordionTrigger>
