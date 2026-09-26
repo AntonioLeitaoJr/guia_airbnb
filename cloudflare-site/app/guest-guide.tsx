@@ -387,8 +387,7 @@ export function GuestGuide() {
 
       <section className="hero-discovery" id="inicio">
         <div className="hero-photo">
-          <img src="/apartamento/piscina.jpg" alt={language === "pt" ? "Piscina da Torre Evidence em Belém" : language === "en" ? "Torre Evidence pool in Belém" : "Piscina de Torre Evidence en Belém"} />
-          <img className="hero-buildings-correction" src="/apartamento/piscina.jpg" alt="" aria-hidden="true" />
+          <img src="/apartamento/piscina-fachadas-claras.jpg" alt={language === "pt" ? "Piscina da Torre Evidence em Belém" : language === "en" ? "Torre Evidence pool in Belém" : "Piscina de Torre Evidence en Belém"} />
           <div className="hero-photo-shade" />
           <span className="hero-photo-eyebrow">{t.photoEyebrow}</span>
           <div className="hero-photo-heading"><h1>{t.title}</h1><p>{t.intro}</p></div>
