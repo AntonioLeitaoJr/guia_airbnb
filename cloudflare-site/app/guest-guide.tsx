@@ -76,7 +76,7 @@ const copy = {
         "Não há ponto de recarga para veículo elétrico. O uso das tomadas da garagem é proibido e pode gerar multa.",
       ],
       rooftop: "Cobertura",
-      rooftopAccess: "Acesso pelo elevador à cobertura",
+      rooftopAccess: "No elevador: C · cobertura",
       rooftopPhotos: ["Pista de cooper", "Vista da cidade"],
       rooftopItems: [
         "Pista de cooper na cobertura: das 6h às 18h. Os demais espaços funcionam 24 horas.",
@@ -169,7 +169,7 @@ const copy = {
         "There is no EV charger. Using garage outlets is prohibited and may result in a fine.",
       ],
       rooftop: "Rooftop",
-      rooftopAccess: "Take the elevator to the rooftop",
+      rooftopAccess: "In the elevator: C · rooftop",
       rooftopPhotos: ["Jogging track", "City view"],
       rooftopItems: [
         "Rooftop jogging track: 6 AM to 6 PM. Other rooftop areas are open 24 hours.",
@@ -262,7 +262,7 @@ const copy = {
         "No hay cargador para vehículos eléctricos. Usar los enchufes del garaje está prohibido y puede generar una multa.",
       ],
       rooftop: "Azotea",
-      rooftopAccess: "Acceso en ascensor a la azotea",
+      rooftopAccess: "En el ascensor: C · azotea",
       rooftopPhotos: ["Pista de correr", "Vista de la ciudad"],
       rooftopItems: [
         "Pista de correr en la azotea: de 6:00 a 18:00. Las demás áreas están abiertas 24 horas.",
