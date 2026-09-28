@@ -7,11 +7,12 @@ type Language = "pt" | "en" | "es";
 type CityEvent = {
   id: string;
   name: string;
-  date: string;
+  date?: string;
   endDate?: string;
   venue: string;
   url?: string;
   kind: "live" | "annual";
+  dateStatus?: "confirmed" | "calendar" | "unconfirmed";
   source: string;
 };
 
@@ -28,6 +29,7 @@ const content = {
     source: "Fonte",
     details: "Ver detalhes",
     updated: "Agenda atualizada",
+    awaitingDate: "Programação a confirmar",
   },
   en: {
     eyebrow: "Belém in motion",
@@ -41,6 +43,7 @@ const content = {
     source: "Source",
     details: "View details",
     updated: "Calendar updated",
+    awaitingDate: "Schedule to be confirmed",
   },
   es: {
     eyebrow: "Belém en movimiento",
@@ -54,6 +57,7 @@ const content = {
     source: "Fuente",
     details: "Ver detalles",
     updated: "Agenda actualizada",
+    awaitingDate: "Programación por confirmar",
   },
 } as const;
 
@@ -105,7 +109,7 @@ export function EventsSection({ language }: { language: Language }) {
           <div className="events-grid">
             {visibleEvents.map((event) => (
               <article className="event-card" key={event.id}>
-                <div className="event-date"><CalendarDays /><strong>{formatter.format(new Date(`${event.date}T12:00:00-03:00`))}</strong></div>
+                <div className="event-date"><CalendarDays /><strong>{event.date ? formatter.format(new Date(`${event.date}T12:00:00-03:00`)) : t.awaitingDate}</strong></div>
                 <span className={`event-kind ${event.kind}`}><Sparkles /> {event.kind === "live" ? t.upcoming : t.annual}</span>
                 <h3>{event.name}</h3>
                 <p><MapPin /> {event.venue}</p>
