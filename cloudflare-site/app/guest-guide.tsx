@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { flushSync } from "react-dom";
 import {
   ArrowUpRight,
   BedDouble,
@@ -61,6 +62,7 @@ const copy = {
     guideIntro: "Consulte horários, regras e instruções práticas sem precisar procurar em mensagens antigas.",
     guide: {
       lounge: "Lazer · Andar lounge",
+      loungeAccess: "No elevador: L · andar lounge",
       loungeItems: [
         "Piscina, hidromassagem e sauna: das 8h às 18h. Para hidro e sauna, solicite na portaria.",
         "Academia: 24 horas. Controles do ar-condicionado e da TV ficam na portaria.",
@@ -68,15 +70,19 @@ const copy = {
         "Sala de reuniões, churrasqueira, salão de festas e espaço gourmet são pagos à parte e devem ser reservados com o anfitrião.",
       ],
       parking: "Estacionamento · G1",
+      parkingAccess: "No elevador: G1",
       parkingItems: [
         "Use a vaga 63.",
         "Não há ponto de recarga para veículo elétrico. O uso das tomadas da garagem é proibido e pode gerar multa.",
       ],
       rooftop: "Cobertura",
+      rooftopAccess: "Acesso pelo elevador à cobertura",
+      rooftopPhotos: ["Pista de cooper", "Vista da cidade"],
       rooftopItems: [
         "Pista de cooper na cobertura: das 6h às 18h. Os demais espaços funcionam 24 horas.",
       ],
       laundry: "Lavanderia",
+      laundryAccess: "No elevador: G3",
       laundryItems: [
         "Lavanderia no G3: aberta 24 horas. Se estiver fechada, solicite a chave na portaria.",
       ],
@@ -149,6 +155,7 @@ const copy = {
     guideIntro: "Check hours, rules and practical instructions without searching through old messages.",
     guide: {
       lounge: "Leisure · Lounge floor",
+      loungeAccess: "In the elevator: L · lounge floor",
       loungeItems: [
         "Pool, hot tub and sauna: 8 AM to 6 PM. Ask the front desk for the hot tub and sauna.",
         "Gym: open 24 hours. Air conditioning and TV controls are available at the front desk.",
@@ -156,15 +163,19 @@ const copy = {
         "Meeting room, barbecue area, party room and gourmet hall are paid separately and must be booked with the host.",
       ],
       parking: "Parking · G1",
+      parkingAccess: "In the elevator: G1",
       parkingItems: [
         "Use parking space 63.",
         "There is no EV charger. Using garage outlets is prohibited and may result in a fine.",
       ],
       rooftop: "Rooftop",
+      rooftopAccess: "Take the elevator to the rooftop",
+      rooftopPhotos: ["Jogging track", "City view"],
       rooftopItems: [
         "Rooftop jogging track: 6 AM to 6 PM. Other rooftop areas are open 24 hours.",
       ],
       laundry: "Laundry",
+      laundryAccess: "In the elevator: G3",
       laundryItems: [
         "Laundry room on G3: open 24 hours. If locked, ask the front desk for the key.",
       ],
@@ -237,6 +248,7 @@ const copy = {
     guideIntro: "Consulta horarios, reglas e instrucciones prácticas sin buscar en mensajes antiguos.",
     guide: {
       lounge: "Ocio · Piso lounge",
+      loungeAccess: "En el ascensor: L · piso lounge",
       loungeItems: [
         "Piscina, hidromasaje y sauna: de 8:00 a 18:00. Solicita el hidromasaje y la sauna en recepción.",
         "Gimnasio: abierto 24 horas. Los controles del aire acondicionado y la TV están en recepción.",
@@ -244,15 +256,19 @@ const copy = {
         "Sala de reuniones, parrilla, salón de fiestas y espacio gourmet se pagan aparte y deben reservarse con el anfitrión.",
       ],
       parking: "Estacionamiento · G1",
+      parkingAccess: "En el ascensor: G1",
       parkingItems: [
         "Utiliza el espacio 63.",
         "No hay cargador para vehículos eléctricos. Usar los enchufes del garaje está prohibido y puede generar una multa.",
       ],
       rooftop: "Azotea",
+      rooftopAccess: "Acceso en ascensor a la azotea",
+      rooftopPhotos: ["Pista de correr", "Vista de la ciudad"],
       rooftopItems: [
         "Pista de correr en la azotea: de 6:00 a 18:00. Las demás áreas están abiertas 24 horas.",
       ],
       laundry: "Lavandería",
+      laundryAccess: "En el ascensor: G3",
       laundryItems: [
         "Lavandería en G3: abierta 24 horas. Si está cerrada, solicita la llave en recepción.",
       ],
@@ -322,11 +338,11 @@ export function GuestGuide() {
   const t = copy[language];
 
   const guideSections = [
-    { value: "lounge", icon: Waves, title: t.guide.lounge, items: t.guide.loungeItems },
-    { value: "rooftop", icon: Footprints, title: t.guide.rooftop, items: t.guide.rooftopItems },
-    { value: "parking", icon: CarFront, title: t.guide.parking, items: t.guide.parkingItems },
-    { value: "laundry", icon: WashingMachine, title: t.guide.laundry, items: t.guide.laundryItems },
-    { value: "stay", icon: ShieldCheck, title: t.guide.stay, items: t.guide.stayItems },
+    { value: "lounge", icon: Waves, title: t.guide.lounge, access: t.guide.loungeAccess, items: t.guide.loungeItems },
+    { value: "rooftop", icon: Footprints, title: t.guide.rooftop, access: t.guide.rooftopAccess, items: t.guide.rooftopItems },
+    { value: "parking", icon: CarFront, title: t.guide.parking, access: t.guide.parkingAccess, items: t.guide.parkingItems },
+    { value: "laundry", icon: WashingMachine, title: t.guide.laundry, access: t.guide.laundryAccess, items: t.guide.laundryItems },
+    { value: "stay", icon: ShieldCheck, title: t.guide.stay, access: undefined, items: t.guide.stayItems },
   ];
   const mobileNavItems = [
     { icon: ShieldCheck, index: 1 },
@@ -337,6 +353,14 @@ export function GuestGuide() {
     { icon: Star, index: 6 },
   ];
   const highlightSections = ["lounge", "lounge", "rooftop", "rooftop"];
+
+  function openHighlight(event: React.MouseEvent<HTMLAnchorElement>, section: string) {
+    event.preventDefault();
+    flushSync(() => setOpenGuideSections((current) => current.includes(section) ? current : [...current, section]));
+    const anchor = `guide-${section}`;
+    window.history.replaceState(null, "", `#${anchor}`);
+    document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   async function submitFeedback(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -398,7 +422,7 @@ export function GuestGuide() {
           <h2>{t.discovery}</h2>
           <div className="discovery-list">
             {t.highlights.map((label, index) => (
-              <a key={label} href="#guia" onClick={() => setOpenGuideSections((current) => current.includes(highlightSections[index]) ? current : [...current, highlightSections[index]])}>
+              <a key={label} href={`#guide-${highlightSections[index]}`} onClick={(event) => openHighlight(event, highlightSections[index])}>
                 <span className="discovery-number">{String(index + 1).padStart(2, "0")}</span>
                 <span className="discovery-copy"><strong>{label}</strong><small>{t.highlightDetails[index]}</small></span>
                 <ArrowUpRight aria-hidden="true" />
@@ -440,11 +464,18 @@ export function GuestGuide() {
             <span>Nazaré · Belém</span>
           </div>
           <Accordion type="multiple" value={openGuideSections} onValueChange={setOpenGuideSections} className="guide-accordion">
-            {guideSections.map(({ value, icon: Icon, title, items }) => (
-              <AccordionItem value={value} key={value}>
+            {guideSections.map(({ value, icon: Icon, title, access, items }) => (
+              <AccordionItem value={value} key={value} id={`guide-${value}`}>
                 <AccordionTrigger><span className="accordion-title"><Icon />{title}</span></AccordionTrigger>
                 <AccordionContent>
+                  {access && <p className="guide-access">{access}</p>}
                   <ul>{items.map((item) => <li key={item}><Check /> <span>{item}</span></li>)}</ul>
+                  {value === "rooftop" && <div className="rooftop-photos">
+                    {["cobertura-pista.jpg", "cobertura-vista.jpg"].map((photo, index) => <figure key={photo}>
+                      <img src={`/apartamento/${photo}`} alt={t.guide.rooftopPhotos[index]} loading="lazy" />
+                      <figcaption>{t.guide.rooftopPhotos[index]}</figcaption>
+                    </figure>)}
+                  </div>}
                 </AccordionContent>
               </AccordionItem>
             ))}
