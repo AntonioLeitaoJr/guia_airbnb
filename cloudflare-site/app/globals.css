@@ -246,6 +246,31 @@ svg { stroke-width: 1.8; }
 .facility-panel ul { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 0; padding: 0; list-style: none; }
 .facility-panel li { display: flex; align-items: center; gap: 8px; color: #524c45; font-size: 14px; font-weight: 700; }
 .facility-panel li svg { flex: 0 0 auto; width: 18px; color: var(--brand-dark); }
+.availability-panel { display: grid; grid-template-columns: 1fr 390px; gap: 48px; align-items: center; margin-top: 56px; padding: 42px; color: #f7f5ee; background: #131d1d; border-radius: 26px; }
+.availability-panel .review-eyebrow { color: #81d5d7; }
+.availability-copy h3 { margin: 14px 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1; letter-spacing: -.05em; }
+.availability-copy > p { max-width: 490px; color: #c5cecb; line-height: 1.5; }
+.availability-legend { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 26px; color: #e2e8e5; font-size: 13px; }
+.availability-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.availability-dot { width: 12px; height: 12px; border-radius: 4px; }
+.availability-dot.blocked { background: #df937f; }
+.availability-dot.consult { background: #68ced1; }
+.availability-copy .availability-note { margin-top: 24px; font-size: 13px; color: #9fb0ab; }
+.availability-booking { display: inline-flex; align-items: center; gap: 12px; margin-top: 12px; padding: 13px 18px; color: #112020; background: #8ce0dc; border-radius: 12px; font-size: 14px; font-weight: 800; }
+.availability-booking:hover { background: #b7f1e9; }
+.availability-widget { min-height: 340px; padding: 22px; color: #16201f; background: #faf8f3; border-radius: 20px; }
+.availability-month { display: flex; justify-content: space-between; align-items: center; gap: 8px; text-transform: capitalize; }
+.availability-month button { display: grid; place-items: center; width: 36px; height: 36px; color: inherit; background: #eceae3; border: 0; border-radius: 10px; cursor: pointer; }
+.availability-month button:disabled { opacity: .35; cursor: default; }
+.availability-month button svg { width: 18px; height: 18px; }
+.availability-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-top: 22px; text-align: center; }
+.availability-weekday { padding-bottom: 6px; color: #7d8783; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+.availability-day { display: grid; place-items: center; min-height: 36px; border-radius: 8px; font-size: 13px; font-weight: 800; }
+.availability-day.consult { color: #123f40; background: #d7f4f0; }
+.availability-day.blocked { color: #793b30; background: #f4dcd3; }
+.availability-day.past { color: #a9aeaa; background: #f1f0eb; }
+.availability-status { display: block; margin: 18px 0 0; color: #687771; font-size: 12px; line-height: 1.5; }
+.availability-month button:focus-visible, .availability-booking:focus-visible { outline: 3px solid #68ced1; outline-offset: 3px; }
 .reviews-layout { display: grid; grid-template-columns: 280px 1fr; gap: 56px; margin-top: 88px; }
 .score-card { align-self: start; display: flex; flex-direction: column; padding: 28px; background: #003b95; color: white; border-radius: 24px; box-shadow: var(--shadow); }
 .score-card > span { font-size: 18px; font-weight: 900; letter-spacing: -.02em; }
@@ -336,6 +361,7 @@ footer { display: flex; align-items: center; justify-content: space-between; gap
   .facility-panel { grid-template-columns: 1fr; }
   .facility-panel > div { padding: 0 0 20px; border-right: 0; border-bottom: 1px solid #ddd5ca; }
   .facility-panel ul { grid-template-columns: repeat(2, 1fr); }
+  .availability-panel { grid-template-columns: 1fr; gap: 28px; }
 }
 
 @media (max-width: 720px) {
@@ -391,6 +417,10 @@ footer { display: flex; align-items: center; justify-content: space-between; gap
   .photo-gallery img, .photo-gallery img:first-child, .photo-gallery img:nth-child(6) { display: block; flex: 0 0 84vw; width: 84vw; height: 310px; border-radius: 19px; scroll-snap-align: center; }
   .facility-panel { margin-top: 10px; padding: 20px; border-radius: 19px; }
   .facility-panel ul { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .availability-panel { gap: 22px; margin-top: 30px; padding: 25px 17px; border-radius: 20px; }
+  .availability-copy h3 { font-size: 2.25rem; }
+  .availability-widget { min-height: 330px; padding: 16px; }
+  .availability-day { min-height: 34px; }
   .reviews-layout { grid-template-columns: 1fr; gap: 38px; margin-top: 72px; }
   .score-card { max-width: 420px; }
   .review-grid { grid-template-columns: 1fr; }

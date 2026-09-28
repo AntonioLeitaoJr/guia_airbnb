@@ -69,7 +69,7 @@ export function EventsSection({ language }: { language: Language }) {
   useEffect(() => {
     let active = true;
     fetch("/api/events")
-      .then((response) => response.ok ? response.json() : Promise.reject())
+      .then((response): Promise<{ events: CityEvent[]; updatedAt: string }> => response.ok ? response.json() : Promise.reject())
       .then((data: { events: CityEvent[]; updatedAt: string }) => {
         if (!active) return;
         setEvents(data.events);

@@ -11,6 +11,7 @@ import {
   Waves,
   WashingMachine,
 } from "lucide-react";
+import { AvailabilityCalendar } from "./availability-calendar";
 
 type Language = "pt" | "en" | "es";
 
@@ -122,6 +123,8 @@ export function PropertyShowcase({ language }: { language: Language }) {
             })}
           </ul>
         </div>
+
+        <AvailabilityCalendar language={language} />
 
         <div className="reviews-layout">
           <div className="score-card">
