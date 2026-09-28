@@ -213,8 +213,18 @@ svg { stroke-width: 1.8; }
 .guide-access { display: inline-block; margin: 0 0 18px; padding: 7px 12px; border-radius: 999px; background: #e5e9e4; color: #405e59; font-size: 13px; font-weight: 700; }
 .rooftop-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 2px 0 18px; }
 .rooftop-photos figure { margin: 0; overflow: hidden; border-radius: 14px; background: #e9e4dc; }
+.rooftop-photos button { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; cursor: zoom-in; }
+.rooftop-photos button:focus-visible { outline: 3px solid var(--brand-dark); outline-offset: -3px; }
 .rooftop-photos img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-.rooftop-photos figcaption { padding: 9px 12px; color: #514b44; font-size: 13px; font-weight: 700; }
+.rooftop-photos button span { display: block; padding: 9px 12px; color: #514b44; font-size: 13px; font-weight: 700; }
+.rooftop-lightbox { position: fixed; width: min(94vw, 1100px); max-width: none; max-height: min(92vh, 92dvh); margin: auto; padding: 12px; overflow: visible; border: 0; border-radius: 18px; background: #151a1a; color: #fff; box-shadow: 0 24px 80px #0008; }
+.rooftop-lightbox::backdrop { background: rgba(5, 9, 11, .85); }
+.rooftop-lightbox figure { margin: 0; }
+.rooftop-lightbox img { display: block; max-width: 100%; max-height: calc(92dvh - 65px); margin: auto; border-radius: 10px; object-fit: contain; }
+.rooftop-lightbox figcaption { padding: 10px 4px 2px; font-size: 14px; font-weight: 700; }
+.rooftop-lightbox-close { position: absolute; z-index: 1; top: 20px; right: 20px; display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 50%; background: #151a1ae6; color: #fff; cursor: pointer; }
+.rooftop-lightbox-close:focus-visible { outline: 3px solid #84dce0; }
+@media (max-width: 600px) { .rooftop-lightbox { width: calc(100vw - 20px); padding: 8px; border-radius: 12px; } .rooftop-lightbox img { max-height: calc(90dvh - 60px); } .rooftop-lightbox-close { top: 12px; right: 12px; } }
 
 .city-section { padding: 112px 24px; background: var(--ink); color: white; }
 .city-inner { width: min(1120px, 100%); margin: auto; }

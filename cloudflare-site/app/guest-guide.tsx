@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import {
   ArrowUpRight,
@@ -11,6 +11,7 @@ import {
   CarFront,
   Check,
   Clock3,
+  X,
   Footprints,
   Languages,
   MapPinned,
@@ -62,7 +63,7 @@ const copy = {
     guideIntro: "Consulte horários, regras e instruções práticas sem precisar procurar em mensagens antigas.",
     guide: {
       lounge: "Lazer · Andar lounge",
-      loungeAccess: "No elevador: L · andar lounge",
+      loungeAccess: "Lazer: aperte o botão L no elevador.",
       loungeItems: [
         "Piscina, hidromassagem e sauna: das 8h às 18h. Para hidro e sauna, solicite na portaria.",
         "Academia: 24 horas. Controles do ar-condicionado e da TV ficam na portaria.",
@@ -70,19 +71,20 @@ const copy = {
         "Sala de reuniões, churrasqueira, salão de festas e espaço gourmet são pagos à parte e devem ser reservados com o anfitrião.",
       ],
       parking: "Estacionamento · G1",
-      parkingAccess: "No elevador: G1",
+      parkingAccess: "Estacionamento: aperte o botão G1 no elevador.",
       parkingItems: [
         "Use a vaga 63.",
         "Não há ponto de recarga para veículo elétrico. O uso das tomadas da garagem é proibido e pode gerar multa.",
       ],
       rooftop: "Cobertura",
-      rooftopAccess: "No elevador: C · cobertura",
+      rooftopAccess: "Cobertura: aperte o botão C no elevador.",
       rooftopPhotos: ["Pista de cooper", "Vista da cidade"],
+      closePhoto: "Fechar foto",
       rooftopItems: [
         "Pista de cooper na cobertura: das 6h às 18h. Os demais espaços funcionam 24 horas.",
       ],
       laundry: "Lavanderia",
-      laundryAccess: "No elevador: G3",
+      laundryAccess: "Lavanderia: aperte o botão G3 no elevador.",
       laundryItems: [
         "Lavanderia no G3: aberta 24 horas. Se estiver fechada, solicite a chave na portaria.",
       ],
@@ -155,7 +157,7 @@ const copy = {
     guideIntro: "Check hours, rules and practical instructions without searching through old messages.",
     guide: {
       lounge: "Leisure · Lounge floor",
-      loungeAccess: "In the elevator: L · lounge floor",
+      loungeAccess: "Leisure floor: press L in the elevator.",
       loungeItems: [
         "Pool, hot tub and sauna: 8 AM to 6 PM. Ask the front desk for the hot tub and sauna.",
         "Gym: open 24 hours. Air conditioning and TV controls are available at the front desk.",
@@ -163,19 +165,20 @@ const copy = {
         "Meeting room, barbecue area, party room and gourmet hall are paid separately and must be booked with the host.",
       ],
       parking: "Parking · G1",
-      parkingAccess: "In the elevator: G1",
+      parkingAccess: "Parking: press G1 in the elevator.",
       parkingItems: [
         "Use parking space 63.",
         "There is no EV charger. Using garage outlets is prohibited and may result in a fine.",
       ],
       rooftop: "Rooftop",
-      rooftopAccess: "In the elevator: C · rooftop",
+      rooftopAccess: "Rooftop: press C in the elevator.",
       rooftopPhotos: ["Jogging track", "City view"],
+      closePhoto: "Close photo",
       rooftopItems: [
         "Rooftop jogging track: 6 AM to 6 PM. Other rooftop areas are open 24 hours.",
       ],
       laundry: "Laundry",
-      laundryAccess: "In the elevator: G3",
+      laundryAccess: "Laundry: press G3 in the elevator.",
       laundryItems: [
         "Laundry room on G3: open 24 hours. If locked, ask the front desk for the key.",
       ],
@@ -248,7 +251,7 @@ const copy = {
     guideIntro: "Consulta horarios, reglas e instrucciones prácticas sin buscar en mensajes antiguos.",
     guide: {
       lounge: "Ocio · Piso lounge",
-      loungeAccess: "En el ascensor: L · piso lounge",
+      loungeAccess: "Ocio: pulsa el botón L en el ascensor.",
       loungeItems: [
         "Piscina, hidromasaje y sauna: de 8:00 a 18:00. Solicita el hidromasaje y la sauna en recepción.",
         "Gimnasio: abierto 24 horas. Los controles del aire acondicionado y la TV están en recepción.",
@@ -256,19 +259,20 @@ const copy = {
         "Sala de reuniones, parrilla, salón de fiestas y espacio gourmet se pagan aparte y deben reservarse con el anfitrión.",
       ],
       parking: "Estacionamiento · G1",
-      parkingAccess: "En el ascensor: G1",
+      parkingAccess: "Estacionamiento: pulsa el botón G1 en el ascensor.",
       parkingItems: [
         "Utiliza el espacio 63.",
         "No hay cargador para vehículos eléctricos. Usar los enchufes del garaje está prohibido y puede generar una multa.",
       ],
       rooftop: "Azotea",
-      rooftopAccess: "En el ascensor: C · azotea",
+      rooftopAccess: "Azotea: pulsa el botón C en el ascensor.",
       rooftopPhotos: ["Pista de correr", "Vista de la ciudad"],
+      closePhoto: "Cerrar foto",
       rooftopItems: [
         "Pista de correr en la azotea: de 6:00 a 18:00. Las demás áreas están abiertas 24 horas.",
       ],
       laundry: "Lavandería",
-      laundryAccess: "En el ascensor: G3",
+      laundryAccess: "Lavandería: pulsa el botón G3 en el ascensor.",
       laundryItems: [
         "Lavandería en G3: abierta 24 horas. Si está cerrada, solicita la llave en recepción.",
       ],
@@ -335,7 +339,16 @@ export function GuestGuide() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [openGuideSections, setOpenGuideSections] = useState<string[]>([]);
+  const [selectedRooftopPhoto, setSelectedRooftopPhoto] = useState<number | null>(null);
+  const photoDialogRef = useRef<HTMLDialogElement>(null);
   const t = copy[language];
+
+  useEffect(() => {
+    const dialog = photoDialogRef.current;
+    if (selectedRooftopPhoto === null || !dialog) return;
+    dialog.showModal();
+    return () => { if (dialog.open) dialog.close(); };
+  }, [selectedRooftopPhoto]);
 
   const guideSections = [
     { value: "lounge", icon: Waves, title: t.guide.lounge, access: t.guide.loungeAccess, items: t.guide.loungeItems },
@@ -472,8 +485,10 @@ export function GuestGuide() {
                   <ul>{items.map((item) => <li key={item}><Check /> <span>{item}</span></li>)}</ul>
                   {value === "rooftop" && <div className="rooftop-photos">
                     {["cobertura-pista.jpg", "cobertura-vista.jpg"].map((photo, index) => <figure key={photo}>
-                      <img src={`/apartamento/${photo}`} alt={t.guide.rooftopPhotos[index]} loading="lazy" />
-                      <figcaption>{t.guide.rooftopPhotos[index]}</figcaption>
+                      <button type="button" onClick={() => setSelectedRooftopPhoto(index)} aria-label={`${t.guide.rooftopPhotos[index]} — ${language === "pt" ? "ampliar foto" : language === "en" ? "enlarge photo" : "ampliar foto"}`}>
+                        <img src={`/apartamento/${photo}`} alt="" loading="lazy" />
+                        <span>{t.guide.rooftopPhotos[index]}</span>
+                      </button>
                     </figure>)}
                   </div>}
                 </AccordionContent>
@@ -482,6 +497,14 @@ export function GuestGuide() {
           </Accordion>
         </div>
       </section>
+
+      {selectedRooftopPhoto !== null && <dialog ref={photoDialogRef} className="rooftop-lightbox" aria-label={t.guide.rooftopPhotos[selectedRooftopPhoto]} onClose={() => setSelectedRooftopPhoto(null)} onClick={(event) => { if (event.target === event.currentTarget) setSelectedRooftopPhoto(null); }}>
+        <button type="button" className="rooftop-lightbox-close" aria-label={t.guide.closePhoto} onClick={() => setSelectedRooftopPhoto(null)} autoFocus><X aria-hidden="true" /></button>
+        <figure>
+          <img src={`/apartamento/${selectedRooftopPhoto === 0 ? "cobertura-pista.jpg" : "cobertura-vista.jpg"}`} alt={t.guide.rooftopPhotos[selectedRooftopPhoto]} />
+          <figcaption>{t.guide.rooftopPhotos[selectedRooftopPhoto]}</figcaption>
+        </figure>
+      </dialog>}
 
       <PropertyShowcase language={language} />
 
