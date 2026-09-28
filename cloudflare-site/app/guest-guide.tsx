@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import {
   ArrowUpRight,
+  BedDouble,
   Building2,
   CalendarDays,
   Camera,
@@ -36,7 +37,7 @@ type Language = "pt" | "en" | "es";
 const copy = {
   pt: {
     language: "Idioma",
-    nav: ["Início", "Guia", "Fotos", "Mapa", "Eventos", "Avaliação"],
+    nav: ["Início", "Guia", "Fotos", "Estadia", "Mapa", "Eventos", "Avaliação"],
     eyebrow: "Seu guia digital em Belém",
     photoEyebrow: "Torre Evidence / Belém",
     title: "O 904 é só o começo.",
@@ -124,7 +125,7 @@ const copy = {
   },
   en: {
     language: "Language",
-    nav: ["Home", "Guide", "Photos", "Map", "Events", "Review"],
+    nav: ["Home", "Guide", "Photos", "Stay", "Map", "Events", "Review"],
     eyebrow: "Your digital guide to Belém",
     photoEyebrow: "Torre Evidence / Belém",
     title: "904 is just the beginning.",
@@ -212,7 +213,7 @@ const copy = {
   },
   es: {
     language: "Idioma",
-    nav: ["Inicio", "Guía", "Fotos", "Mapa", "Eventos", "Evaluación"],
+    nav: ["Inicio", "Guía", "Fotos", "Estancia", "Mapa", "Eventos", "Evaluación"],
     eyebrow: "Tu guía digital en Belém",
     photoEyebrow: "Torre Evidence / Belém",
     title: "El 904 es solo el comienzo.",
@@ -300,7 +301,7 @@ const copy = {
   },
 } as const;
 
-const sectionIds = ["inicio", "guia", "hospedagem", "mapa", "eventos", "avaliacao"];
+const sectionIds = ["inicio", "guia", "fotos", "estadia", "mapa", "eventos", "avaliacao"];
 const placeQueries = ["Basílica de Nazaré Belém", "Museu Emílio Goeldi Belém", "Estação das Docas Belém", "Mercado Ver-o-Peso Belém"];
 
 function SectionHeading({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: string }) {
@@ -330,9 +331,10 @@ export function GuestGuide() {
   const mobileNavItems = [
     { icon: ShieldCheck, index: 1 },
     { icon: Camera, index: 2 },
-    { icon: MapPinned, index: 3 },
-    { icon: CalendarDays, index: 4 },
-    { icon: Star, index: 5 },
+    { icon: BedDouble, index: 3 },
+    { icon: MapPinned, index: 4 },
+    { icon: CalendarDays, index: 5 },
+    { icon: Star, index: 6 },
   ];
   const highlightSections = ["lounge", "lounge", "rooftop", "rooftop"];
 

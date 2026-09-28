@@ -98,7 +98,7 @@ export function PropertyShowcase({ language }: { language: Language }) {
   const t = content[language];
 
   return (
-    <section className="property-section" id="hospedagem">
+    <section className="property-section">
       <div className="property-inner">
         <div className="section-heading">
           <span>{t.eyebrow}</span>
@@ -106,27 +106,11 @@ export function PropertyShowcase({ language }: { language: Language }) {
           <p>{t.intro}</p>
         </div>
 
-        <div className="photo-gallery" aria-label={t.galleryLabel}>
+        <div className="photo-gallery" id="fotos" aria-label={t.galleryLabel}>
           {photos.map(([src, alt], index) => <img key={src} src={src} alt={alt} loading={index === 0 ? "eager" : "lazy"} />)}
         </div>
 
-        <div className="facility-panel">
-          <div>
-            <MapPin />
-            <span>Nazaré · Belém</span>
-            <strong>{t.facilitiesTitle}</strong>
-          </div>
-          <ul>
-            {t.facilities.map((label, index) => {
-              const Icon = facilityIcons[index];
-              return <li key={label}><Icon /><span>{label}</span></li>;
-            })}
-          </ul>
-        </div>
-
-        <AvailabilityCalendar language={language} />
-
-        <div className="reviews-layout">
+        <div className="reviews-layout" id="estadia">
           <div className="score-card">
             <span>Booking.com</span>
             <strong>{t.score}</strong>
@@ -145,6 +129,22 @@ export function PropertyShowcase({ language }: { language: Language }) {
             <p className="review-privacy"><ShieldCheck /> {t.privacy}</p>
           </div>
         </div>
+
+        <div className="facility-panel">
+          <div>
+            <MapPin />
+            <span>Nazaré · Belém</span>
+            <strong>{t.facilitiesTitle}</strong>
+          </div>
+          <ul>
+            {t.facilities.map((label, index) => {
+              const Icon = facilityIcons[index];
+              return <li key={label}><Icon /><span>{label}</span></li>;
+            })}
+          </ul>
+        </div>
+
+        <AvailabilityCalendar language={language} />
       </div>
     </section>
   );
