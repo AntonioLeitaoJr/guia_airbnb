@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://te904.leitaolabs.com.br/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <image:image><image:loc>https://te904.leitaolabs.com.br/og-social.jpg?v=2</image:loc></image:image>
+    <image:image><image:loc>https://te904.leitaolabs.com.br/apartamento/sala.jpg</image:loc></image:image>
+    <image:image><image:loc>https://te904.leitaolabs.com.br/apartamento/quarto.jpg</image:loc></image:image>
+    <image:image><image:loc>https://te904.leitaolabs.com.br/apartamento/cozinha.jpg</image:loc></image:image>
+    <image:image><image:loc>https://te904.leitaolabs.com.br/apartamento/piscina.jpg</image:loc></image:image>
+    <image:image><image:loc>https://te904.leitaolabs.com.br/apartamento/cobertura-vista.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://te904.leitaolabs.com.br/hospedagem-em-belem</loc>
+    <lastmod>2026-10-01</lastmod>
+    <image:image><image:loc>https://te904.leitaolabs.com.br/apartamento/sala.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://te904.leitaolabs.com.br/apartamento-em-nazare-belem</loc>
+    <lastmod>2026-10-01</lastmod>
+    <image:image><image:loc>https://te904.leitaolabs.com.br/apartamento/cobertura-vista.jpg</image:loc></image:image>
   </url>
 </urlset>
