@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Full document navigation is intentional: Vinext client routing does not reliably leave these SEO routes in embedded mobile browsers. */
 import { ArrowLeft, ArrowUpRight, Check, MapPin } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 const bookingUrl = "https://www.booking.com/hotel/br/apartamento-no-coracao-da-amazonia.pt-br.html";
 
@@ -36,11 +36,11 @@ export function SeoLanding({
   return (
     <main className="seo-page">
       <header className="seo-topbar">
-        <Link className="brand" href="/" aria-label="Voltar ao TE904">
+        <a className="brand" href="/" aria-label="Voltar ao TE904">
           <Image className="brand-logo" src="/te904-logo.jpeg" alt="Símbolo TE904 da Torre Evidence" width={52} height={52} priority />
           <span><strong>TORRE EVIDENCE</strong><small>APARTAMENTO 904</small></span>
-        </Link>
-        <Link className="seo-back" href="/"><ArrowLeft /> Voltar ao guia completo</Link>
+        </a>
+        <a className="seo-back" href="/"><ArrowLeft /> Voltar ao guia completo</a>
       </header>
 
       <section className="seo-landing-hero">
@@ -52,7 +52,7 @@ export function SeoLanding({
             <a className="seo-primary-action" href={bookingUrl} target="_blank" rel="noopener noreferrer">
               Ver disponibilidade na Booking.com <ArrowUpRight />
             </a>
-            <Link className="seo-secondary-action" href="/#fotos">Conhecer o apartamento</Link>
+            <a className="seo-secondary-action" href="/#fotos">Conhecer o apartamento</a>
           </div>
         </div>
         <figure>
@@ -81,12 +81,12 @@ export function SeoLanding({
           <h2>{relatedTitle}</h2>
           <p>{relatedDescription}</p>
         </div>
-        <Link href={relatedHref}>Ler o guia <ArrowUpRight /></Link>
+        <a href={relatedHref}>Ler o guia <ArrowUpRight /></a>
       </aside>
 
       <footer className="seo-page-footer">
         <span>TE904 · Apartamento 904 na Torre Evidence</span>
-        <Link href="/">Guia, fotos, estrutura e contato</Link>
+        <a href="/">Guia, fotos, estrutura e contato</a>
       </footer>
     </main>
   );
