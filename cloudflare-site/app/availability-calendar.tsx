@@ -3,15 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
-type Language = "pt" | "en" | "es";
+type Language = "pt" | "en" | "es" | "nl";
 type Period = { start: string; end: string };
 type AvailabilityResponse = { status: string; periods: Period[]; checkedAt: string };
 const bookingUrl = "https://www.booking.com/hotel/br/apartamento-no-coracao-da-amazonia.pt-br.html";
-const locales = { pt: "pt-BR", en: "en-US", es: "es-ES" } as const;
+const locales = { pt: "pt-BR", en: "en-US", es: "es-ES", nl: "nl-NL" } as const;
 const copy = {
   pt: { eyebrow: "Planeje sua estadia", title: "Veja as datas bloqueadas.", intro: "Calendário de reservas e bloqueios exportado da Booking.com. As demais datas precisam de confirmação.", blocked: "Indisponível", consult: "Consulte disponibilidade", pending: "Consultando o calendário...", unavailable: "Calendário temporariamente indisponível. Consulte as datas diretamente na Booking.com.", checked: "Última consulta", disclaimer: "A sincronização não é instantânea. Confirme preço e disponibilidade antes de reservar.", booking: "Conferir na Booking.com", previous: "Mês anterior", next: "Próximo mês" },
   en: { eyebrow: "Plan your stay", title: "See blocked dates.", intro: "Bookings and blocked dates exported from Booking.com. All other dates require confirmation.", blocked: "Unavailable", consult: "Check availability", pending: "Checking the calendar...", unavailable: "Calendar temporarily unavailable. Check dates directly on Booking.com.", checked: "Last checked", disclaimer: "Sync is not instant. Confirm price and availability before booking.", booking: "Check on Booking.com", previous: "Previous month", next: "Next month" },
   es: { eyebrow: "Planifica tu estancia", title: "Consulta las fechas bloqueadas.", intro: "Reservas y bloqueos exportados de Booking.com. Las demás fechas requieren confirmación.", blocked: "No disponible", consult: "Consultar disponibilidad", pending: "Consultando el calendario...", unavailable: "Calendario temporalmente no disponible. Consulta las fechas en Booking.com.", checked: "Última consulta", disclaimer: "La sincronización no es instantánea. Confirma precio y disponibilidad antes de reservar.", booking: "Consultar en Booking.com", previous: "Mes anterior", next: "Mes siguiente" },
+  nl: { eyebrow: "Plan uw verblijf", title: "Bekijk de geblokkeerde data.", intro: "Reserveringen en geblokkeerde data uit de kalender van Booking.com. De beschikbaarheid van andere data moet worden bevestigd.", blocked: "Niet beschikbaar", consult: "Beschikbaarheid navragen", pending: "Kalender wordt geladen...", unavailable: "De kalender is tijdelijk niet beschikbaar. Bekijk de data rechtstreeks op Booking.com.", checked: "Laatst gecontroleerd", disclaimer: "De synchronisatie verloopt niet onmiddellijk. Controleer prijs en beschikbaarheid voordat u boekt.", booking: "Bekijk op Booking.com", previous: "Vorige maand", next: "Volgende maand" },
 } as const;
 
 function todayInBelem() {

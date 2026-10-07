@@ -34,7 +34,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { EventsSection } from "./events-section";
 import { PropertyShowcase } from "./property-showcase";
 
-type Language = "pt" | "en" | "es";
+type Language = "pt" | "en" | "es" | "nl";
 
 const copy = {
   pt: {
@@ -319,6 +319,100 @@ const copy = {
     footer: "Apartamento 904 · Torre Evidence",
     host: "Contacto del anfitrión",
   },
+  nl: {
+    language: "Taal",
+    nav: ["Home", "Gids", "Foto's", "Verblijf", "Kaart", "Agenda", "Review"],
+    eyebrow: "Uw digitale gids voor Belém",
+    photoEyebrow: "Torre Evidence / Belém",
+    title: "904 is pas het begin.",
+    intro: "Ontdek Torre Evidence.",
+    discovery: "Ontdek dit tijdens uw verblijf",
+    highlights: ["Zwembad", "Fitness 24 uur", "Hardloopbaan", "Uitzicht over de stad"],
+    highlightDetails: ["Ontspan en geniet", "Sport wanneer u wilt", "Op het dakterras", "Op het dakterras"],
+    address: "Nazaré · Belém, Pará",
+    wifi: "Wifi",
+    network: "Netwerk",
+    wifiPrivate: "U ontvangt het wachtwoord rechtstreeks bij het inchecken.",
+    checkin: "Inchecken",
+    checkinValue: "Vanaf 14.00 uur",
+    checkout: "Uitchecken",
+    checkoutValue: "Tot 11.00 uur",
+    emergency: "Hulp nodig?",
+    emergencyText: "Neem rechtstreeks contact op met uw gastheer via WhatsApp of telefoon.",
+    whatsapp: "Open WhatsApp",
+    guideEyebrow: "Alles op één plek",
+    guideTitle: "Gids voor het appartement en het gebouw",
+    guideIntro: "Bekijk openingstijden, regels en praktische aanwijzingen zonder oude berichten op te zoeken.",
+    guide: {
+      lounge: "Recreatie · Loungeverdieping",
+      loungeAccess: "Recreatie: druk in de lift op de knop L.",
+      loungeItems: [
+        "Zwembad, bubbelbad en sauna: van 8.00 tot 18.00 uur. Vraag bij de receptie om toegang tot het bubbelbad en de sauna.",
+        "Fitnessruimte: 24 uur per dag geopend. De afstandsbedieningen voor de airconditioning en de tv liggen bij de receptie.",
+        "Speeltuin en voetbal-/basketbalveld voor kinderen: 24 uur per dag geopend. Vraag de portier om 's avonds de verlichting van het veld aan te zetten.",
+        "Vergaderruimte, barbecueplek, feestzaal en gastronomische ruimte zijn tegen betaling beschikbaar en moeten via de gastheer worden gereserveerd.",
+      ],
+      parking: "Parkeergarage · G1",
+      parkingAccess: "Parkeergarage: druk in de lift op de knop G1.",
+      parkingItems: [
+        "Gebruik parkeerplaats 63.",
+        "Er is geen laadpunt voor elektrische auto's. Het gebruik van stopcontacten in de garage is verboden en kan tot een boete leiden.",
+      ],
+      rooftop: "Dakterras",
+      rooftopAccess: "Dakterras: druk in de lift op de knop C.",
+      rooftopPhotos: ["Hardloopbaan", "Uitzicht over de stad"],
+      closePhoto: "Foto sluiten",
+      rooftopItems: [
+        "Hardloopbaan op het dakterras: van 6.00 tot 18.00 uur. De overige ruimtes zijn 24 uur per dag toegankelijk.",
+      ],
+      laundry: "Wasserette",
+      laundryAccess: "Wasserette: druk in de lift op de knop G3.",
+      laundryItems: [
+        "Wasserette op G3: 24 uur per dag geopend. Vraag bij de receptie om de sleutel als de deur op slot is.",
+      ],
+      stay: "Tijdens uw verblijf",
+      stayItems: [
+        "Houd het stil tussen 22.00 en 7.00 uur.",
+        "Druk op 1 op de intercom om de receptie te bereiken.",
+        "Schakel de airconditioning uit wanneer u vertrekt.",
+        "De tv ondersteunt de belangrijkste streamingapps. Netflix en Disney zijn inbegrepen; gebruik voor andere diensten uw eigen account.",
+        "Bezoek moet vooraf worden gemeld. Voor gasten die blijven overnachten geldt een toeslag, die vooraf moet worden betaald.",
+        "Schoonmaak tijdens uw verblijf is optioneel en betaalt u rechtstreeks aan de schoonmaakdienst.",
+      ],
+    },
+    cityEyebrow: "Alles dichtbij",
+    cityTitle: "Ontdek Belém vanuit Nazaré",
+    cityIntro: "Het appartement ligt op een centrale locatie, dicht bij voorzieningen, restaurants en de belangrijkste bezienswaardigheden van de stad.",
+    openMap: "Route openen in Google Maps",
+    places: [
+      ["Basílica de Nazaré", "Geloof, architectuur en het hart van de Círio-processie"],
+      ["Museu Emílio Goeldi", "Natuur en wetenschap uit het Amazonegebied"],
+      ["Estação das Docas", "Eten en uitzicht aan de Baía do Guajará"],
+      ["Ver-o-Peso", "Smaken, kleuren en de cultuur van Pará"],
+    ],
+    surveyEyebrow: "Uw ervaring telt",
+    surveyTitle: "Vertel ons over uw verblijf",
+    surveyIntro: "Het duurt minder dan twee minuten en helpt ons toekomstige verblijven te verbeteren.",
+    enjoyed: "Heeft u genoten van uw verblijf?",
+    recommend: "Zou u het appartement aanbevelen?",
+    yes: "Ja",
+    no: "Nee",
+    booking: "Hoe heeft u geboekt?",
+    choose: "Kies een optie",
+    channels: ["Airbnb", "Booking", "Rechtstreeks bij de gastheer", "Anders"],
+    highlight: "Wat vond u het prettigst?",
+    improvement: "Wat kunnen we verbeteren?",
+    name: "Uw naam of profiel",
+    message: "Aanvullend bericht (optioneel)",
+    submit: "Beoordeling versturen",
+    submitting: "Bezig met versturen...",
+    success: "Bedankt! Uw beoordeling is ontvangen.",
+    error: "Versturen is nu niet gelukt. Uw antwoorden staan nog in het formulier; probeer het opnieuw.",
+    required: "Vul de verplichte velden in.",
+    privacy: "We gebruiken uw antwoorden alleen om het verblijf te verbeteren.",
+    footer: "Appartement 904 · Torre Evidence",
+    host: "Contact met de gastheer",
+  },
 } as const;
 
 const sectionIds = ["inicio", "guia", "fotos", "estadia", "mapa", "eventos", "avaliacao"];
@@ -342,6 +436,34 @@ export function GuestGuide() {
   const [selectedRooftopPhoto, setSelectedRooftopPhoto] = useState<number | null>(null);
   const photoDialogRef = useRef<HTMLDialogElement>(null);
   const t = copy[language];
+
+  useEffect(() => {
+    const requested = new URL(window.location.href).searchParams.get("lang");
+    if (requested === "pt" || requested === "en" || requested === "es" || requested === "nl") {
+      try { window.localStorage.setItem("te904-language", requested); } catch { /* Language selection also works without browser storage. */ }
+      setLanguage(requested);
+      return;
+    }
+    let saved: string | null = null;
+    try { saved = window.localStorage.getItem("te904-language"); } catch { /* Use the browser language when storage is unavailable. */ }
+    if (saved === "pt" || saved === "en" || saved === "es" || saved === "nl") {
+      setLanguage(saved);
+      return;
+    }
+    const preferred = navigator.languages?.length ? navigator.languages : [navigator.language];
+    const matched = preferred.map((locale) => locale.toLowerCase().split("-")[0]).find((locale) => locale === "pt" || locale === "en" || locale === "es" || locale === "nl");
+    if (matched) setLanguage(matched as Language);
+  }, []);
+
+  useEffect(() => { document.documentElement.lang = language === "pt" ? "pt-BR" : language === "en" ? "en" : language === "es" ? "es" : "nl"; }, [language]);
+
+  function chooseLanguage(value: Language) {
+    try { window.localStorage.setItem("te904-language", value); } catch { /* Keep the selection for this visit. */ }
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", value);
+    window.history.replaceState(null, "", url);
+    setLanguage(value);
+  }
 
   useEffect(() => {
     const dialog = photoDialogRef.current;
@@ -408,25 +530,26 @@ export function GuestGuide() {
       <header className="topbar">
         <a className="brand" href="#inicio" aria-label="Torre Evidence 904">
           <img className="brand-logo" src="/te904-logo.jpeg" alt="Símbolo TE 904 da Torre Evidence" />
-          <span><strong>TORRE EVIDENCE</strong><small>APARTAMENTO 904</small></span>
+          <span><strong>TORRE EVIDENCE</strong><small>{language === "nl" ? "APPARTEMENT 904" : "APARTAMENTO 904"}</small></span>
         </a>
-        <nav className="desktop-nav" aria-label="Navegação principal">
+        <nav className="desktop-nav" aria-label={language === "nl" ? "Hoofdnavigatie" : language === "en" ? "Main navigation" : language === "es" ? "Navegación principal" : "Navegação principal"}>
           {t.nav.map((label, index) => <a key={label} href={`#${sectionIds[index]}`}>{label}</a>)}
         </nav>
         <label className="language-control">
           <Languages aria-hidden="true" />
           <span className="sr-only">{t.language}</span>
-          <select value={language} onChange={(event) => setLanguage(event.target.value as Language)} aria-label={t.language}>
+          <select value={language} onChange={(event) => chooseLanguage(event.target.value as Language)} aria-label={t.language}>
             <option value="pt">PT</option>
             <option value="en">EN</option>
             <option value="es">ES</option>
+            <option value="nl">NL</option>
           </select>
         </label>
       </header>
 
       <section className="hero-discovery" id="inicio">
         <div className="hero-photo">
-          <img src="/apartamento/piscina-fachadas-claras.jpg" alt={language === "pt" ? "Piscina da Torre Evidence em Belém" : language === "en" ? "Torre Evidence pool in Belém" : "Piscina de Torre Evidence en Belém"} />
+          <img src="/apartamento/piscina-fachadas-claras.jpg" alt={language === "pt" ? "Piscina da Torre Evidence em Belém" : language === "en" ? "Torre Evidence pool in Belém" : language === "es" ? "Piscina de Torre Evidence en Belém" : "Zwembad van Torre Evidence in Belém"} />
           <div className="hero-photo-shade" />
           <span className="hero-photo-eyebrow">{t.photoEyebrow}</span>
           <div className="hero-photo-heading"><h1>{t.title}</h1><p>{t.intro}</p></div>
@@ -445,7 +568,7 @@ export function GuestGuide() {
         </div>
       </section>
 
-      <section className="quick-grid" aria-label="Informações rápidas">
+      <section className="quick-grid" aria-label={language === "nl" ? "Praktische informatie" : language === "en" ? "Quick information" : language === "es" ? "Información rápida" : "Informações rápidas"}>
         <article className="quick-card wifi-card">
           <div className="quick-icon"><Wifi /></div>
           <div className="quick-copy">
@@ -485,7 +608,7 @@ export function GuestGuide() {
                   <ul>{items.map((item) => <li key={item}><Check /> <span>{item}</span></li>)}</ul>
                   {value === "rooftop" && <div className="rooftop-photos">
                     {["cobertura-pista.jpg", "cobertura-vista.jpg"].map((photo, index) => <figure key={photo}>
-                      <button type="button" onClick={() => setSelectedRooftopPhoto(index)} aria-label={`${t.guide.rooftopPhotos[index]} — ${language === "pt" ? "ampliar foto" : language === "en" ? "enlarge photo" : "ampliar foto"}`}>
+                      <button type="button" onClick={() => setSelectedRooftopPhoto(index)} aria-label={`${t.guide.rooftopPhotos[index]} — ${language === "pt" ? "ampliar foto" : language === "en" ? "enlarge photo" : language === "es" ? "ampliar foto" : "foto vergroten"}`}>
                         <img src={`/apartamento/${photo}`} alt="" loading="lazy" />
                         <span>{t.guide.rooftopPhotos[index]}</span>
                       </button>
@@ -512,7 +635,7 @@ export function GuestGuide() {
         <div className="city-inner">
           <SectionHeading eyebrow={t.cityEyebrow} title={t.cityTitle} intro={t.cityIntro} />
           <div className="map-shell">
-            <iframe title="Mapa de pontos de interesse próximos à Torre Evidence" src="https://www.google.com/maps/d/u/0/embed?mid=1ZvQHCJBfEfJSD6iFA0f8zVFVM5aZ5_k&ehbc=2E312F" loading="lazy" />
+            <iframe title={language === "nl" ? "Kaart met bezienswaardigheden bij Torre Evidence" : language === "en" ? "Map of places near Torre Evidence" : language === "es" ? "Mapa de lugares cerca de Torre Evidence" : "Mapa de pontos de interesse próximos à Torre Evidence"} src="https://www.google.com/maps/d/u/0/embed?mid=1ZvQHCJBfEfJSD6iFA0f8zVFVM5aZ5_k&ehbc=2E312F" loading="lazy" />
             <a className="map-link" href="https://www.google.com/maps/search/?api=1&query=Av.+Alcindo+Cacela,+2304,+Belém,+PA" target="_blank" rel="noreferrer"><MapPinned /> {t.openMap}<ArrowUpRight /></a>
           </div>
           <div className="places-grid">
@@ -569,12 +692,12 @@ export function GuestGuide() {
           <a href="https://api.whatsapp.com/send?phone=5591988241288"><MessageCircle /> {t.host}</a>
           <a className="developer-credit" href="https://leitaolabs.com.br" target="_blank" rel="noreferrer">
             <img src="/leitao-labs-logo.jpeg" alt="Leitão Labs" />
-            <span>Desenvolvido pela <strong>Leitão Labs</strong></span>
+            <span>{language === "nl" ? "Ontwikkeld door" : language === "en" ? "Developed by" : language === "es" ? "Desarrollado por" : "Desenvolvido pela"} <strong>Leitão Labs</strong></span>
           </a>
         </div>
       </footer>
 
-      <nav className="mobile-nav" aria-label="Navegação móvel">
+      <nav className="mobile-nav" aria-label={language === "nl" ? "Mobiele navigatie" : language === "en" ? "Mobile navigation" : language === "es" ? "Navegación móvil" : "Navegação móvel"}>
         {mobileNavItems.map(({ icon: Icon, index }) => <a href={`#${sectionIds[index]}`} key={sectionIds[index]}><Icon /><span>{t.nav[index]}</span></a>)}
       </nav>
     </main>

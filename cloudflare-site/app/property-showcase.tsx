@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { AvailabilityCalendar } from "./availability-calendar";
 
-type Language = "pt" | "en" | "es";
+type Language = "pt" | "en" | "es" | "nl";
 
 const bookingUrl = "https://www.booking.com/hotel/br/apartamento-no-coracao-da-amazonia.pt-br.html";
 
@@ -81,6 +81,27 @@ const content = {
     privacy: "Las evaluaciones se presentan como temas anonimizados, sin nombres ni datos personales.",
     booking: "Ver disponibilidad en Booking.com",
   },
+  nl: {
+    eyebrow: "Bekijk alle details",
+    title: "Het comfort van thuis, met uitgebreide voorzieningen.",
+    intro: "Een moderne studio van 47 m² in het hart van Nazaré, geschikt om uit te rusten, te werken en Belém gemakkelijk te ontdekken.",
+    galleryLabel: "Foto's van het appartement en het gebouw",
+    facilitiesTitle: "Voorzieningen van het appartement en het gebouw",
+    facilities: ["Zwembad", "24-uursfitnessruimte", "Parkeergarage", "Bubbelbad", "Wasserette", "Uitgeruste keuken", "Airconditioning", "24-uursreceptie"],
+    reviewsEyebrow: "Ervaringen van gasten",
+    reviewsTitle: "Wat gasten het meest waarderen",
+    reviewThemes: [
+      ["Uitstekende netheid", "Gasten noemen regelmatig hoe schoon en verzorgd het appartement is."],
+      ["Goede locatie", "De basiliek, het Museu Goeldi en de voorzieningen in Nazaré zijn gemakkelijk bereikbaar."],
+      ["Echt comfort", "Een ruime, praktische en goed uitgeruste plek die overeenkomt met de foto's."],
+      ["Behulpzame gastheer", "Duidelijke aanwijzingen en persoonlijke hulp tijdens het verblijf."],
+    ],
+    score: "9,7",
+    scoreLabel: "Uitzonderlijk",
+    scoreMeta: "30 beoordelingen op Booking.com · gecontroleerd op 28 september 2026",
+    privacy: "Beoordelingen zijn samengevat zonder namen of persoonsgegevens van gasten.",
+    booking: "Bekijk beschikbaarheid op Booking.com",
+  },
 } as const;
 
 const photos = [
@@ -90,6 +111,15 @@ const photos = [
   ["/apartamento/cozinha.jpg", "Studio com cozinha e sala integradas"],
   ["/apartamento/cama.jpg", "Quarto preparado para a chegada"],
   ["/apartamento/tv.jpg", "Smart TV e área de estar"],
+] as const;
+
+const dutchPhotoDescriptions = [
+  "Lichte woonruimte in appartement 904",
+  "Zwembad van Torre Evidence",
+  "Tweepersoonsbed en werkplek",
+  "Studio met open keuken en woonkamer",
+  "Slaapkamer klaar voor aankomst",
+  "Smart-tv en zithoek",
 ] as const;
 
 const facilityIcons = [Waves, Dumbbell, CarFront, Sparkles, WashingMachine, ChefHat, AirVent, ShieldCheck];
@@ -107,7 +137,7 @@ export function PropertyShowcase({ language }: { language: Language }) {
         </div>
 
         <div className="photo-gallery" id="fotos" aria-label={t.galleryLabel}>
-          {photos.map(([src, alt], index) => <img key={src} src={src} alt={alt} loading={index === 0 ? "eager" : "lazy"} />)}
+          {photos.map(([src, alt], index) => <img key={src} src={src} alt={language === "nl" ? dutchPhotoDescriptions[index] : alt} loading={index === 0 ? "eager" : "lazy"} />)}
         </div>
 
         <div className="reviews-layout" id="estadia">
